@@ -1,5 +1,5 @@
 from common_misc import load_data_from_pkl
-from evaluation_misc import wind_std,wind_std_distribution
+from evaluation_misc import wind_std,wind_std_distribution,calculate_mbe
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -13,7 +13,7 @@ x_df, y_df=load_data_from_pkl('data/turbine_314e3ca4bd2345c1bc4f649f313d0b18.pkl
 #print(y_df)
 # concat by column
 data = pd.concat([x_df,y_df],axis=1)
-print(data)
+#print(data)
 
 
 def plot_ws(data, probability=0.5):
@@ -33,14 +33,6 @@ def plot_ws(data, probability=0.5):
     std_GFSO = wind_std(GFSO_ws, Y_ws, mean_bias_error=None)
     std_WRFO = wind_std(WRFO_ws, Y_ws, mean_bias_error=None)
 
-    errors_EC0=wind_std_distribution(ECO_ws, Y_ws)
-    errors_GFSO=wind_std_distribution(GFSO_ws, Y_ws)
-    errors_WRFO=wind_std_distribution(WRFO_ws, Y_ws)
-
-    print(errors_EC0)
-    print(errors_GFSO)
-    print(errors_WRFO)
-
     fig = plt.figure(dpi=128, figsize=(10, 6))
     fig.autofmt_xdate()
     plt.title('Wind Speed  Start Time:'+ str(start_day))
@@ -54,7 +46,7 @@ def plot_ws(data, probability=0.5):
 
     plt.legend()
     #plt.savefig('plot/ws/%s_ws.png' % start_day, dpi=300)
-    #plt.show()
+    plt.show()
 
 def plot_pw_ws(data, probability=0.5):
 
@@ -100,14 +92,127 @@ def plot_pw_ws(data, probability=0.5):
     plt.savefig('plot/pw_ws/%s_pw_ws.png' % start_day, dpi=300)
     plt.show()
 
+
+# 0-4, 4-12(every 1 one bin) and 12+
+def ws_std_distribution(ws_obs, ws_predict):
+    mean_bias_error = calculate_mbe(ws_obs, ws_predict)
+    is_valid = ~np.isnan(ws_obs) & ~np.isnan(ws_predict)
+    ws_obs_valid = ws_obs[is_valid]
+    ws_predict_valid = ws_predict[is_valid]
+    bins = [[0, 4]]
+    for n in range(4, 12, 1):
+        bins.append([n, n + 1])
+    bins.append([12, 1000])
+    errors = []
+    for bin in bins:
+        cmp_index = (ws_obs_valid >= bin[0]) & (ws_obs_valid < bin[1])
+        ws_obs_eff = ws_obs_valid[cmp_index]
+        if len(ws_obs_eff) == 0:
+            errors.append([bin[0], 0, 0.0])
+            continue
+        ws_predict_eff = ws_predict_valid[cmp_index]
+        cur_std = wind_std(ws_obs_eff, ws_predict_eff, mean_bias_error)
+        errors.append([bin[0], len(ws_obs_eff), cur_std])
+    return errors
+
+
+def pw_distribution(data):
+    Y_power = data['Y.power_tb']
+    print(Y_power)
+
+
+
+
+def plot_ws_distribution(data, probability=0.5):
+    start_day = data.iloc[0]['X_basic.time']
+
+    ECO_ws = data['EC0.ws']
+    GFSO_ws = data['GFS0.ws']
+    WRFO_ws = data['WRF0.ws']
+    Y_ws = data['Y.ws_tb']
+    if (np.isnan(Y_ws).sum() / 289) > probability:
+        return None
+    errors_EC0 = ws_std_distribution(ECO_ws, Y_ws)
+    errors_GFSO = ws_std_distribution(GFSO_ws, Y_ws)
+    errors_WRFO = ws_std_distribution(WRFO_ws, Y_ws)
+
+    fig = plt.figure(dpi=128, figsize=(10, 6))
+    fig.autofmt_xdate()
+    fig.suptitle('The Distribution of Wind Speed  Start Time:'+ str(start_day))
+
+
+    errors_EC0 = np.array(errors_EC0)
+    errors_GFSO = np.array(errors_GFSO)
+    errors_WRFO = np.array(errors_WRFO)
+    xlabel=['0-4','4-5','5-6','6-7','7-8','8-9','9-10','10-11','11-12','12+']
+    # adjust the interval of plot
+    errors_EC0[0, 0] = errors_EC0[0, 0] + 3
+    errors_GFSO[0, 0] = errors_GFSO[0, 0] + 3
+    errors_WRFO[0, 0] = errors_WRFO[0, 0] + 3
+
+
+    ax = plt.subplot(211)
+    ax.set_title('Distribution of Std')
+    ax.set_ylabel('Std')
+    ax.set_xlabel('Wind Speed(m/s)')
+    ax.bar(errors_EC0[:, 0].tolist(), errors_EC0[:, 2].tolist(),0.2,label='EC0',fc='r')
+    ax.bar((errors_GFSO[:, 0]+0.2).tolist(), errors_GFSO[:, 2].tolist(),0.2,label='GFS0',fc='b')
+    ax.bar((errors_WRFO[:, 0]+0.4).tolist(), errors_WRFO[:, 2].tolist(),0.2,label='WRF0',fc='g')
+
+    for a, b in zip(errors_EC0[:, 0].tolist(), errors_EC0[:, 2].tolist()):
+        ax.text(a, b + 0.05,  round(b,2), ha='center', va='bottom', fontsize=6)
+    for a, b in zip((errors_GFSO[:, 0]+0.2).tolist(), errors_GFSO[:, 2].tolist()):
+        ax.text(a, b + 0.05, round(b, 2), ha='center', va='bottom', fontsize=6)
+    for a, b in zip((errors_WRFO[:, 0]+0.4).tolist(), errors_WRFO[:, 2].tolist()):
+        ax.text(a, b + 0.05, round(b, 2), ha='center', va='bottom', fontsize=6)
+    plt.xticks(np.arange(10)+3.2,xlabel)
+    plt.legend()
+    plt.grid(True)
+
+    ax = plt.subplot(212)
+    ax.set_title('Distribution of Numbers')
+    ax.set_ylabel('Numbers')
+    ax.set_xlabel('Wind Speed(m/s)')
+    ax.bar(errors_EC0[:, 0].tolist(), errors_EC0[:, 1].tolist(), 0.2, label='EC0', fc='r')
+    ax.bar((errors_GFSO[:, 0] + 0.2).tolist(), errors_GFSO[:, 1].tolist(), 0.2, label='GFS0', fc='b')
+    ax.bar((errors_WRFO[:, 0] + 0.4).tolist(), errors_WRFO[:, 1].tolist(), 0.2, label='WRF0', fc='g')
+
+    for a, b in zip(errors_EC0[:, 0].tolist(), errors_EC0[:, 1].tolist()):
+        ax.text(a, b + 0.05, int(b), ha='center', va='bottom', fontsize=6)
+    for a, b in zip((errors_GFSO[:, 0] + 0.2).tolist(), errors_GFSO[:, 1].tolist()):
+        ax.text(a, b + 0.05, int(b), ha='center', va='bottom', fontsize=6)
+    for a, b in zip((errors_WRFO[:, 0] + 0.4).tolist(), errors_WRFO[:, 1].tolist()):
+        ax.text(a, b + 0.05, int(b), ha='center', va='bottom', fontsize=6)
+    plt.xticks(np.arange(10) + 3.2, xlabel)
+    plt.legend()
+    plt.grid(True)
+
+    plt.tight_layout()
+    plt.subplots_adjust(top=0.88)
+    plt.show()
+
 """
 start_day=363  #17.06.29 set.id
-for i in range(start_day,365,1):
+for i in range(start_day,369,1):
     data_1=data[data['i.set']==i]
     plot_ws(data_1)
-"""
+
 
 start_day=363  #17.06.29 set.id
 for i in range(start_day,394,1):
     data_1=data[data['i.set']==i]
     plot_pw_ws(data_1)
+
+start_day=363  #17.06.29 set.id
+for i in range(start_day,366,1):
+    data_1=data[data['i.set']==i]
+    plot_ws_distribution(data_1)
+"""
+
+start_day=363  #17.06.29 set.id
+for i in range(start_day,366,1):
+    data_1=data[data['i.set']==i]
+    pw_distribution(data_1)
+
+
+
