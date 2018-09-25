@@ -45,7 +45,7 @@ def plot_ws(data, probability=0.5):
 
     plt.legend()
     #plt.savefig('plot/ws/%s_ws.png' % start_day, dpi=300)
-    plt.show()
+    #plt.show()
 
 def plot_pw_ws(data, probability=0.5):
 
@@ -58,12 +58,12 @@ def plot_pw_ws(data, probability=0.5):
     is_valid = ~np.isnan(Y_power) & ~np.isnan(Y_ws)
     # the number of both Y_power and Y_ws are valid
     # if the percentage of non-nan value is smaller than the probability, return none
+
     if is_valid.value_counts()[1]/289 < probability:
         return None
     Y_power_valid = Y_power[is_valid]
     Y_ws_valid = Y_ws[is_valid]
     time_valid = time[is_valid]
-
 
     fig = plt.figure(dpi=128, figsize=(10, 5))
     fig.autofmt_xdate()
@@ -120,6 +120,7 @@ def pw_distribution(data,probability=0.5):
     Y_power = data['Y.power_tb']
     if np.isnan(Y_power).sum()/289>probability:
         return None
+
     # discretize pw
     pw_map = [
         {'lower': 0, 'upper': 200, 'val': 0},
@@ -183,6 +184,7 @@ def plot_ws_distribution(data, probability=0.5):
     errors_WRFO = np.array(errors_WRFO)
     errors_Y = np.array(errors_Y)
     xlabel=['0-4','4-5','5-6','6-7','7-8','8-9','9-10','10-11','11-12','12+']
+
     # adjust the interval of plot
     errors_EC0[0, 0] = errors_EC0[0, 0] + 3
     errors_GFSO[0, 0] = errors_GFSO[0, 0] + 3
@@ -217,7 +219,6 @@ def plot_ws_distribution(data, probability=0.5):
     ax.bar((errors_WRFO[:, 0] + 0.4).tolist(), errors_WRFO[:, 1].tolist(), 0.2, label='WRF0', fc='g')
     ax.bar((errors_Y[:, 0] + 0.6).tolist(), errors_Y[:, 1].tolist(), 0.2, label='Y.power_tb Valid Numbers '+
                                                                                 str(int(np.sum(errors_Y[:, 1].tolist()))), fc='y')
-
     for a, b in zip(errors_EC0[:, 0].tolist(), errors_EC0[:, 1].tolist()):
         ax.text(a, b + 0.05, int(b), ha='center', va='bottom', fontsize=6)
     for a, b in zip((errors_GFSO[:, 0] + 0.2).tolist(), errors_GFSO[:, 1].tolist()):
@@ -245,14 +246,13 @@ def numerical_to_bin(data, attr, val_map):
             data[attr] >= lower, data[attr] < upper), attr] = val
     return result
 
-
 #363 is the 17.06.29 set.id
 # maximum id is 394
-start_day=363
+start_day=1
 end_day=394
 for i in range(start_day,end_day,1):
     data_1=data[data['i.set']==i]
-    #plot_ws(data_1)
+    plot_ws(data_1)
     #plot_pw_ws(data_1)
     #plot_ws_distribution(data_1)
     #plot_pw_distribution(data_1)
