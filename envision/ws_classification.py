@@ -34,7 +34,6 @@ x_df, y_df=load_data_from_pkl('data/turbine_314e3ca4bd2345c1bc4f649f313d0b18.pkl
 data = pd.concat([x_df,y_df],axis=1)
 #print(data)
 
-
 ws_map = [
     {'lower': 0, 'upper': 4, 'val': 0},
     {'lower': 4, 'upper': 12, 'val': 1},
@@ -67,7 +66,6 @@ def prediction(train,test,predictors):
     clf.fit(x_train, y_train)
     print('The accuracy of training set:', accuracy_score(y_train, clf.predict(x_train)))
     print('The accuracy of testing set:', accuracy_score(y_test, clf.predict(x_test)))
-
 
 def EC0_prediction(data,start_day=1,end_day=394,probability=0.8,split=4):
     train = pd.DataFrame(columns=['EC0.ws','EC0.wd','EC0.tmp','EC0.pres','EC0.rho','Y.ws_tb'])
@@ -127,31 +125,6 @@ data = numerical_to_bin(data, 'Y.ws_tb', ws_map)
 #nulls.index.name = 'Feature'
 #print(nulls)
 
-#EC0_prediction(data)
+EC0_prediction(data)
 #GFS0_prediction(data)
-WRF0_prediction(data)
-
-
-"""
-    # 用到的特征
-    # 1.线性回归
-    # alg = LinearRegression()
-    # 2.逻辑回归
-    # alg= LogisticRegression(random_state=1)
-    # 3.梯度提升树 迭代决策树
-    # alg= GradientBoostingClassifier(random_state=1, n_estimators=25, max_depth=3)
-    # 4.弱学习算法”提升(boost)为“强学习算法
-    # alg= AdaBoostClassifier(base_estimator = DecisionTreeClassifier(max_depth=3, class_weight=cw), n_estimators=50)
-    # 5.神经网络(多层感知器分类器)
-    # alg = MLPClassifier(hidden_layer_sizes=(100, 50, 50), solver='sgd', max_iter=400, learning_rate="adaptive", alpha=0.5, early_stopping=True)
-    # 6.随机森林
-    # alg = RandomForestClassifier(random_state=1, n_estimators=150, min_samples_split=4, min_samples_leaf=2)
-    # 7.朴素贝叶斯(MultinomialNB 假设特征的先验概率为多项式分布 另外还有GaussianNB 假设特征的先验概率为正态分布；MultinomialNB 假设特征的先验概率为多项式分布)
-    # alg = MultinomialNB(alpha=0.01)
-    # 8.KNN
-    # alg = KNeighborsClassifier(n_neighbors=10)
-    # 9.决策树
-    # alg = tree.DecisionTreeClassifier()
-    # 10.支持向量机SVM
-    # alg = SVC(kernel='rbf', probability=True)
-"""
+#WRF0_prediction(data)
