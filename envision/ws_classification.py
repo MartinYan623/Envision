@@ -61,8 +61,8 @@ def prediction(train,test,predictors):
     y_train=train['Y.ws_tb']
     x_test= test[predictors]
     y_test= test['Y.ws_tb']
-    clf = OneVsRestClassifier(RandomForestClassifier(min_samples_leaf=3, n_estimators=50, min_samples_split=10, max_depth=10))
-    clf= OneVsRestClassifier(GradientBoostingClassifier(random_state=1, n_estimators=25, max_depth=3))
+    clf = OneVsRestClassifier(RandomForestClassifier(min_samples_leaf=3, n_estimators=50, min_samples_split=10, max_depth=5))
+    #clf= OneVsRestClassifier(GradientBoostingClassifier(random_state=1, n_estimators=25, max_depth=3))
     clf.fit(x_train, y_train)
     print('The accuracy of training set:', accuracy_score(y_train, clf.predict(x_train)))
     print('The accuracy of testing set:', accuracy_score(y_test, clf.predict(x_test)))
@@ -126,5 +126,5 @@ data = numerical_to_bin(data, 'Y.ws_tb', ws_map)
 #print(nulls)
 
 EC0_prediction(data)
-#GFS0_prediction(data)
-#WRF0_prediction(data)
+GFS0_prediction(data)
+WRF0_prediction(data)
