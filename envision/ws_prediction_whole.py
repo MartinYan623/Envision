@@ -27,7 +27,29 @@ x_df, y_df=load_data_from_pkl('data/turbine_314e3ca4bd2345c1bc4f649f313d0b18.pkl
 
 # concat by column
 data = pd.concat([x_df, y_df], axis=1)
-print(data)
+#print(data)
+
+# smooth the wind speed of windmill
+# use before 3 values and after 2 values plus itself to get mean value
+def smooth_Y(data):
+    smooth_y=[]
+    for i in range(394):
+        sub_data=data[data['i.set']==i]
+        a=np.array(sub_data['Y.ws_tb'].reshape(289,1))
+        new_a= [a[0][0],a[1][0],a[2][0]]
+        for j in range(3,len(a)-2):
+            if np.isnan(a[j])==False:
+                # 'nanmean' skips nan value
+                new_a.append(np.nanmean(a[j-3:j+3,:]))
+            else:
+                new_a.append(np.nan)
+        new_a.append(a[287][0])
+        new_a.append(a[288][0])
+        smooth_y=smooth_y+new_a
+    return smooth_y
+# whether smooth data_y
+data['Y.ws_tb']=smooth_Y(data)
+
 #print(data['Y.ws_tb'].describe())
 data = data.dropna(subset=['Y.ws_tb'])
 data = data[np.isnan(data['GFS0.ws']) == False]
@@ -50,19 +72,14 @@ plt.title(u'correlation')
 corr = data.corr()
 sns.heatmap(corr)
 plt.show()
-"""
-
 
 # plot data distribution 
 sns.distplot(data['EC0.wd'],fit=norm)
 plt.show()
-
-
-
-"""
 data['EC0.wd']=np.log(data['EC0.wd'])
 sns.distplot(data['EC0.wd'],fit=norm)
 plt.show()
+
 # scatter plot wind speed and target
 output,var,var1,var2 = 'Y.ws_tb', 'EC0.ws', 'GFS0.ws','WRF0.ws'
 fig, axes = plt.subplots(nrows=1,ncols=3,figsize=(20,6))
@@ -75,20 +92,27 @@ fig, axes = plt.subplots(nrows=1,ncols=2,figsize=(20,6))
 data.plot.scatter(x=var2,y=output,ylim=(0,25),ax=axes[0])
 plt.show()
 
-# boxplot
-var ='EC0.ws'
-data =pd.concat([data['Y.ws_tb'], data[var]], axis=1)
-f, ax =plt.subplots(figsize=(8, 6))
-fig =sns.boxplot(x=var, y='Y.ws_tb', data=data)
-fig.axis(ymin=0, ymax=25)
+
+# box plot
+output,var,var1,var2 = 'Y.ws_tb', 'EC0.pres', 'GFS0.ws','WRF0.ws'
+plt.plot(nrows=1,ncols=2,figsize=(20,6))
+data.plot.scatter(x=var,y=output,ylim=(0,25))
+data['EC0.pres']=np.rint(data['EC0.pres']).astype(np.int)
+plt.figure(figsize=(15,8))
+sns.boxplot(data['EC0.pres'],data['Y.ws_tb'])
 plt.show()
+
+output,var,var1,var2 = 'Y.ws_tb', 'EC0.tmp', 'GFS0.ws','WRF0.ws'
+plt.plot(figsize=(20,6))
+data.plot.scatter(x=var,y=output,ylim=(0,25))
+plt.show()
+
 """
 
 
 
 predictors = ['EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho', 'GFS0.ws', 'GFS0.wd', 'GFS0.tmp',
               'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho']
-
 
 # combine data of 3 whether stations (3x5=15)
 def whole_prediction(data, start_day=1, end_day=394, probability=0.5, split=5, gride_seach=False, ensemble=False):
@@ -119,6 +143,7 @@ def whole_prediction(data, start_day=1, end_day=394, probability=0.5, split=5, g
                                   'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho', 'Y.ws_tb'])
 
             """
+
             # fixed split
             if count % split== 0:
                 test = pd.concat([test, data_1], names=['i.set', 'EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho',
@@ -206,5 +231,4 @@ def ensemble_prediction(train, test, predictors):
     predictions = (full_predictions[0]*0.6 + full_predictions[1]*0.2 + full_predictions[2]*0.2)
     print('RMSE of testing set is: \n', mean_squared_error(y_test, np.exp(predictions)))
 
-
-#whole_prediction(data)
+whole_prediction(data)
