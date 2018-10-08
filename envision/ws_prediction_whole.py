@@ -48,7 +48,7 @@ def smooth_Y(data):
         smooth_y=smooth_y+new_a
     return smooth_y
 # whether smooth data_y
-data['Y.ws_tb']=smooth_Y(data)
+#data['Y.ws_tb']=smooth_Y(data)
 
 #print(data['Y.ws_tb'].describe())
 data = data.dropna(subset=['Y.ws_tb'])
@@ -105,11 +105,15 @@ plt.show()
 output,var,var1,var2 = 'Y.ws_tb', 'EC0.tmp', 'GFS0.ws','WRF0.ws'
 plt.plot(figsize=(20,6))
 data.plot.scatter(x=var,y=output,ylim=(0,25))
-plt.show()
+
+
+sns.set(style="ticks")
 
 """
-
-
+sns.set(style="ticks")
+data['EC0.tmp']=np.rint(data['EC0.tmp']).astype(np.int)
+sns.jointplot(data['EC0.tmp'], data['Y.ws_tb'], kind="hex", color="#4CB391")
+plt.show()
 
 predictors = ['EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho', 'GFS0.ws', 'GFS0.wd', 'GFS0.tmp',
               'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho']
@@ -228,7 +232,7 @@ def ensemble_prediction(train, test, predictors):
         model = clf.fit(x_train, y_train)
         predictions = model.predict(x_test)
         full_predictions.append(predictions)
-    predictions = (full_predictions[0]*0.6 + full_predictions[1]*0.2 + full_predictions[2]*0.2)
+    predictions = (full_predictions[0]*0.4 + full_predictions[1]*0.3 + full_predictions[2]*0.3)
     print('RMSE of testing set is: \n', mean_squared_error(y_test, np.exp(predictions)))
 
-whole_prediction(data)
+#whole_prediction(data)
