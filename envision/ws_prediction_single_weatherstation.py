@@ -156,8 +156,8 @@ def single_prediction(train, test, predictors):
     # clf = linear_model.ElasticNet(l1_ratio=0.2)
 
     clf.fit(x_train, y_train)
-    print(' RMSE of training set is: \n', mean_squared_error(np.exp(y_train),  np.exp(clf.predict(x_train))))
-    print (' RMSE of testing set is: \n', mean_squared_error(y_test, np.exp(clf.predict(x_test))))
+    print(' RMSE of training set is: \n', np.sqrt(mean_squared_error(np.exp(y_train),  np.exp(clf.predict(x_train)))))
+    print (' RMSE of testing set is: \n', np.sqrt(mean_squared_error(y_test, np.exp(clf.predict(x_test)))))
 
 # regression prediction ensemble model
 def ensemble_prediction(train, test, predictors):
@@ -188,7 +188,7 @@ def ensemble_prediction(train, test, predictors):
         predictions = model.predict(x_test)
         full_predictions.append(predictions)
     predictions = (full_predictions[0]*0.6 + full_predictions[1]*0.2 + full_predictions[2]*0.2)
-    print('RMSE of testing set is: \n', mean_squared_error(y_test, predictions))
+    print('RMSE of testing set is: \n', np.sqrt(mean_squared_error(y_test, predictions)))
 
 
 EC0_prediction(data)
