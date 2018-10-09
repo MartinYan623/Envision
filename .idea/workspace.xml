@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70bedc14-dfc5-4e8e-81ea-c1e62b3f688f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/envision/ws_prediction_single_weatherstation.py" afterPath="$PROJECT_DIR$/envision/ws_prediction_single_weatherstation.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/envision/arma.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/envision/preprocess.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/envision/ws_prediction_1station.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/envision/ws_prediction.py" afterPath="$PROJECT_DIR$/envision/ws_prediction_3stations.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/envision/ws_prediction_single_weatherstation.py" afterPath="$PROJECT_DIR$/envision/base/ws_prediction_single_weatherstation.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/envision/ws_prediction_whole_weatherstation.py" afterPath="$PROJECT_DIR$/envision/base/ws_prediction_whole_weatherstation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/envision/grid_search.py" afterPath="$PROJECT_DIR$/envision/grid_search.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ws_prediction_whole_weatherstation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/envision/ws_prediction_whole_weatherstation.py">
+      <file leaf-file-name="ws_prediction_3stations.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/envision/ws_prediction_3stations.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="202" column="104" lean-forward="false" selection-start-line="202" selection-start-column="77" selection-end-line="202" selection-end-column="104" />
+            <state relative-caret-position="-1019">
+              <caret line="64" column="6" lean-forward="false" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="6" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -25,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ws_prediction.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/envision/ws_prediction.py">
+      <file leaf-file-name="preprocess.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/envision/preprocess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="874">
-              <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+            <state relative-caret-position="512">
+              <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -57,18 +64,23 @@
         <option value="$PROJECT_DIR$/envision/visualization.py" />
         <option value="$PROJECT_DIR$/envision/ws_classfication.py" />
         <option value="$PROJECT_DIR$/envision/ws_classification.py" />
-        <option value="$PROJECT_DIR$/envision/grid_search.py" />
         <option value="$PROJECT_DIR$/envision/ws_prediction_whole.py" />
-        <option value="$PROJECT_DIR$/envision/ws_prediction_single_weatherstation.py" />
         <option value="$PROJECT_DIR$/envision/evaluation_misc.py" />
         <option value="$PROJECT_DIR$/envision/ws_prediction_whole_weatherstation.py" />
         <option value="$PROJECT_DIR$/envision/ws_prediction.py" />
+        <option value="$PROJECT_DIR$/envision/ws_prediction_single_weatherstation.py" />
+        <option value="$PROJECT_DIR$/envision/grid_search.py" />
+        <option value="$PROJECT_DIR$/envision/arma.py" />
+        <option value="$PROJECT_DIR$/envision/ws_prediction_1station.py" />
+        <option value="$PROJECT_DIR$/envision/base/ws_prediction_whole_weatherstation.py" />
+        <option value="$PROJECT_DIR$/envision/ws_prediction_3stations.py" />
+        <option value="$PROJECT_DIR$/envision/preprocess.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="9" />
-    <option name="y" value="205" />
+    <option name="y" value="23" />
     <option name="width" value="1431" />
     <option name="height" value="777" />
   </component>
@@ -106,7 +118,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -119,11 +131,17 @@
               <item name="Envision" type="462c0819:PsiDirectoryNode" />
               <item name="envision" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Envision" type="462c0819:PsiDirectoryNode" />
+              <item name="envision" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -140,6 +158,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/envision/base" />
       <recent name="$PROJECT_DIR$/envision/data" />
       <recent name="$PROJECT_DIR$/envision" />
       <recent name="$PROJECT_DIR$" />
@@ -157,8 +176,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ws_prediction (1)">
-    <configuration name="visualization" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.preprocess">
+    <configuration name="arma" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -170,12 +189,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Envision" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/visualization.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_prediction_3stations.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="ws_classfication" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="preprocess" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -187,12 +206,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Envision" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_classification.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_prediction_3stations.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="ws_prediction (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ws_prediction_1station" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -204,24 +223,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Envision" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_prediction.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="ws_prediction" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/envision" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Envision" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_prediction_single_weatherstation.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_prediction_1station.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -238,25 +240,42 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Envision" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_prediction_whole_weatherstation.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/ws_prediction_3stations.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="ws_prediction_whole_weatherstation" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/envision/base" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Envision" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/envision/base/ws_prediction_whole_weatherstation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.visualization" />
-      <item index="1" class="java.lang.String" itemvalue="Python.ws_classfication" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ws_prediction" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ws_prediction_whole" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ws_prediction (1)" />
+      <item index="0" class="java.lang.String" itemvalue="Python.ws_prediction_whole" />
+      <item index="1" class="java.lang.String" itemvalue="Python.ws_prediction_1station" />
+      <item index="2" class="java.lang.String" itemvalue="Python.arma" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ws_prediction_whole_weatherstation" />
+      <item index="4" class="java.lang.String" itemvalue="Python.preprocess" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ws_prediction (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ws_prediction_whole" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ws_prediction" />
-        <item index="3" class="java.lang.String" itemvalue="Python.ws_classfication" />
-        <item index="4" class="java.lang.String" itemvalue="Python.visualization" />
+        <item index="0" class="java.lang.String" itemvalue="Python.preprocess" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ws_prediction_whole_weatherstation" />
+        <item index="2" class="java.lang.String" itemvalue="Python.arma" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ws_prediction_whole" />
+        <item index="4" class="java.lang.String" itemvalue="Python.ws_prediction_1station" />
       </list>
     </recent_temporary>
   </component>
@@ -277,7 +296,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="9" y="205" width="1431" height="777" extended-state="0" />
+    <frame x="9" y="23" width="1431" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494759" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -285,7 +304,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33617023" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -315,32 +334,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="26" />
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/envision/ws_classification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="8" lean-forward="true" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/envision/visualization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/envision/visualization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/envision/evaluation_misc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1590">
@@ -597,13 +595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/envision/grid_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="22" lean-forward="false" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/seaborn/categorical.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -618,13 +609,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/envision/visualization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/envision/ws_classification.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -632,43 +616,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/envision/ws_prediction_single_weatherstation.py">
+    <entry file="file://$PROJECT_DIR$/envision/common_misc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2242">
-          <caret line="190" column="89" lean-forward="false" selection-start-line="190" selection-start-column="89" selection-end-line="190" selection-end-column="89" />
+        <state relative-caret-position="255">
+          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/envision/evaluation_misc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="21" column="27" lean-forward="true" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="200">
+          <caret line="29" column="76" lean-forward="false" selection-start-line="29" selection-start-column="76" selection-end-line="29" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/envision/ws_prediction_whole_weatherstation.py">
+    <entry file="file://$PROJECT_DIR$/envision/grid_search.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="202" column="104" lean-forward="false" selection-start-line="202" selection-start-column="77" selection-end-line="202" selection-end-column="104" />
+        <state relative-caret-position="286">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/envision/arma.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="34" column="22" lean-forward="true" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/envision/base/ws_prediction_single_weatherstation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-230">
+          <caret line="129" column="0" lean-forward="true" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/envision/base/ws_prediction_whole_weatherstation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/envision/visualization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="138" column="2" lean-forward="false" selection-start-line="138" selection-start-column="2" selection-end-line="139" selection-end-column="32" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/envision/common_misc.py">
+    <entry file="file://$PROJECT_DIR$/envision/ws_prediction_1station.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding />
+        <state relative-caret-position="521">
+          <caret line="185" column="0" lean-forward="false" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/envision/ws_prediction.py">
+    <entry file="file://$PROJECT_DIR$/envision/ws_prediction_3stations.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+        <state relative-caret-position="-1019">
+          <caret line="64" column="6" lean-forward="false" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/envision/preprocess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>

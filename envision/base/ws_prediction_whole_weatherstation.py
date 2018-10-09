@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../')
 from common_misc import load_data_from_pkl
 from evaluation_misc import wind_std,wind_std_distribution,calculate_mbe
 import pandas as pd
@@ -22,7 +24,7 @@ from sklearn.kernel_ridge import KernelRidge
 from scipy.stats import *
 
 # load data
-x_df, y_df=load_data_from_pkl('data/turbine_314e3ca4bd2345c1bc4f649f313d0b18.pkl')
+x_df, y_df=load_data_from_pkl('../data/turbine_1_train.pkl')
 #print(x_df)
 #print(y_df)
 
@@ -56,6 +58,7 @@ data = data.dropna(subset=['Y.ws_tb'])
 data = data[np.isnan(data['GFS0.ws']) == False]
 data = data[np.isnan(data['WRF0.ws']) == False]
 #data=data[ (data['i.set']<335) & (data['i.set']>242)]
+
 
 """
 # correlation
@@ -234,4 +237,4 @@ def ensemble_prediction(train, test, predictors):
     predictions = (full_predictions[0]*0.4 + full_predictions[1]*0.3 + full_predictions[2]*0.3)
     print('RMSE of testing set is: \n', np.sqrt(mean_squared_error(y_test, np.exp(predictions))))
 
-whole_prediction(data)
+#whole_prediction(data)

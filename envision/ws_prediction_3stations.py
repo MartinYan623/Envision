@@ -1,5 +1,6 @@
 from common_misc import load_data_from_pkl
 from evaluation_misc import wind_std,wind_std_distribution,calculate_mbe
+from preprocess import preprocess
 import pandas as pd
 import numpy as np
 from sklearn import linear_model
@@ -44,11 +45,11 @@ def whole_prediction(train,test,ensemble=False):
     print('The number of testing data set is: ' + str(len(test['i.set'].unique())))
 
     if ensemble:
-        ensemble_prediction(train, test, predictors)
+        std_train, std_test = ensemble_prediction(train, test, predictors)
     else:
-        rmse_train, std_train, rmse_test, std_test = single_prediction(train, test, predictors)
+        std_train, std_test = single_prediction(train, test, predictors)
 
-    return rmse_train,std_train,rmse_test,std_test
+    return std_train,std_test
 
 # regression prediction single model
 def single_prediction(train, test, predictors):
@@ -59,15 +60,15 @@ def single_prediction(train, test, predictors):
 
     # GradientBoost regression
     #clf = GradientBoostingRegressor(loss='ls', learning_rate=0.1, n_estimators=300, subsample=0.8, min_samples_split=2,
-    #                                min_samples_leaf=3, max_depth=3, alpha=0.9)
+    #                               min_samples_leaf=3, max_depth=3, alpha=0.9)
     # simple linear regression
     # clf = linear_model.LinearRegression()
     # XGBoost regression
-    clf = XGBRegressor(n_estimators=100, max_depth=2, learning_rate=0.1, gamma=0.1, subsample=0.6)
+    #clf = XGBRegressor(n_estimators=200, max_depth=3, learning_rate=0.1, gamma=0.1, subsample=0.6)
     # Random forest regression
     # clf = RandomForestRegressor(n_estimators=300, criterion='mse', min_samples_leaf=6, max_depth=5, random_state=1, n_jobs=-1)
     # Ridge regression
-    # clf = linear_model.Ridge(alpha=0.01)
+    #clf = linear_model.Ridge(alpha=0.01)
     # Ridge regression
     # clf = linear_model.RidgeCV(alphas=np.logspace(-3, 2, 100))
     # Lasso regression
@@ -75,19 +76,15 @@ def single_prediction(train, test, predictors):
     # Flexible network (combined Lasso regression and Ridge regression)
     # clf = linear_model.ElasticNet(l1_ratio=0.2)
     # clf = KernelRidge(alpha=0.2 ,kernel='polynomial',degree=3 , coef0=0.8)
-    # clf = SVR(gamma= 0.0004,kernel='rbf',C=13,epsilon=0.009)
+    #clf = SVR()
     # clf = BayesianRidge(n_iter=200, tol=0.001, alpha_1=1e-06, alpha_2=1e-06, lambda_1=1e-06, lambda_2=1e-06, compute_score=False, fit_intercept=True, normalize=False, copy_X=True, verbose=False)
     clf.fit(x_train, y_train)
-    print(' RMSE of training set is: \n', np.sqrt(mean_squared_error(y_train, clf.predict(x_train))))
-    print(' std of training set is: \n', wind_std(y_train, clf.predict(x_train), mean_bias_error=None))
-    print (' RMSE of testing set is: \n', np.sqrt(mean_squared_error(y_test, clf.predict(x_test))))
-    print(' std of testing set is: \n', wind_std(y_test,clf.predict(x_test), mean_bias_error=None))
-    rmse_train=np.sqrt(mean_squared_error(y_train, clf.predict(x_train)))
-    std_train=wind_std(y_train, clf.predict(x_train), mean_bias_error=None)
-    rmse_test=np.sqrt(mean_squared_error(y_test, clf.predict(x_test)))
-    std_test=wind_std(y_test,clf.predict(x_test), mean_bias_error=None)
+    print(' std of training set is: \n', round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5))
+    print(' std of testing set is: \n', round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None),5))
+    std_train=round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5)
+    std_test=round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None),5)
 
-    return rmse_train,std_train,rmse_test,std_test
+    return std_train,std_test
 
 def ensemble_prediction(train, test, predictors):
 
@@ -111,18 +108,24 @@ def ensemble_prediction(train, test, predictors):
     linear_model.ElasticNet(l1_ratio=0.2)
     ]
 
-    full_predictions = []
+    full_predictions1 = []
+    full_predictions2 = []
     for clf in algorithms:
         model = clf.fit(x_train, y_train)
-        predictions = model.predict(x_test)
-        full_predictions.append(predictions)
-    predictions = (full_predictions[0]*0.4 + full_predictions[1]*0.3 + full_predictions[2]*0.3)
-    print('RMSE of testing set is: \n', np.sqrt(mean_squared_error(y_test, predictions)))
-    print(' std of testing set is: \n', wind_std(y_test, predictions, mean_bias_error=None))
+        predictions1 = model.predict(x_train)
+        predictions2 = model.predict(x_test)
+        full_predictions1.append(predictions1)
+        full_predictions2.append(predictions2)
+    predictions1 = (full_predictions1[0] * 0.4 + full_predictions1[1] * 0.3 + full_predictions1[2] * 0.3)
+    predictions2 = (full_predictions2[0] * 0.4 + full_predictions2[1] * 0.3 + full_predictions2[2] * 0.3)
+    print(' std of testing set is: \n', wind_std(y_train, predictions1, mean_bias_error=None))
+    print(' std of testing set is: \n', wind_std(y_test, predictions2, mean_bias_error=None))
+    std_train = wind_std(y_train,predictions1, mean_bias_error=None)
+    std_test = wind_std(y_test,  predictions2, mean_bias_error=None)
 
-sum_rmse_train=0
+    return std_train,  std_test
+
 sum_std_train=0
-sum_rmse_test=0
 sum_std_test=0
 for i in range(10):
 
@@ -135,25 +138,26 @@ for i in range(10):
     # concat by column
     data_train = pd.concat([x_train, y_train], axis=1)
     data_test = pd.concat([x_test, y_test], axis=1)
+    # concat train and test data
+    data = pd.concat([data_train, data_test], axis=0)
 
     # whether smooth data_y
     # data_train['Y.ws_tb']=smooth_Y(data_train)
+    data_train,data_test=preprocess(data)
 
     data_train = data_train.dropna(subset=['Y.ws_tb'])
     data_train = data_train[np.isnan(data_train['GFS0.ws']) == False]
     data_train = data_train[np.isnan(data_train['WRF0.ws']) == False]
     data_test = data_test.dropna(subset=['Y.ws_tb'])
 
-    predictors = ['EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho', 'GFS0.ws', 'GFS0.wd', 'GFS0.tmp',
-      'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho']
+    predictors = ['EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
+                  'GFS0.wd_0.0','GFS0.wd_1.0','GFS0.wd_2.0','GFS0.wd_3.0','GFS0.wd_4.0','GFS0.wd_5.0',
+                  'GFS0.tmp','GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho',
+                  'season_spring','season_summer','season_autumn','season_winter']
 
-    rmse_train,std_train,rmse_test,std_test = whole_prediction(data_train,data_test,ensemble=True)
-    sum_rmse_train+=rmse_train
+    std_train,std_test = whole_prediction(data_train,data_test)
     sum_std_train+=std_train
-    sum_rmse_test+=rmse_test
     sum_std_test+=std_test
 
-print('mean rmse of training data: '+str(sum_rmse_train/10))
 print('mean std of training data: '+str(sum_std_train/10))
-print('mean rmse of testing data: '+str(sum_rmse_test/10))
 print('mean std of testing data: '+str(sum_std_test/10))
