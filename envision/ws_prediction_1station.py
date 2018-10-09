@@ -26,6 +26,7 @@ EC0_predictors = ['EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho']
 GFS0_predictors = ['GFS0.ws', 'GFS0.wd', 'GFS0.tmp', 'GFS0.pres', 'GFS0.rho']
 WRF0_predictors = ['WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho']
 predictors = ['EC0_prediction','GFS0_prediction','WRF0_prediction']
+
 def EC0_prediction(train,test,gride_seach=False, ensemble = False):
 
     print('The number of training data set is: ' + str(len(train['i.set'].unique())))

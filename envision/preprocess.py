@@ -1,4 +1,3 @@
-from common_misc import load_data_from_pkl
 import pandas as pd
 import numpy as np
 
@@ -47,7 +46,16 @@ season_dict = {
 #x_train, y_train = load_data_from_pkl('data/turbine_1_train.pkl')
 #x_test, y_test = load_data_from_pkl('data/turbine_1_test.pkl')
 
-def preprocess(data):
+def preprocess(x_train,y_train,x_test,y_test):
+
+    # concat by column
+    data_train = pd.concat([x_train, y_train], axis=1)
+    data_test = pd.concat([x_test, y_test], axis=1)
+    # concat train and test data
+    data = pd.concat([data_train, data_test], axis=0)
+
+    # whether smooth data_y
+    # data_train['Y.ws_tb']=smooth_Y(data_train)
 
     # discretize wd and one-hot
     data = numerical_to_bin(data, 'GFS0.wd', wd_map)
@@ -62,6 +70,7 @@ def preprocess(data):
     season_dummies = pd.get_dummies(data['month'], prefix='season')
     data = pd.concat([data, season_dummies], axis=1)
     data.drop('month', axis=1, inplace=True)
+    print(data)
 
     # split train and test data and return
     train = data.iloc[:113866]

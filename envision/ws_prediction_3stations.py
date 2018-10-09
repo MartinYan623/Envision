@@ -22,6 +22,11 @@ import matplotlib.pyplot as plt
 from sklearn.kernel_ridge import KernelRidge
 from scipy.stats import *
 
+predictors = ['EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
+              'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
+              'GFS0.tmp', 'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho',
+              'season_spring', 'season_summer', 'season_autumn', 'season_winter']
+
 def smooth_Y(data):
     smooth_y=[]
     for i in range(394):
@@ -59,8 +64,8 @@ def single_prediction(train, test, predictors):
     y_test = test['Y.ws_tb']
 
     # GradientBoost regression
-    #clf = GradientBoostingRegressor(loss='ls', learning_rate=0.1, n_estimators=300, subsample=0.8, min_samples_split=2,
-    #                               min_samples_leaf=3, max_depth=3, alpha=0.9)
+    clf = GradientBoostingRegressor(loss='ls', learning_rate=0.1, n_estimators=300, subsample=0.8, min_samples_split=2,
+                                   min_samples_leaf=3, max_depth=3, alpha=0.9)
     # simple linear regression
     # clf = linear_model.LinearRegression()
     # XGBoost regression
@@ -130,30 +135,20 @@ sum_std_test=0
 for i in range(10):
 
     print('load data set '+str(i+1))
+
     # load data
     x_train, y_train=load_data_from_pkl('data/turbine_%s_train.pkl'% str(i+1))
     # test data include one month data
     x_test, y_test=load_data_from_pkl('data/turbine_%s_test.pkl'% str(i+1))
 
-    # concat by column
-    data_train = pd.concat([x_train, y_train], axis=1)
-    data_test = pd.concat([x_test, y_test], axis=1)
-    # concat train and test data
-    data = pd.concat([data_train, data_test], axis=0)
+    # pre-process data
+    data_train,data_test=preprocess(x_train,y_train,x_test,y_test)
 
-    # whether smooth data_y
-    # data_train['Y.ws_tb']=smooth_Y(data_train)
-    data_train,data_test=preprocess(data)
-
+    # drop out nan value
     data_train = data_train.dropna(subset=['Y.ws_tb'])
     data_train = data_train[np.isnan(data_train['GFS0.ws']) == False]
     data_train = data_train[np.isnan(data_train['WRF0.ws']) == False]
     data_test = data_test.dropna(subset=['Y.ws_tb'])
-
-    predictors = ['EC0.ws', 'EC0.wd', 'EC0.tmp', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
-                  'GFS0.wd_0.0','GFS0.wd_1.0','GFS0.wd_2.0','GFS0.wd_3.0','GFS0.wd_4.0','GFS0.wd_5.0',
-                  'GFS0.tmp','GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho',
-                  'season_spring','season_summer','season_autumn','season_winter']
 
     std_train,std_test = whole_prediction(data_train,data_test)
     sum_std_train+=std_train
