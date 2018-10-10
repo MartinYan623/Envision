@@ -1,3 +1,4 @@
+from common_misc import load_data_from_pkl
 import pandas as pd
 import numpy as np
 
@@ -43,8 +44,19 @@ season_dict = {
     '12': 'winter'
 }
 
-#x_train, y_train = load_data_from_pkl('data/turbine_1_train.pkl')
-#x_test, y_test = load_data_from_pkl('data/turbine_1_test.pkl')
+tem_map=[
+        {'lower':-99, 'upper': -10, 'val': int(0)},
+        {'lower':-10, 'upper': 0, 'val': int(1)},
+        {'lower': 0, 'upper': 10, 'val': int(2)},
+        {'lower': 10, 'upper': 20, 'val': int(3)},
+        {'lower': 20, 'upper': 30, 'val': int(4)},
+        {'lower': 30, 'upper': 99, 'val': int(5)},
+    ]
+
+
+
+x_train, y_train = load_data_from_pkl('data/turbine_1_train.pkl')
+x_test, y_test = load_data_from_pkl('data/turbine_1_test.pkl')
 
 def preprocess(x_train,y_train,x_test,y_test):
 
@@ -63,6 +75,12 @@ def preprocess(x_train,y_train,x_test,y_test):
     data = pd.concat([data,EC0wd_dummies], axis=1)
     data.drop('GFS0.wd', axis=1, inplace=True)
 
+    # discretize temp and one-hot
+    data = numerical_to_bin(data, 'EC0.tmp', tem_map)
+    EC0tmp_dummies = pd.get_dummies(data['EC0.tmp'], prefix='EC0.tmp')
+    data = pd.concat([data, EC0tmp_dummies], axis=1)
+    data.drop('EC0.tmp', axis=1, inplace=True)
+
     # extract month from time and discretize month into season
     time=np.array(data['X_basic.forecast_time'].astype(str))
     data['month']=list(map(lambda x: x.split('-')[1],time))
@@ -70,7 +88,6 @@ def preprocess(x_train,y_train,x_test,y_test):
     season_dummies = pd.get_dummies(data['month'], prefix='season')
     data = pd.concat([data, season_dummies], axis=1)
     data.drop('month', axis=1, inplace=True)
-    print(data)
 
     # split train and test data and return
     train = data.iloc[:113866]
