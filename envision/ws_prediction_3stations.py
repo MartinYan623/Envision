@@ -25,7 +25,7 @@ from scipy.stats import *
 predictors = ['EC0.ws', 'EC0.wd', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
               'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
               'GFS0.tmp', 'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho',
-              'season_spring', 'season_summer', 'season_autumn', 'season_winter',
+              'season_spring', 'season_summer', 'season_winter',
               'EC0.tmp_0.0', 'EC0.tmp_1.0', 'EC0.tmp_2.0', 'EC0.tmp_3.0', 'EC0.tmp_4.0', 'EC0.tmp_5.0']
 
 def smooth_Y(data):
@@ -134,22 +134,16 @@ for i in range(10):
     print('load data set '+str(i+1))
 
     # load data
-    x_train, y_train=load_data_from_pkl('data/turbine_%s_train.pkl'% str(i+1))
+    x_train, y_train=load_data_from_pkl('data/turbine_%s_train.pkl' % str(i+1))
     # test data include one month data
-    x_test, y_test=load_data_from_pkl('data/turbine_%s_test.pkl'% str(i+1))
+    x_test, y_test=load_data_from_pkl('data/turbine_%s_test.pkl' % str(i+1))
 
     # pre-process data
-    data_train,data_test=preprocess(x_train,y_train,x_test,y_test)
+    data_train, data_test=preprocess(x_train, y_train, x_test, y_test)
 
-    # drop out nan value
-    data_train = data_train.dropna(subset=['Y.ws_tb'])
-    data_train = data_train[np.isnan(data_train['GFS0.ws']) == False]
-    data_train = data_train[np.isnan(data_train['WRF0.ws']) == False]
-    data_test = data_test.dropna(subset=['Y.ws_tb'])
-
-    std_train,std_test = whole_prediction(data_train,data_test)
-    sum_std_train+=std_train
-    sum_std_test+=std_test
+    std_train, std_test = whole_prediction(data_train, data_test)
+    sum_std_train += std_train
+    sum_std_test += std_test
 
 print('mean std of training data: '+str(sum_std_train/10))
 print('mean std of testing data: '+str(sum_std_test/10))

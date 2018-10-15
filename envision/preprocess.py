@@ -1,6 +1,7 @@
 from common_misc import load_data_from_pkl
 import pandas as pd
 import numpy as np
+from outlier import delete_outlier_ws
 
 # attribute reduction
 def numerical_to_bin(data, attr, val_map):
@@ -63,7 +64,19 @@ def preprocess(x_train,y_train,x_test,y_test):
     # concat by column
     data_train = pd.concat([x_train, y_train], axis=1)
     data_test = pd.concat([x_test, y_test], axis=1)
+
+    # drop out nan value
+    data_train = data_train.dropna(subset=['Y.ws_tb'])
+    data_train = data_train[np.isnan(data_train['GFS0.ws']) == False]
+    data_train = data_train[np.isnan(data_train['WRF0.ws']) == False]
+    data_test = data_test.dropna(subset=['Y.ws_tb'])
+
+    # deleter outlier
+    delete_outlier_ws(data_train)
+
+    length_data_train = len(data_train)
     # concat train and test data
+
     data = pd.concat([data_train, data_test], axis=0)
 
     # whether smooth data_y
@@ -90,6 +103,6 @@ def preprocess(x_train,y_train,x_test,y_test):
     data.drop('month', axis=1, inplace=True)
 
     # split train and test data and return
-    train = data.iloc[:113866]
-    test = data.iloc[113866:]
-    return train,test
+    train = data.iloc[:length_data_train]
+    test = data.iloc[length_data_train:]
+    return train, test
