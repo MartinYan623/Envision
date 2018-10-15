@@ -6,6 +6,8 @@ from sklearn.neighbors import LocalOutlierFactor
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from sklearn.cluster import DBSCAN
+from sklearn.feature_selection import VarianceThreshold
+
 
 x_train, y_train = load_data_from_pkl('data/turbine_1_train.pkl')
 x_test, y_test = load_data_from_pkl('data/turbine_1_test.pkl')
@@ -54,4 +56,3 @@ def localoutlier_and_dbscan(data):
     plt.legend(["data"])
     plt.show()
 
-localoutlier_and_dbscan(data_train)

@@ -26,24 +26,12 @@ predictors = ['EC0.ws', 'EC0.wd', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
               'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
               'GFS0.tmp', 'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho',
               'season_spring', 'season_summer', 'season_winter',
-              'EC0.tmp_0.0', 'EC0.tmp_1.0', 'EC0.tmp_2.0', 'EC0.tmp_3.0', 'EC0.tmp_4.0', 'EC0.tmp_5.0']
+              'EC0.tmp_0.0', 'EC0.tmp_1.0', 'EC0.tmp_2.0', 'EC0.tmp_3.0', 'EC0.tmp_4.0', 'EC0.tmp_5.0',
+              'time_morning', 'time_afternoon', 'time_night',
+              'month_01','month_02','month_03','month_04','month_05','month_06','month_07','month_08','month_12']
 
-def smooth_Y(data):
-    smooth_y=[]
-    for i in range(394):
-        sub_data=data[data['i.set']==i]
-        a=np.array(sub_data['Y.ws_tb'].reshape(289,1))
-        new_a= [a[0][0],a[1][0],a[2][0]]
-        for j in range(3,len(a)-2):
-            if np.isnan(a[j])==False:
-                # 'nanmean' skips nan value
-                new_a.append(np.nanmean(a[j-3:j+3,:]))
-            else:
-                new_a.append(np.nan)
-        new_a.append(a[287][0])
-        new_a.append(a[288][0])
-        smooth_y=smooth_y+new_a
-    return smooth_y
+predictors = ['EC0.ws', 'EC0.wd', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
+              'GFS0.wd','GFS0.tmp', 'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho', 'EC0.tmp']
 
 # combine data of 3 whether stations (3x5=15)
 def whole_prediction(train,test,ensemble=False):
@@ -69,11 +57,11 @@ def single_prediction(train, test, predictors):
     # simple linear regression
     #clf = linear_model.LinearRegression()
     # XGBoost regression
-    #clf = XGBRegressor(n_estimators=200, max_depth=3, learning_rate=0.1, gamma=0.1, subsample=0.6)
+    # clf = XGBRegressor(n_estimators=200, max_depth=2, learning_rate=0.1, gamma=0.1, subsample=0.6)
     # Random forest regression
     #clf = RandomForestRegressor(n_estimators=200, criterion='mse', min_samples_leaf=6, max_depth=3, random_state=1, n_jobs=-1)
     # Ridge regression
-    #clf = linear_model.Ridge(alpha=0.01)
+    # clf = linear_model.Ridge(alpha=0.01)
     # Ridge regression
     # clf = linear_model.RidgeCV(alphas=np.logspace(-3, 2, 100))
     # Lasso regression
@@ -138,9 +126,16 @@ for i in range(10):
     # test data include one month data
     x_test, y_test=load_data_from_pkl('data/turbine_%s_test.pkl' % str(i+1))
 
+    print('#' * 33)
+    print('start data pre-processing')
+    print('#' * 33)
     # pre-process data
     data_train, data_test=preprocess(x_train, y_train, x_test, y_test)
 
+    print('#' * 33)
+    print('start prediction')
+    print('#' * 33)
+    # build model and prediction
     std_train, std_test = whole_prediction(data_train, data_test)
     sum_std_train += std_train
     sum_std_test += std_test

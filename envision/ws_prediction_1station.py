@@ -27,7 +27,7 @@ GFS0_predictors = ['GFS0.ws', 'GFS0.wd', 'GFS0.tmp', 'GFS0.pres', 'GFS0.rho']
 WRF0_predictors = ['WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho']
 predictors = ['EC0_prediction','GFS0_prediction','WRF0_prediction']
 
-def EC0_prediction(train,test,gride_seach=False, ensemble = False):
+def EC0_prediction(train, test, gride_seach=False, ensemble = False):
 
     print('The number of training data set is: ' + str(len(train['i.set'].unique())))
     print('The number of testing data set is: '+str(len(test['i.set'].unique())))
@@ -40,10 +40,10 @@ def EC0_prediction(train,test,gride_seach=False, ensemble = False):
         else:
             std_train, std_test = single_prediction(train, test, EC0_predictors)
 
-    return std_train,std_test
+    return std_train, std_test
 
 
-def GFS0_prediction(train,test, gride_seach=False, ensemble = False):
+def GFS0_prediction(train, test, gride_seach=False, ensemble=False):
 
     print('The number of training data set is: ' + str(len(train['i.set'].unique())))
     print('The number of testing data set is: ' + str(len(test['i.set'].unique())))
@@ -55,9 +55,9 @@ def GFS0_prediction(train,test, gride_seach=False, ensemble = False):
             std_train, std_test =  ensemble_prediction(train, test, GFS0_predictors)
         else:
             std_train, std_test = single_prediction(train, test, GFS0_predictors)
-    return std_train,std_test
+    return std_train, std_test
 
-def WRF0_prediction(train,test,gride_seach=False, ensemble = False):
+def WRF0_prediction(train, test, gride_seach=False, ensemble = False):
 
     print('The number of training data set is: ' + str(len(train['i.set'].unique())))
     print('The number of testing data set is: ' + str(len(test['i.set'].unique())))
@@ -71,19 +71,19 @@ def WRF0_prediction(train,test,gride_seach=False, ensemble = False):
         else:
             std_train, std_test= single_prediction(train, test, WRF0_predictors)
 
-    return std_train,std_test
+    return std_train, std_test
 
-def single_prediction(train, test, predictors,parameters=None):
+def single_prediction(train, test, predictors, parameters=None):
     x_train = train[predictors]
     y_train = train['Y.ws_tb']
     x_test = test[predictors]
     y_test = test['Y.ws_tb']
 
     # GradientBoost regression
-    #clf = GradientBoostingRegressor(max_depth=parameters['max_depth'],n_estimators=parameters['n_estimators'],
-    #                                loss='ls', learning_rate=0.1, subsample=0.8, alpha=0.9)
+    clf = GradientBoostingRegressor(loss='ls', learning_rate=0.1, n_estimators=300, subsample=0.8, max_depth=2,
+                                    alpha=0.9)
     # simple linear regression
-    clf = linear_model.LinearRegression()
+    # clf = linear_model.LinearRegression()
     # XGBoost regression
     # clf = XGBRegressor(n_estimators=100, max_depth=2, learning_rate=0.1, gamma=0.1, subsample=0.6)
     # Random forest regression
@@ -100,12 +100,13 @@ def single_prediction(train, test, predictors,parameters=None):
     # clf = SVR(gamma= 0.0004,kernel='rbf',C=13,epsilon=0.009)
     # clf = BayesianRidge(n_iter=200, tol=0.001, alpha_1=1e-06, alpha_2=1e-06, lambda_1=1e-06, lambda_2=1e-06, compute_score=False, fit_intercept=True, normalize=False, copy_X=True, verbose=False)
     clf.fit(x_train, y_train)
-    print(' std of training set is: \n', round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5))
-    print(' std of testing set is: \n', round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None),5))
-    std_train=round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5)
-    std_test=round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None),5)
+    #print(' std of training set is: \n', round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5))
+    #print(' std of testing set is: \n', round(wind_std(y_test, clf.predict(x_test), mean_bias_error=None),5))
 
-    return std_train,std_test
+    prediction_train = clf.predict(x_train)
+    prediction_test = clf.predict(x_test)
+
+    return prediction_train, prediction_test
 
 
 def ensemble_prediction(train, test, predictors):
@@ -148,16 +149,19 @@ def ensemble_prediction(train, test, predictors):
 
 
 def combining_model(train,test):
+    print('#' * 33)
+    print('start combining model')
+    print('#' * 33)
+
     x_train = train[predictors]
     y_train = train['Y.ws_tb']
     x_test = test[predictors]
     y_test = test['Y.ws_tb']
-    # GradientBoost regression
-    clf = GradientBoostingRegressor(loss='ls', learning_rate=0.1, n_estimators=200, subsample=0.8, min_samples_split=2,
-                                    min_samples_leaf=3, max_depth=4, alpha=0.9)
+
+    clf = linear_model.LinearRegression()
     clf.fit(x_train, y_train)
-    print(' std of training set is: \n', wind_std(y_train, clf.predict(x_train), mean_bias_error=None))
-    print(' std of testing set is: \n', wind_std(y_test,clf.predict(x_test), mean_bias_error=None))
+    print(' std of training set is: \n', round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5))
+    print(' std of testing set is: \n', round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None),5))
 
 def smooth_Y(data):
     smooth_y=[]
@@ -187,9 +191,9 @@ for i in range(10):
 
     print('load data set '+str(i+1))
     # load data
-    x_train, y_train=load_data_from_pkl('data/turbine_%s_train.pkl'% str(i+1))
+    x_train, y_train=load_data_from_pkl('data/turbine_%s_train.pkl' % str(i+1))
     # test data include one month data
-    x_test, y_test=load_data_from_pkl('data/turbine_%s_test.pkl'% str(i+1))
+    x_test, y_test=load_data_from_pkl('data/turbine_%s_test.pkl' % str(i+1))
 
     # concat by column
     data_train = pd.concat([x_train, y_train], axis=1)
@@ -203,41 +207,14 @@ for i in range(10):
     data_train = data_train[np.isnan(data_train['WRF0.ws']) == False]
     data_test = data_test.dropna(subset=['Y.ws_tb'])
 
-    EC0_std_train,EC0_std_test, = EC0_prediction(data_train,data_test)
-    #GFS0_rmse_train, GFS0_std_train, GFS0_rmse_test, GFS0_std_test,GFS0_prediction_train ,GFS0_prediction_test= GFS0_prediction(data_train, data_test,gride_seach=True)
-    #WRF0_rmse_train, WRF0_std_train, WRF0_rmse_test, WRF0_std_test,WRF0_prediction_train,WRF0_prediction_test = WRF0_prediction(data_train, data_test,gride_seach=True)
+    EC0_prediction_train, EC0_prediction_test = EC0_prediction(data_train, data_test)
+    GFS0_prediction_train, GFS0_prediction_test = GFS0_prediction(data_train, data_test)
+    WRF0_prediction_train, WRF0_prediction_test = WRF0_prediction(data_train, data_test)
 
-    """
-    data_train = pd.DataFrame({'EC0_prediction':EC0_prediction_train,'GFS0_prediction':GFS0_prediction_train,
-                               'WRF0_prediction':WRF0_prediction_train,'Y.ws_tb':data_train['Y.ws_tb']})
+
+    data_train = pd.DataFrame({'EC0_prediction':EC0_prediction_train, 'GFS0_prediction':GFS0_prediction_train,
+                               'WRF0_prediction':WRF0_prediction_train, 'Y.ws_tb': data_train['Y.ws_tb']})
     data_test = pd.DataFrame({'EC0_prediction': EC0_prediction_test, 'GFS0_prediction': GFS0_prediction_test,
-                               'WRF0_prediction': WRF0_prediction_test,'Y.ws_tb':data_test['Y.ws_tb']})
-    combining_model(data_train,data_test)
-  
+                               'WRF0_prediction': WRF0_prediction_test,'Y.ws_tb': data_test['Y.ws_tb']})
+    combining_model(data_train, data_test)
 
-    sum_EC0_std_train += EC0_std_train
-    sum_EC0_std_test += EC0_std_test
-
-    sum_GFS0_std_train += GFS0_std_train
-    sum_GFS0_std_test += GFS0_std_test
-
-    sum_WRF0_std_train += WRF0_std_train
-    sum_WRF0_std_test += WRF0_std_test
-    """
-
-"""
-print('mean rmse of training data EC0: '+str(sum_EC0_rmse_train/10))
-print('mean std of training data EC0: '+str(sum_EC0_std_train/10))
-print('mean rmse of testing data EC0: '+str(sum_EC0_rmse_test/10))
-print('mean std of testing data EC0: '+str(sum_EC0_std_test/10))
-
-print('mean rmse of training data GFS0: '+str(sum_GFS0_rmse_train/10))
-print('mean std of training data GFS0: '+str(sum_GFS0_std_train/10))
-print('mean rmse of testing data GFS0: '+str(sum_GFS0_rmse_test/10))
-print('mean std of testing data GFS0: '+str(sum_GFS0_std_test/10))
-
-print('mean rmse of training data WRF0: '+str(sum_WRF0_rmse_train/10))
-print('mean std of training data WRF0: '+str(sum_WRF0_std_train/10))
-print('mean rmse of testing data WRF0: '+str(sum_WRF0_rmse_test/10))
-print('mean std of testing data WRF0: '+str(sum_WRF0_std_test/10))
-"""
