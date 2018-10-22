@@ -21,20 +21,27 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.kernel_ridge import KernelRidge
 from scipy.stats import *
+from numpy.random import seed
+seed(0)
 
-predictors = ['EC0.ws', 'EC0.wd', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
-              'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
+"""
+'EC0.tmp_0.0', 'EC0.tmp_1.0', 'EC0.tmp_2.0', 'EC0.tmp_3.0', 'EC0.tmp_4.0', 'EC0.tmp_5.0',
+
+'month_01', 'month_02', 'month_03', 'month_04', 'month_05', 'month_06', 'month_07', 'month_08', 'month_12',
+  'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
+    'season_spring', 'season_summer', 'season_winter',
+"""
+
+predictors = ['EC0.ws', 'EC0.wd','EC0.tmp','EC0.pres', 'EC0.rho', 'GFS0.ws','GFS0.wd',
               'GFS0.tmp', 'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho',
-              'season_spring', 'season_summer', 'season_winter',
-              'EC0.tmp_0.0', 'EC0.tmp_1.0', 'EC0.tmp_2.0', 'EC0.tmp_3.0', 'EC0.tmp_4.0', 'EC0.tmp_5.0',
-              'time_morning', 'time_afternoon', 'time_night',
-              'month_01','month_02','month_03','month_04','month_05','month_06','month_07','month_08','month_12']
+              'time_morning', 'time_afternoon', 'time_night']
 
-predictors = ['EC0.ws', 'EC0.wd', 'EC0.pres', 'EC0.rho', 'GFS0.ws',
-              'GFS0.wd','GFS0.tmp', 'GFS0.pres', 'GFS0.rho', 'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho', 'EC0.tmp']
+predictors = ['EC0.ws','EC0.wd', 'EC0.pres', 'EC0.tmp','EC0.rho',
+              'GFS0.ws','GFS0.wd','GFS0.tmp', 'GFS0.pres', 'GFS0.rho',
+              'WRF0.ws', 'WRF0.wd', 'WRF0.tmp', 'WRF0.pres', 'WRF0.rho' ]
 
 # combine data of 3 whether stations (3x5=15)
-def whole_prediction(train,test,ensemble=False):
+def whole_prediction(train, test, ensemble=False):
     print('The number of training data set is: ' + str(len(train['i.set'].unique())))
     print('The number of testing data set is: ' + str(len(test['i.set'].unique())))
 
@@ -72,10 +79,10 @@ def single_prediction(train, test, predictors):
     #clf = SVR()
     # clf = BayesianRidge(n_iter=200, tol=0.001, alpha_1=1e-06, alpha_2=1e-06, lambda_1=1e-06, lambda_2=1e-06, compute_score=False, fit_intercept=True, normalize=False, copy_X=True, verbose=False)
     clf.fit(x_train, y_train)
-    print(' std of training set is: \n', round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5))
-    print(' std of testing set is: \n', round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None),5))
-    std_train=round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None),5)
-    std_test=round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None),5)
+    print(' std of training set is: \n', round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None), 5))
+    print(' std of testing set is: \n', round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None), 5))
+    std_train=round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None), 5)
+    std_test=round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None), 5)
 
     return std_train,std_test
 
@@ -130,7 +137,7 @@ for i in range(10):
     print('start data pre-processing')
     print('#' * 33)
     # pre-process data
-    data_train, data_test=preprocess(x_train, y_train, x_test, y_test)
+    data_train, data_test = preprocess(x_train, y_train, x_test, y_test)
 
     print('#' * 33)
     print('start prediction')

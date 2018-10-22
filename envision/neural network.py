@@ -71,7 +71,7 @@ print('x_test.shape: ', x_test.shape)
 print('y_test.shape: ', y_test.shape)
 
 
-epoches=20
+epochs=20
 # Create the model
 print('Creating Fully-Connected Model...')
 model_fc = create_fc_model()
@@ -81,7 +81,7 @@ model_fc.compile(optimizer=adam, loss='mean_squared_error')
 # Train the model
 print('Training')
 ##### TRAIN YOUR MODEL #####
-history = model_fc.fit(x_train, y_train, epochs=epoches, batch_size=1, validation_data=(x_test, y_test), shuffle=False)
+history = model_fc.fit(x_train, y_train, epochs=epochs, batch_size=1, validation_data=(x_test, y_test), shuffle=False)
 
 # Plot and save loss curves of training and test set vs iteration in the same graph
 ##### PLOT AND SAVE LOSS CURVES #####
@@ -94,12 +94,12 @@ fc_rmse = np.sqrt(mean_squared_error(y_test, predicted_fc))
 print(fc_rmse)
 
 plt.figure(figsize=(8, 5))
-plt.plot(np.arange(1, epoches+1), loss, label='train_loss')
-plt.plot(np.arange(1, epoches+1), val_loss, label='val_loss')
+plt.plot(np.arange(1, epochs+1), loss, label='train_loss')
+plt.plot(np.arange(1, epochs+1), val_loss, label='val_loss')
 plt.title('Loss vs Iterations in Training and Validation Set')
 plt.xlabel('Iterations')
 plt.ylabel('Loss')
-x_label = range(1, epoches+1)
+x_label = range(1, epochs+1)
 plt.xticks(x_label)
 plt.legend()
 plt.grid()

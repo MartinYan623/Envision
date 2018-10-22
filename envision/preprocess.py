@@ -118,37 +118,42 @@ def preprocess(x_train,y_train,x_test,y_test):
 
     # concat train and test data
     data = pd.concat([data_train, data_test], axis=0)
+
     """
     # discretize wd and one-hot
     data = numerical_to_bin(data, 'GFS0.wd', wd_map)
     EC0wd_dummies = pd.get_dummies(data['GFS0.wd'], prefix='GFS0.wd')
     data = pd.concat([data,EC0wd_dummies], axis=1)
-    data.drop('GFS0.wd', axis=1, inplace=True)
-
+    #data.drop('GFS0.wd', axis=1, inplace=True)
+  
     # discretize temp and one-hot
     data = numerical_to_bin(data, 'EC0.tmp', tem_map)
     EC0tmp_dummies = pd.get_dummies(data['EC0.tmp'], prefix='EC0.tmp')
     data = pd.concat([data, EC0tmp_dummies], axis=1)
-    data.drop('EC0.tmp', axis=1, inplace=True)
+    #data.drop('EC0.tmp', axis=1, inplace=True)
 
+ 
     # extract month from time and discretize month into season
     month = np.array(data['X_basic.forecast_time'].astype(str))
     data['month'] = list(map(lambda x: x.split('-')[1], month))
-    data['season']=data['month']
+    data['season'] = data['month']
     data = substitute(data, 'season', season_dict)
     season_dummies = pd.get_dummies(data['season'], prefix='season')
     data = pd.concat([data, season_dummies], axis=1)
     data.drop('season', axis=1, inplace=True)
 
+
     # extract month and one-hot encoding
     month_dummies = pd.get_dummies(data['month'], prefix='month')
     data = pd.concat([data, month_dummies], axis=1)
 
+    """
     # extract time and discretize into morning, afternoon and night
     data = substitute(data, 'X_basic.hour', time_dict)
     time_dummies = pd.get_dummies(data['X_basic.hour'], prefix='time')
     data = pd.concat([data, time_dummies], axis=1)
-
+    """
+    
     #normalization
     #data = normalization(data,'EC0.ws')
     data = normalization(data, 'EC0.pres')
