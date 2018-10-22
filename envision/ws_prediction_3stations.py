@@ -28,8 +28,8 @@ seed(0)
 """
 'EC0.tmp_0.0', 'EC0.tmp_1.0', 'EC0.tmp_2.0', 'EC0.tmp_3.0', 'EC0.tmp_4.0', 'EC0.tmp_5.0',
 'month_01', 'month_02', 'month_03', 'month_04', 'month_05', 'month_06', 'month_07', 'month_08', 'month_12',
-  'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
-    'season_spring', 'season_summer', 'season_winter',
+'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
+'season_spring', 'season_summer', 'season_winter',
 """
 
 predictors = ['EC0.ws', 'EC0.wd','EC0.tmp','EC0.pres', 'EC0.rho', 'GFS0.ws','GFS0.wd',
@@ -44,7 +44,6 @@ predictors = ['EC0.ws','EC0.wd', 'EC0.pres', 'EC0.tmp','EC0.rho',
 def whole_prediction(train, test, ensemble=False):
     print('The number of training data set is: ' + str(len(train['i.set'].unique())))
     print('The number of testing data set is: ' + str(len(test['i.set'].unique())))
-
     if ensemble:
         std_train, std_test = ensemble_prediction(train, test, predictors)
     else:
@@ -103,13 +102,11 @@ def ensemble_prediction(train, test, predictors):
                        early_stopping_rounds=100, colsample_bytree=0.8),
     linear_model.LinearRegression(),
     GradientBoostingRegressor(loss='ls', learning_rate=0.1, n_estimators=200, subsample=0.8, max_depth=2, alpha=0.9),
-
     linear_model.Ridge(alpha=0.01),
     linear_model.RidgeCV(alphas=np.logspace(-3, 2, 100)),
     linear_model.Lasso(alpha=0.01),
     linear_model.ElasticNet(l1_ratio=0.2)
     ]
-
     full_predictions1 = []
     full_predictions2 = []
     for clf in algorithms:
@@ -143,13 +140,13 @@ def plot_prediction(test, prediction):
     fig.autofmt_xdate()
     fig.suptitle('Test Data and Wind Speed Comparision  Data Set:' + str(i+1))
 
+    time = time.dt.to_pydatetime()
     ax = plt.subplot(311)
     ax.set_title('Wind Speed of Test Data')
     ax.plot(time, true, '-r', label='test_data')
     ax.set_ylabel('Wind Speed')
     ax.set_xlabel('Time')
     plt.grid(True)
-    plt.tight_layout()
     plt.legend()
 
     ax = plt.subplot(312)
@@ -158,7 +155,6 @@ def plot_prediction(test, prediction):
     ax.set_ylabel('Wind Speed')
     ax.set_xlabel('Time')
     plt.grid(True)
-    plt.tight_layout()
     plt.legend()
 
     ax = plt.subplot(313)
@@ -168,12 +164,11 @@ def plot_prediction(test, prediction):
     ax.set_ylabel('Wind Speed')
     ax.set_xlabel('Time')
     plt.grid(True)
-    plt.tight_layout()
     plt.legend()
 
+    plt.tight_layout()
     plt.subplots_adjust(top=0.88)
     plt.show()
-
 
 sum_std_train=0
 sum_std_test=0

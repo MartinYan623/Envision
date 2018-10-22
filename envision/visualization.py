@@ -206,7 +206,7 @@ def plot_ws_distribution(data, probability=0.5):
     for a, b in zip((errors_WRFO[:, 0]+0.4).tolist(), errors_WRFO[:, 2].tolist()):
         ax.text(a, b + 0.05, round(b, 2), ha='center', va='bottom', fontsize=6)
 
-    plt.xticks(np.arange(10)+3.2,xlabel)
+    plt.xticks(np.arange(10)+3.2, xlabel)
     plt.legend()
     plt.grid(True)
 
