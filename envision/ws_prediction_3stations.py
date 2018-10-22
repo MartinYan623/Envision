@@ -2,6 +2,7 @@ from common_misc import load_data_from_pkl
 from evaluation_misc import wind_std,wind_std_distribution,calculate_mbe
 from preprocess import preprocess
 import pandas as pd
+from pandas import Series
 import numpy as np
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error
@@ -26,7 +27,6 @@ seed(0)
 
 """
 'EC0.tmp_0.0', 'EC0.tmp_1.0', 'EC0.tmp_2.0', 'EC0.tmp_3.0', 'EC0.tmp_4.0', 'EC0.tmp_5.0',
-
 'month_01', 'month_02', 'month_03', 'month_04', 'month_05', 'month_06', 'month_07', 'month_08', 'month_12',
   'GFS0.wd_0.0', 'GFS0.wd_1.0', 'GFS0.wd_2.0', 'GFS0.wd_3.0', 'GFS0.wd_4.0', 'GFS0.wd_5.0',
     'season_spring', 'season_summer', 'season_winter',
@@ -78,11 +78,16 @@ def single_prediction(train, test, predictors):
     # clf = KernelRidge(alpha=0.2 ,kernel='polynomial',degree=3 , coef0=0.8)
     #clf = SVR()
     # clf = BayesianRidge(n_iter=200, tol=0.001, alpha_1=1e-06, alpha_2=1e-06, lambda_1=1e-06, lambda_2=1e-06, compute_score=False, fit_intercept=True, normalize=False, copy_X=True, verbose=False)
+
     clf.fit(x_train, y_train)
     print(' std of training set is: \n', round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None), 5))
-    print(' std of testing set is: \n', round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None), 5))
-    std_train=round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None), 5)
-    std_test=round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None), 5)
+    print(' std of testing set is: \n', round(wind_std(y_test, clf.predict(x_test), mean_bias_error=None), 5))
+    std_train = round(wind_std(y_train, clf.predict(x_train), mean_bias_error=None), 5)
+    std_test = round(wind_std(y_test,clf.predict(x_test), mean_bias_error=None), 5)
+
+    # plot test data and prediction result
+    prediction = Series(clf.predict(x_test))
+    plot_prediction(test, prediction)
 
     return std_train,std_test
 
@@ -122,6 +127,54 @@ def ensemble_prediction(train, test, predictors):
 
     return std_train,  std_test
 
+def plot_prediction(test, prediction):
+
+    prediction = prediction.rename('prediction')
+    test = test[['X_basic.time','Y.ws_tb']]
+    test = test.reset_index(drop=True)
+
+    a = pd.concat([test, prediction], axis=1)
+    a = a.drop_duplicates(['X_basic.time'])
+    time = a['X_basic.time']
+    prediction = a['prediction']
+    true = a['Y.ws_tb']
+
+    fig = plt.figure(dpi=128, figsize=(10, 7))
+    fig.autofmt_xdate()
+    fig.suptitle('Test Data and Wind Speed Comparision  Data Set:' + str(i+1))
+
+    ax = plt.subplot(311)
+    ax.set_title('Wind Speed of Test Data')
+    ax.plot(time, true, '-r', label='test_data')
+    ax.set_ylabel('Wind Speed')
+    ax.set_xlabel('Time')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend()
+
+    ax = plt.subplot(312)
+    ax.set_title('Wind Speed of Prediction')
+    ax.plot(time, prediction, '-g', label='prediction')
+    ax.set_ylabel('Wind Speed')
+    ax.set_xlabel('Time')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend()
+
+    ax = plt.subplot(313)
+    ax.set_title('Comparision of Test Data and Prediction')
+    ax.plot(time, true, '-r', label='test_data')
+    ax.plot(time, prediction, '-g', label='prediction')
+    ax.set_ylabel('Wind Speed')
+    ax.set_xlabel('Time')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend()
+
+    plt.subplots_adjust(top=0.88)
+    plt.show()
+
+
 sum_std_train=0
 sum_std_test=0
 for i in range(10):
@@ -144,6 +197,8 @@ for i in range(10):
     print('#' * 33)
     # build model and prediction
     std_train, std_test = whole_prediction(data_train, data_test)
+
+    # sum of std on train and test data
     sum_std_train += std_train
     sum_std_test += std_test
 
