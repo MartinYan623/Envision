@@ -180,7 +180,7 @@ for i in range(10):
     x_train, y_train=load_data_from_pkl('data/turbine_%s_train.pkl' % str(i+1))
     # test data include one month data
     x_test, y_test=load_data_from_pkl('data/turbine_%s_test.pkl' % str(i+1))
-
+ 
     print('#' * 33)
     print('start data pre-processing')
     print('#' * 33)
