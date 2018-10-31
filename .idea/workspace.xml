@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70bedc14-dfc5-4e8e-81ea-c1e62b3f688f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/envision/kf.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/envision/arma.py" afterPath="$PROJECT_DIR$/envision/arma.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/envision/ws_prediction_3stations.py" afterPath="$PROJECT_DIR$/envision/ws_prediction_3stations.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,23 +17,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="train_ws_model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/train_ws_model.py">
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-              <folding>
-                <marker date="1540978992000" expanded="false" signature="2587:3915" ph="..." />
-              </folding>
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xgb_ws_forecast.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/xgb_ws_forecast.py">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-464">
-              <caret line="61" column="19" lean-forward="true" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xgb_util.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/xgb_util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ml_wtg_forecast.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/ml_wtg_forecast.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feature_creation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/feature_creation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/plot_util/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_revised_ws.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/plot_util/plot_revised_ws.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xgb_util.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/xgb_util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xgb_model.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/xgb_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -87,7 +163,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
+    <option name="x" value="151" />
+    <option name="y" value="44" />
     <option name="width" value="1440" />
     <option name="height" value="760" />
   </component>
@@ -125,6 +202,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -135,35 +214,18 @@
             <path>
               <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
               <item name="Envision" type="462c0819:PsiDirectoryNode" />
-              <item name="wind-speed-forecast" type="462c0819:PsiDirectoryNode" />
+              <item name="wind prediction" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
               <item name="Envision" type="462c0819:PsiDirectoryNode" />
-              <item name="wind-speed-forecast" type="462c0819:PsiDirectoryNode" />
+              <item name="wind prediction" type="462c0819:PsiDirectoryNode" />
               <item name="xgb_ws" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Envision" type="462c0819:PsiDirectoryNode" />
-              <item name="wind-speed-forecast" type="462c0819:PsiDirectoryNode" />
-              <item name="xgb_ws" type="462c0819:PsiDirectoryNode" />
-              <item name="result" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Envision" type="462c0819:PsiDirectoryNode" />
-              <item name="wind-speed-forecast" type="462c0819:PsiDirectoryNode" />
-              <item name="xgb_ws" type="462c0819:PsiDirectoryNode" />
-              <item name="result" type="462c0819:PsiDirectoryNode" />
-              <item name="farm_57f2a7f2a624402c9565e51ba8d171cb" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -180,11 +242,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/wind prediction" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/wind-speed-forecast" />
       <recent name="$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min" />
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/envision/base" />
-      <recent name="$PROJECT_DIR$/envision/data" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -319,26 +381,25 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1440" height="760" extended-state="0" />
-    <editor active="true" />
+    <frame x="151" y="44" width="1440" height="760" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23319027" sideWeight="0.8842105" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2532189" sideWeight="0.8842105" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35037595" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35037595" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22174536" sideWeight="0.11578947" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3977433" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22174536" sideWeight="0.11578947" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847223" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -397,220 +458,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/.idea/vcs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/data/farm_57f2a7f2a624402c9565e51ba8d171cb/train_data_IBM_5_2017-08-01_2018-07-30_60min/turbine_cc1f58cc3b3e406e9826e52fcc824d32.pkl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/data/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_IBM_5_2018-08-01_2018-08-30_60min/turbine_cc1f58cc3b3e406e9826e52fcc824d32.pkl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/data/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_IBM_5_2018-08-01_2018-08-30_60min/turbine_191e6470b7b14752bece995dade151b1.pkl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/data_resampling.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/mlApproach/feature_creation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3662">
-          <caret line="13" column="1" lean-forward="false" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_094659.log" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pandas/io/pickle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_100908.log" />
-    <entry file="file://$PROJECT_DIR$/envision/ws_prediction_1station.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1194">
-          <caret line="90" column="22" lean-forward="true" selection-start-line="90" selection-start-column="22" selection-end-line="90" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/envision/preprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-103">
-          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="1598" column="0" lean-forward="false" selection-start-line="1598" selection-start-column="0" selection-end-line="1598" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_wswp/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_103012.log" />
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/turbine_191e6470b7b14752bece995dade151b1.bin" />
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_104310.log" />
-    <entry file="file://$PROJECT_DIR$/envision/ws_prediction_3stations.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2325">
-          <caret line="179" column="3" lean-forward="false" selection-start-line="179" selection-start-column="3" selection-end-line="179" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_111343.log" />
-    <entry file="file://$USER_HOME$/Desktop/revised_data.csv" />
-    <entry file="file://$USER_HOME$/Desktop/data.csv" />
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_114458.log" />
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/wswp_error.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="13" column="19" lean-forward="true" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_114708.log" />
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/train_data_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/turbine_191e6470b7b14752bece995dade151b1.pkl" />
     <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_revised_ws_shift_baseline_partial_training_resample_2018-08-01_2018-08-30_60min/farm_57f2a7f2a624402c9565e51ba8d171cb_2018-08-01_ws.png" />
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/common_misc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="28" lean-forward="false" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/mlApproach/xgb_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="53" column="23" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/evaluation_misc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1082">
-          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="59" column="24" lean-forward="false" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/wswp_feature.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="2" column="18" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/data_resampling.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/common_misc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-623">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/common_misc.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/mlApproach/xgb_util.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/evaluation_misc.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_util.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_model.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/wswp_feature.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/data_resampling.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/common_misc.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_util.py" />
     <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_160651.log" />
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/turbine_191e6470b7b14752bece995dade151b1_train_wind_error.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_104431.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-940">
-          <caret line="7" column="87" lean-forward="false" selection-start-line="7" selection-start-column="87" selection-end-line="7" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_162012.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-946">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_revised_ws_shift_baseline_partial_training_resample_2018-08-01_2018-08-30_60min/revised_ws_error.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/turbine_191e6470b7b14752bece995dade151b1_train_wind_error.csv" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_104431.log" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_162012.log" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_revised_ws_shift_baseline_partial_training_resample_2018-08-01_2018-08-30_60min/revised_ws_error.csv" />
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sklearn/utils/validation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="449">
@@ -622,11 +485,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3495">
           <caret line="255" column="0" lean-forward="false" selection-start-line="255" selection-start-column="0" selection-end-line="255" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_173813.log">
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181031_173813.log" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/generate_ws_data.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_model.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/wswp_feature.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/evaluation_misc.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/wswp_error.py" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/train_ws_model.py" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/data/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_IBM_5_2018-08-01_2018-08-30_60min/turbine_191e6470b7b14752bece995dade151b1.pkl" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/data/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_IBM_5_2018-08-01_2018-08-30_60min/turbine_cc1f58cc3b3e406e9826e52fcc824d32.pkl" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/data/farm_57f2a7f2a624402c9565e51ba8d171cb/train_data_IBM_5_2017-08-01_2018-07-30_60min/turbine_191e6470b7b14752bece995dade151b1.pkl" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/data/farm_57f2a7f2a624402c9565e51ba8d171cb/train_data_IBM_5_2017-08-01_2018-07-30_60min/turbine_cc1f58cc3b3e406e9826e52fcc824d32.pkl" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/.idea/vcs.xml" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/.idea/misc.xml" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/.idea/modules.xml" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/.idea/workspace.xml" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/.idea/inspectionProfiles/Project_Default.xml" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/.idea/wind-speed-forecast.iml" />
+    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/xgb_ws_forecast.py" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_IBM_5_2018-08-01_2018-08-30_60min/turbine_191e6470b7b14752bece995dade151b1.pkl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -634,62 +521,106 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/generate_ws_data.py">
+    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_57f2a7f2a624402c9565e51ba8d171cb/test_data_IBM_5_2018-08-01_2018-08-30_60min/turbine_cc1f58cc3b3e406e9826e52fcc824d32.pkl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
-          <folding>
-            <element signature="e#1832#3555#1" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/xgb_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/wswp_feature.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-580">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/evaluation_misc.py">
+    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_57f2a7f2a624402c9565e51ba8d171cb/train_data_IBM_5_2017-08-01_2018-07-30_60min/turbine_191e6470b7b14752bece995dade151b1.pkl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/power_forecast_common/wswp_error.py">
+    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_57f2a7f2a624402c9565e51ba8d171cb/train_data_IBM_5_2017-08-01_2018-07-30_60min/turbine_cc1f58cc3b3e406e9826e52fcc824d32.pkl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="22" column="4" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/train_ws_model.py">
+    <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-          <folding>
-            <marker date="1540978992000" expanded="false" signature="2587:3915" ph="..." />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind-speed-forecast/xgb_ws/xgb_ws_forecast.py">
+    <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-464">
-          <caret line="61" column="19" lean-forward="true" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/xgb_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/ml_wtg_forecast.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/mlApproach/feature_creation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/plot_util/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/plot_util/plot_revised_ws.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/xgb_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/xgb_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
