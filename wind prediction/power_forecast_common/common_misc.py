@@ -14,7 +14,6 @@ def generate_folder(root_folder, prefix, farm_id, start_date, end_date, frequenc
                                        datetime.strftime(end_date, "%Y-%m-%d"), frequency)
     return os.path.join(root_folder, "farm_{}".format(farm_id), folder_name)
 
-
 def load_data_from_pkl(pkl_file):
     # need to format the timestamp column
     df = pd.read_pickle(pkl_file)
@@ -27,7 +26,6 @@ def load_data_from_pkl(pkl_file):
         y_df = df[y_label]
         x_df = df.drop(y_label, axis=1)
     return x_df, y_df
-
 
 def forecast_linear_interpolation(pw_forecast, interval_hour, daily_hourly_sample=49):
     # assuming the sampling rate for pw_forecast is hourly, and we would like to resample it to 15 minutes
@@ -46,7 +44,6 @@ def daily_forecast_linear_interpolation(daily_pw_forecast, interval_hour):
     # assume the length of daily_pw_forecast is 49.
     return np.interp(np.arange(0., len(daily_pw_forecast) - 1 + 1e-5, interval_hour),
                      np.arange(0., len(daily_pw_forecast) - 1 + 1e-5), daily_pw_forecast)
-
 
 def forecast_nonlinear_interpolation(pw_forecast, interval_hour, daily_hourly_sample=25):
     """

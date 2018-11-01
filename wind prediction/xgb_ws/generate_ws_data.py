@@ -113,10 +113,10 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
 
     #output data
     x_train, y_train = load_data_from_pkl(cur_test_data_path)
-    x_train.to_csv("/Users/martin_yan/Desktop/test_data2.csv", index=False, header=True)
+    x_train.to_csv("/Users/martin_yan/Desktop/test_data.csv", index=False, header=True)
 
     x_train, y_train = load_data_from_pkl(cur_feature_data_path)
-    x_train.to_csv("/Users/martin_yan/Desktop/test_revised_data2.csv", index=False, header=True)
+    x_train.to_csv("/Users/martin_yan/Desktop/test_revised_data.csv", index=False, header=True)
 
 
 if __name__ == '__main__':

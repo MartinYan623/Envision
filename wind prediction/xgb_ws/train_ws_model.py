@@ -14,6 +14,7 @@ from power_forecast_common.wswp_feature import WsWpFeature
 from power_forecast_common.wswp_error import write_wind_error, check_original_std, wswp_error_analysis
 from power_forecast_common.evaluation_misc import get_training_data
 from xgb_ws.xgb_ws_forecast import XgbWsForecast
+from xgb_ws.xgb_linear_ws_forecast import XgbLinearWsForecast
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     """
     logger.info('------Training model for wtg {}------'.format(master_id))
     model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
 
     assert turbine_data_path[-3:] == "pkl", "Unknown data file type!"
     x_df, y_df = load_data_from_pkl(turbine_data_path)
@@ -102,7 +104,6 @@ def train_farm_local(train_data_path, model_path, feature_path, data_resampling=
     model_file_path = os.path.join(model_path, "turbine_{}.bin".format(turbine_id))
     feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
 
-
     if not os.path.exists(turbine_file_path) or os.path.exists(model_file_path):
         print('No File')
 
@@ -119,24 +120,23 @@ def train_farm_local(train_data_path, model_path, feature_path, data_resampling=
 
     # output data
     x_train, y_train = load_data_from_pkl(turbine_file_path)
-    x_train.to_csv("/Users/martin_yan/Desktop/data2.csv", index=False, header=True)
+    x_train.to_csv("/Users/martin_yan/Desktop/data.csv", index=False, header=True)
 
     x_train, y_train = load_data_from_pkl(feature_file_path)
-    x_train.to_csv("/Users/martin_yan/Desktop/revised_data2.csv", index=False, header=True)
-
+    x_train.to_csv("/Users/martin_yan/Desktop/revised_data.csv", index=False, header=True)
 
 if __name__ == '__main__':
 
     farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
     train_start_date, train_end_date = get_train_info(farm_id)
     data_resampling = True
+    
     model_type = "model_revised_ws_shift_baseline_partial_training_resample"
     feature_type = "train_data_{}".format(model_type[6:])
 
     train_data_path = generate_folder(data_path, "train_data_IBM_5", farm_id, train_start_date, train_end_date, train_frequency)
     model_path = generate_folder("result", model_type, farm_id, train_start_date, train_end_date, train_frequency)
     feature_path = generate_folder("result", feature_type, farm_id, train_start_date, train_end_date, train_frequency)
-
 
     if not os.path.exists(model_path):
         os.makedirs(model_path)
