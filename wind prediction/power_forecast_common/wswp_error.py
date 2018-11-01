@@ -20,7 +20,7 @@ def check_original_std(x_df, y_df, nwp_list):
         logger.info([col, cur_std])
         ws_std_dict.update({nwp: cur_std})
     # add new line
-    ws_std_dict.update({'combine.ws':  wind_std(obs_array, x_df['combine.ws'].values)})
+    #ws_std_dict.update({'combine.ws':  wind_std(obs_array, x_df['combine.ws'].values)})
     return ws_std_dict
 
 

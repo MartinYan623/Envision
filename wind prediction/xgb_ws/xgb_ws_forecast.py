@@ -56,28 +56,22 @@ class XgbWsForecast(XgbForecast):
             XgbWsForecast.wind_evaluation(y_df['Y.ws_tb'], result["predict"], nwp)
             x_df[nwp + ".ws_predict"] = result["predict"]
 
+        new_data = pd.concat([x_df, y_df], axis=1)
         name = []
         for nwp in self._nwp_info:
             name.append(nwp + ".ws_predict")
-        print(x_df)
-        for i in range(len(x_df)):
-            if np.isnan(x_df.iloc[i, 150]):
-                x_df.iloc[i, 150] = x_df.iloc[i]['EC0.ws']
-            if np.isnan(x_df.iloc[i, 151]):
-                x_df.iloc[i, 151] = x_df.iloc[i]['GFS0.ws']
-            if np.isnan(x_df.iloc[i, 152]):
-                x_df.iloc[i, 152] = x_df.iloc[i]['WRF0.ws']
-            if np.isnan(x_df.iloc[i, 153]):
-                x_df.iloc[i, 153] = x_df.iloc[i]['IBM0.ws']
-            if np.isnan(x_df.iloc[i, 154]):
-                x_df.iloc[i, 154] = x_df.iloc[i]['ENS_AVG0.ws']
-        print(x_df)
+            new_data = new_data.dropna(subset=[nwp + ".ws_predict"])
+        print(new_data)
+        
+        new_data = new_data.dropna(subset=['Y.ws_tb'])
         lr = LinearRegression()
         # y label is nan
-        y_df['Y.ws_tb'] = y_df['Y.ws_tb'].fillna(y_df['Y.ws_tb'].mean())
-        combine = lr.fit(x_df[name], y_df['Y.ws_tb'])
+        #y_df['Y.ws_tb'] = y_df['Y.ws_tb'].fillna(y_df['Y.ws_tb'].mean())
+        combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
         self._estimator_['combine.ws'] = combine
-        x_df['combine.ws'] = lr.predict(x_df[name])
+        new_data['combine.ws'] = lr.predict(new_data[name])
+        cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])
+        print('the std on training date after adding linear layer is:' + str(cur_std))
 
         return x_df
 
@@ -106,9 +100,13 @@ class XgbWsForecast(XgbForecast):
                 result.iloc[i,3] = x_df.iloc[i]['IBM0.ws']
             if np.isnan(result.iloc[i,4]):
                 result.iloc[i,4] = x_df.iloc[i]['ENS_AVG0.ws']
+
         print(result)
         prediction = self._linear_predict(result, self._estimator_['combine.ws'])
         print(prediction)
+
+        cur_std = wind_std(y_df['Y.ws_tb'], prediction)
+        print('the std on testing data after adding linear layer is:' + str(cur_std))
 
         return pd.concat(new_feature, axis=1)
 
