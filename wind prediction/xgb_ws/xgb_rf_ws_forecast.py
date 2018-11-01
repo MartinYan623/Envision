@@ -2,8 +2,7 @@
 import logging
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
-from power_forecast_common.xgb_model import XgbForecast
+from sklearn.ensemble import RandomForestRegressor
 from power_forecast_common.wswp_feature import WsWpFeature
 from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
 from xgb_ws_forecast import XgbWsForecast
@@ -11,7 +10,7 @@ from xgb_ws_forecast import XgbWsForecast
 logger = logging.getLogger(__name__)
 
 
-class XgbLinearWsForecast(XgbWsForecast):
+class XgbRFWsForecast(XgbWsForecast):
 
     def fit(self, x_df, y_df, feature_dict):
         """
@@ -46,7 +45,7 @@ class XgbLinearWsForecast(XgbWsForecast):
             new_data = new_data.dropna(subset=[nwp + ".ws_predict"])
 
         new_data = new_data.dropna(subset=['Y.ws_tb'])
-        lr = LinearRegression(normalize=True)
+        lr = RandomForestRegressor(n_estimators=200, criterion='mse', min_samples_leaf=6, max_depth=3, random_state=1)
         combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
         self._estimator_['combine.ws'] = combine
         new_data['combine.ws'] = lr.predict(new_data[name])

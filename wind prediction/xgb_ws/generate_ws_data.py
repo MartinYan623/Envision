@@ -111,19 +111,20 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
     plot_revised_wind_std(result_df, "farm_{}_{}".format(farm_id, datetime.strftime(test_start_date, "%Y-%m")),
                           file_path)
 
-    #output data
+    # output data
     x_train, y_train = load_data_from_pkl(cur_test_data_path)
     x_train.to_csv("/Users/martin_yan/Desktop/test_data.csv", index=False, header=True)
 
     x_train, y_train = load_data_from_pkl(cur_feature_data_path)
     x_train.to_csv("/Users/martin_yan/Desktop/test_revised_data.csv", index=False, header=True)
 
-
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO,
                         format='[%(asctime)s]-%(thread)d-%(levelname)s: %(message)s - %(filename)s:%(lineno)d')
     farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
-    model_type = "model_revised_ws_shift_baseline_partial_training_resample"
+    # baseline, linear, ridge, lasso, elasticnet, svr, rf
+    model = 'rf'
+    model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
     train_start_date, train_end_date = get_train_info(farm_id)
@@ -131,6 +132,8 @@ if __name__ == '__main__':
     test_data_path = generate_folder(data_path, "test_data_IBM_5", farm_id, test_start_date, test_end_date, train_frequency)
     model_path = generate_folder("result", model_type, farm_id, train_start_date, train_end_date, train_frequency)
     feature_path = generate_folder("result", feature_type, farm_id, test_start_date, test_end_date, train_frequency)
+
+
     if not os.path.exists(feature_path):
         os.makedirs(feature_path)
 

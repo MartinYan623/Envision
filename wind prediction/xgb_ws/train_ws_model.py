@@ -15,6 +15,11 @@ from power_forecast_common.wswp_error import write_wind_error, check_original_st
 from power_forecast_common.evaluation_misc import get_training_data
 from xgb_ws.xgb_ws_forecast import XgbWsForecast
 from xgb_ws.xgb_linear_ws_forecast import XgbLinearWsForecast
+from xgb_ws.xgb_ridge_ws_forecast import XgbRidgeWsForecast
+from xgb_ws.xgb_lasso_ws_forecast import XgbLassoWsForecast
+from xgb_ws.xgb_elasticnet_ws_forecast import XgbElasticNetWsForecast
+from xgb_ws.xgb_svr_ws_forecast import XgbSVRWsForecast
+from xgb_ws.xgb_rf_ws_forecast import XgbRFWsForecast
 
 logger = logging.getLogger(__name__)
 
@@ -32,8 +37,14 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     :return:
     """
     logger.info('------Training model for wtg {}------'.format(master_id))
+
     model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbRFWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
 
     assert turbine_data_path[-3:] == "pkl", "Unknown data file type!"
     x_df, y_df = load_data_from_pkl(turbine_data_path)
@@ -130,8 +141,10 @@ if __name__ == '__main__':
     farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
     train_start_date, train_end_date = get_train_info(farm_id)
     data_resampling = True
-    
-    model_type = "model_revised_ws_shift_baseline_partial_training_resample"
+
+    # baseline, linear, ridge, lasso, elasticnet, svr, rf
+    model = 'rf'
+    model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 
     train_data_path = generate_folder(data_path, "train_data_IBM_5", farm_id, train_start_date, train_end_date, train_frequency)

@@ -2,7 +2,7 @@
 import logging
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import RidgeCV
 from power_forecast_common.xgb_model import XgbForecast
 from power_forecast_common.wswp_feature import WsWpFeature
 from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
@@ -11,7 +11,7 @@ from xgb_ws_forecast import XgbWsForecast
 logger = logging.getLogger(__name__)
 
 
-class XgbLinearWsForecast(XgbWsForecast):
+class XgbRidgeWsForecast(XgbWsForecast):
 
     def fit(self, x_df, y_df, feature_dict):
         """
@@ -46,8 +46,10 @@ class XgbLinearWsForecast(XgbWsForecast):
             new_data = new_data.dropna(subset=[nwp + ".ws_predict"])
 
         new_data = new_data.dropna(subset=['Y.ws_tb'])
-        lr = LinearRegression(normalize=True)
+        # l2 Regularization
+        lr = RidgeCV(alphas=[0.01, 0.1, 0.5, 1, 10, 20, 100, 200, 500, 1000], cv=5)
         combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
+        print('the best alpha value: ', lr.alpha_)
         self._estimator_['combine.ws'] = combine
         new_data['combine.ws'] = lr.predict(new_data[name])
         cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])

@@ -131,9 +131,12 @@ class XgbForecast(MlWtgForecast):
             result[is_valid] = bst.predict(xgb.DMatrix(x_clean))
         return result
 
-    def _linear_predict(self, x_df, bst):
+    def _linear_predict(self, x_df, y_df, name, bst):
         result = bst.predict(x_df)
-        return result
+        data = pd.concat([x_df, y_df], axis=1)
+        data = data.dropna(subset=['Y.ws_tb'])
+        score = bst.score(data[name], data['Y.ws_tb'])
+        return result, score
 
 
     def get_train_error(self):
