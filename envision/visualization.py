@@ -72,6 +72,7 @@ def plot_pw_ws(data, probability=0.5):
     ax=plt.subplot(211)
     ax.set_title('Power')
     ax.plot(time_valid, Y_power_valid, '-r', label='Y_power_valid')
+
     ax.set_ylabel('Power(kw)')
     ax.set_xlabel('Time(min)')
     plt.grid(True)

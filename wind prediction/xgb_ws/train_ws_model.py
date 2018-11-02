@@ -38,13 +38,13 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     """
     logger.info('------Training model for wtg {}------'.format(master_id))
 
-    model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbRFWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbRFWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
 
     assert turbine_data_path[-3:] == "pkl", "Unknown data file type!"
     x_df, y_df = load_data_from_pkl(turbine_data_path)
@@ -106,44 +106,47 @@ def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampli
         write_wind_error(model.get_train_error(), wind_error_file)
 """
 
-def train_farm_local(train_data_path, model_path, feature_path, data_resampling=False, turbine_index=[]):
+def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, data_resampling=False):
 
-    turbine_id = '191e6470b7b14752bece995dade151b1'
-    lon = 102.686539
-    lat = 26.604036
-    turbine_file_path = os.path.join(train_data_path, "turbine_{}.pkl".format(turbine_id))
-    model_file_path = os.path.join(model_path, "turbine_{}.bin".format(turbine_id))
-    feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
+    for i in range(58):
+        turbine_id = turbine_info.ix[i]['master_id']
+        lat = turbine_info.ix[i]['lat']
+        lon = turbine_info.ix[i]['lon']
 
-    if not os.path.exists(turbine_file_path) or os.path.exists(model_file_path):
-        print('No File')
+        turbine_file_path = os.path.join(train_data_path, "turbine_{}.pkl".format(turbine_id))
+        model_file_path = os.path.join(model_path, "turbine_{}.bin".format(turbine_id))
+        feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
 
-    print("training for turbine {}".format(turbine_id))
+        if not os.path.exists(turbine_file_path) or os.path.exists(model_file_path):
+            print('No File')
 
-    model = train_turbine_ws_model(turbine_id, lon=lon, lat=lat, feature_file_path=feature_file_path,
+        print("training for turbine {}".format(turbine_id))
+
+        model = train_turbine_ws_model(turbine_id, lon=lon, lat=lat, feature_file_path=feature_file_path,
                                    turbine_data_path=turbine_file_path, data_resampling=data_resampling)
-    if model is None:
-        print("No trained model for turbine {}".format(turbine_id))
+        if model is None:
+            print("No trained model for turbine {}".format(turbine_id))
 
-    joblib.dump(model, model_file_path)
-    wind_error_file = os.path.join(model_path, "turbine_{}_train_wind_error.csv".format(turbine_id))
-    write_wind_error(model.get_train_error(), wind_error_file)
+        joblib.dump(model, model_file_path)
+        wind_error_file = os.path.join(model_path, "turbine_{}_train_wind_error.csv".format(turbine_id))
+        write_wind_error(model.get_train_error(), wind_error_file)
 
-    # output data
-    x_train, y_train = load_data_from_pkl(turbine_file_path)
-    x_train.to_csv("/Users/martin_yan/Desktop/data.csv", index=False, header=True)
-
-    x_train, y_train = load_data_from_pkl(feature_file_path)
-    x_train.to_csv("/Users/martin_yan/Desktop/revised_data.csv", index=False, header=True)
+        # # output data
+        # x_train, y_train = load_data_from_pkl(turbine_file_path)
+        # x_train.to_csv("/Users/martin_yan/Desktop/data.csv", index=False, header=True)
+        #
+        # x_train, y_train = load_data_from_pkl(feature_file_path)
+        # x_train.to_csv("/Users/martin_yan/Desktop/revised_data.csv", index=False, header=True)
 
 if __name__ == '__main__':
 
     farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
+
     train_start_date, train_end_date = get_train_info(farm_id)
     data_resampling = True
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf
-    model = 'rf'
+    model = 'linear'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 
@@ -165,5 +168,9 @@ if __name__ == '__main__':
 
     logging.info("{} {} {} {}".format(farm_id, train_frequency, train_start_date, train_end_date))
 
-    train_farm_local(train_data_path, model_path, feature_path, data_resampling)
+    # read farm_info file
+    farm_info_path = '../data/farm_'+farm_id+'/farm_'+farm_id+'_info.csv'
+    turbine_info = pd.read_csv(farm_info_path)
+
+    train_farm_local(train_data_path, model_path, feature_path, turbine_info, data_resampling)
 
