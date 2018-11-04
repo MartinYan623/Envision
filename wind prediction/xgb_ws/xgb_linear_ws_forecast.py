@@ -46,7 +46,7 @@ class XgbLinearWsForecast(XgbWsForecast):
             new_data = new_data.dropna(subset=[nwp + ".ws_predict"])
 
         new_data = new_data.dropna(subset=['Y.ws_tb'])
-        lr = LinearRegression(normalize=True)
+        lr = LinearRegression()
         combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
         self._estimator_['combine.ws'] = combine
         new_data['combine.ws'] = lr.predict(new_data[name])

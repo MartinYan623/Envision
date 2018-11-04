@@ -90,4 +90,4 @@ class XgbElasticNetWsForecast(XgbWsForecast):
         cur_std = wind_std(y_df['Y.ws_tb'], prediction)
         print('the std on testing data after adding linear layer is:' + str(cur_std))
 
-        return pd.concat(new_feature, axis=1)
+        return cur_std

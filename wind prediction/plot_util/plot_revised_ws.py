@@ -41,6 +41,20 @@ def plot_revised_wind_std(data_df, title_str, file_path):
     plt.subplots_adjust(top=0.9)
     plt.savefig(file_path, dpi=300)
 
+def plot_revised_wind_std_improved(data_df, title_str, file_path):
+    std = []
+    turbine_id = []
+    for i in range(len(data_df)):
+        std.append(data_df.ix[i]['combine.ws'])
+        turbine_id.append(i+1)
+    print(std)
+    # calculate mean std
+    mean_std = np.mean(np.array(std))
+    plt.title(title_str)
+    plt.plot(turbine_id[:28], std[:28], label='combine.ws:' + str(mean_std), color='r')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(file_path, dpi=300)
 
 def main():
 
