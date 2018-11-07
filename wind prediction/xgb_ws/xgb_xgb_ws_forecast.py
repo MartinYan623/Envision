@@ -2,7 +2,7 @@
 import logging
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import RidgeCV
+from xgboost import XGBRegressor
 from power_forecast_common.xgb_model import XgbForecast
 from power_forecast_common.wswp_feature import WsWpFeature
 from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
@@ -11,7 +11,7 @@ from xgb_ws_forecast import XgbWsForecast
 logger = logging.getLogger(__name__)
 
 
-class XgbRidgeWsForecast(XgbWsForecast):
+class XgbXgbWsForecast(XgbWsForecast):
 
     def fit(self, x_df, y_df, feature_dict):
         """
@@ -47,24 +47,23 @@ class XgbRidgeWsForecast(XgbWsForecast):
 
         new_data = new_data.dropna(subset=['Y.ws_tb'])
 
-        # # l2 Regularization
-        # lr = RidgeCV(alphas=[0.01, 0.1, 0.5, 1, 10, 20, 100, 200, 500, 1000], cv=5)
-        # combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
-        # print('the best alpha value: ', lr.alpha_)
-        # self._estimator_['combine.ws'] = combine
-        # new_data['combine.ws'] = lr.predict(new_data[name])
-        # cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])
-        # print('the std on training date after adding linear layer is: ' + str(cur_std))
-
         # add new horizon
         horizon_list = new_data['X_basic.horizon'].unique()
         model_dict = {}
         for horizon in horizon_list:
-            lr = RidgeCV(alphas=[0.01, 0.1, 0.5, 1, 10, 20, 100, 200, 500, 1000], cv=5)
+            lr = XGBRegressor(n_estimators=200, max_depth=3)
             lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
                    new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
             model_dict[horizon] = lr
         self._estimator_['combine.ws'] = model_dict
+
+        # lr = XGBRegressor(n_estimators=200, max_depth=3)
+        # combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
+        # self._estimator_['combine.ws'] = combine
+        #
+        # new_data['combine.ws'] = lr.predict(new_data[name])
+        # cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])
+        # print('the std on training date after adding linear layer is: ' + str(cur_std))
 
         return x_df
 
@@ -95,13 +94,6 @@ class XgbRidgeWsForecast(XgbWsForecast):
         for nwp in self._nwp_info:
             name.append(nwp + ".ws_predict")
 
-        # prediction, score = self._linear_predict(result, y_df['Y.ws_tb'], name, self._estimator_['combine.ws'])
-        # print(prediction)
-        #
-        # print('evaluate model r-squared value is: ' + str(score))
-        # cur_std = wind_std(y_df['Y.ws_tb'], prediction)
-        # print('the std on testing data after adding linear layer is:' + str(cur_std))
-
         # add new horizon
         result['X_basic.horizon'] = x_df['X_basic.horizon']
         result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
@@ -115,7 +107,15 @@ class XgbRidgeWsForecast(XgbWsForecast):
             std_result.append(std)
             true_list.append(result[result['X_basic.horizon'] == horizon]['Y.ws_tb'])
             prediction_list.append(prediction)
-        cur_std = wind_std(np.array(true_list).reshape(-1), np.array(prediction_list).reshape(-1))
+
+        cur_std = wind_std(np.array(true_list), np.array(prediction_list))
         print('the std on testing data after adding linear layer is:' + str(cur_std))
+
+        # prediction, score = self._linear_predict(result, y_df['Y.ws_tb'], name, self._estimator_['combine.ws'][])
+        # print(prediction)
+        #
+        # print('evaluate model r-squared value is: ' + str(score))
+        # cur_std = wind_std(y_df['Y.ws_tb'], prediction)
+        # print('the std on testing data after adding linear layer is:' + str(cur_std))
 
         return cur_std

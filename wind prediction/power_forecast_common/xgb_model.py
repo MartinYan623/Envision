@@ -140,6 +140,7 @@ class XgbForecast(MlWtgForecast):
 
     def _linear_predict_horizon(self, x_df, name, bst, horizon):
         data = x_df[x_df['X_basic.horizon'] == horizon]
+        data = pd.DataFrame(data, dtype=np.float)
         prediction = bst[horizon].predict(data[name])
         result = wind_std(data['Y.ws_tb'], prediction)
         # print('The std of ' + str(horizon) + ' is: ' + str(result))
