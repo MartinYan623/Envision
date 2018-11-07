@@ -39,11 +39,11 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     logger.info('------Training model for wtg {}------'.format(master_id))
 
     #model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    #model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbRFWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
 
     assert turbine_data_path[-3:] == "pkl", "Unknown data file type!"
@@ -108,7 +108,7 @@ def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampli
 
 def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, data_resampling=False):
 
-    for i in range(58):
+    for i in range(5):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         lat = turbine_info.ix[i]['lat']
@@ -135,7 +135,7 @@ def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, d
         # # output data
         # x_train, y_train = load_data_from_pkl(turbine_file_path)
         # x_train.to_csv("/Users/martin_yan/Desktop/data.csv", index=False, header=True)
-        #
+
         # x_train, y_train = load_data_from_pkl(feature_file_path)
         # x_train.to_csv("/Users/martin_yan/Desktop/revised_data.csv", index=False, header=True)
 
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     data_resampling = True
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf
-    model = 'svr'
+    model = 'linear2'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 

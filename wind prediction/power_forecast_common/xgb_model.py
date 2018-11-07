@@ -9,7 +9,7 @@ from mlApproach import util
 from power_forecast_common.data_resampling import check_ws_dist, resample_data_duplicate, resample_data_gaussian
 from power_forecast_common.xgb_util import hyperparameter_search, cross_prediction
 from mlApproach.ml_wtg_forecast import MlWtgForecast
-
+from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
 logger = logging.getLogger(__name__)
 
 
@@ -138,6 +138,12 @@ class XgbForecast(MlWtgForecast):
         score = bst.score(data[name], data['Y.ws_tb'])
         return result, score
 
+    def _linear_predict_horizon(self, x_df, name, bst, horizon):
+        data = x_df[x_df['X_basic.horizon'] == horizon]
+        prediction = bst[horizon].predict(data[name])
+        result = wind_std(data['Y.ws_tb'], prediction)
+        # print('The std of ' + str(horizon) + ' is: ' + str(result))
+        return prediction, result
 
     def get_train_error(self):
         return self._error_

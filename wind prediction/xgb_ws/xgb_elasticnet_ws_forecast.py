@@ -46,13 +46,24 @@ class XgbElasticNetWsForecast(XgbWsForecast):
             new_data = new_data.dropna(subset=[nwp + ".ws_predict"])
 
         new_data = new_data.dropna(subset=['Y.ws_tb'])
-        # l1 and l2 Regularization
-        lr = ElasticNet(alpha=1.0, l1_ratio=0.7)
-        combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
-        self._estimator_['combine.ws'] = combine
-        new_data['combine.ws'] = lr.predict(new_data[name])
-        cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])
-        print('the std on training date after adding linear layer is: ' + str(cur_std))
+
+        # # l1 and l2 Regularization
+        # lr = ElasticNet(alpha=1.0, l1_ratio=0.7)
+        # combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
+        # self._estimator_['combine.ws'] = combine
+        # new_data['combine.ws'] = lr.predict(new_data[name])
+        # cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])
+        # print('the std on training date after adding linear layer is: ' + str(cur_std))
+
+        # add new horizon
+        horizon_list = new_data['X_basic.horizon'].unique()
+        model_dict = {}
+        for horizon in horizon_list:
+            lr = ElasticNet(alpha=1.0, l1_ratio=0.7)
+            lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
+                   new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
+            model_dict[horizon] = lr
+        self._estimator_['combine.ws'] = model_dict
 
         return x_df
 
@@ -83,11 +94,28 @@ class XgbElasticNetWsForecast(XgbWsForecast):
         for nwp in self._nwp_info:
             name.append(nwp + ".ws_predict")
 
-        prediction, score = self._linear_predict(result, y_df['Y.ws_tb'], name, self._estimator_['combine.ws'])
-        print(prediction)
+        # prediction, score = self._linear_predict(result, y_df['Y.ws_tb'], name, self._estimator_['combine.ws'])
+        # print(prediction)
+        #
+        # print('evaluate model r-squared value is: ' + str(score))
+        # cur_std = wind_std(y_df['Y.ws_tb'], prediction)
+        # print('the std on testing data after adding linear layer is:' + str(cur_std))
 
-        print('evaluate model r-squared value is: ' + str(score))
-        cur_std = wind_std(y_df['Y.ws_tb'], prediction)
+        # add new horizon
+        result['X_basic.horizon'] = x_df['X_basic.horizon']
+        result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
+        result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
+        horizon_list = list(range(16, 40))
+        prediction_list = []
+        true_list = []
+        std_result = []
+        for horizon in horizon_list:
+            prediction, std = self._linear_predict_horizon(result, name, self._estimator_['combine.ws'], horizon)
+            std_result.append(std)
+            true_list.append(result[result['X_basic.horizon'] == horizon]['Y.ws_tb'])
+            prediction_list.append(prediction)
+
+        cur_std = wind_std(np.array(true_list), np.array(prediction_list))
         print('the std on testing data after adding linear layer is:' + str(cur_std))
 
         return cur_std
