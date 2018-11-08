@@ -131,20 +131,16 @@ class XgbForecast(MlWtgForecast):
             result[is_valid] = bst.predict(xgb.DMatrix(x_clean))
         return result
 
-    def _linear_predict(self, x_df, y_df, name, bst):
-        result = bst.predict(x_df)
-        data = pd.concat([x_df, y_df], axis=1)
-        data = data.dropna(subset=['Y.ws_tb'])
-        score = bst.score(data[name], data['Y.ws_tb'])
-        return result, score
+    def _linear_predict(self, x_df, name, bst):
+        data = pd.DataFrame(x_df[name], dtype=np.float)
+        result = bst.predict(data)
+        return result
 
     def _linear_predict_horizon(self, x_df, name, bst, horizon):
         data = x_df[x_df['X_basic.horizon'] == horizon]
-        data = pd.DataFrame(data, dtype=np.float)
-        prediction = bst[horizon].predict(data[name])
-        result = wind_std(data['Y.ws_tb'], prediction)
-        # print('The std of ' + str(horizon) + ' is: ' + str(result))
-        return prediction, result
+        data = pd.DataFrame(data[name], dtype=np.float)
+        result = bst[horizon].predict(data)
+        return result
 
     def get_train_error(self):
         return self._error_

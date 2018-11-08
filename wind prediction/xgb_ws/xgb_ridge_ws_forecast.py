@@ -85,8 +85,7 @@ class XgbRidgeWsForecast(XgbWsForecast):
             # return nan value index
             row_num = result[(result[nwp + ".ws_predict"] == '999')].index.tolist()
             # fill nan with original value
-            for i in range(len(row_num)):
-                result.ix[row_num[i], nwp + ".ws_predict"] = x_df.ix[row_num[i]][nwp +".ws"]
+            result.loc[row_num, nwp + ".ws_predict"] = x_df.loc[row_num, nwp + ".ws"]
 
         name = []
         for nwp in self._nwp_info:
