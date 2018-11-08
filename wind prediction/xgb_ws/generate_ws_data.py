@@ -16,6 +16,8 @@ from power_forecast_common.evaluation_misc import evaluate_wind_speed
 from plot_util.plot_revised_ws import plot_revised_wind_std, plot_revised_wind_std_improved
 import pickle
 from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
+from evaluate_ws_rmse import calculate_baseline_rmse
+
 logger = logging.getLogger(__name__)
 
 
@@ -40,9 +42,11 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
     ws_error = {}
     if flag == True:
         revised_wd_df = model.predict(x_df, feature_dict, y_df)
-        wind_error_dict = evaluate_wind_speed(x_df, y_df, revised_wd_df, evaluation_periods=evaluation_periods,
-                                          evaluation_frequency=evaluation_frequency)
-
+        # calculate std
+        # wind_error_dict = evaluate_wind_speed(x_df, y_df, revised_wd_df, evaluation_periods=evaluation_periods,
+        #                                   evaluation_frequency=evaluation_frequency)
+        # calculate rmse
+        wind_error_dict = calculate_baseline_rmse(x_df, y_df, revised_wd_df, True)
         ws_error.update(wind_error_dict)
         for nwp in model._nwp_info:
             x_df[nwp + ".ws"] = revised_wd_df[nwp + ".revised_ws"]
@@ -145,7 +149,7 @@ if __name__ == '__main__':
     farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'xgb'
+    model = 'baseline'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
