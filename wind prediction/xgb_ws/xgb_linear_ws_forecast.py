@@ -88,34 +88,36 @@ class XgbLinearWsForecast(XgbWsForecast):
             row_num = result[(result[nwp + ".ws_predict"] == '999')].index.tolist()
             # fill nan with original value
             for i in range(len(row_num)):
-                result.ix[row_num[i], nwp + ".ws_predict"] = x_df.ix[row_num[i]][nwp +".ws"]
+                result.ix[row_num[i], nwp + ".ws_predict"] = x_df.ix[row_num[i]][nwp + ".ws"]
+            #result[row_num][nwp + ".ws_predict"] = x_df[row_num][nwp +".ws"]
 
         name = []
         for nwp in self._nwp_info:
             name.append(nwp + ".ws_predict")
 
-        # add new horizon
-        result['X_basic.horizon'] = x_df['X_basic.horizon']
-        result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
-        result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
-        horizon_list = list(range(16, 40))
-        prediction_list = []
-        true_list = []
-        std_result = []
-        for horizon in horizon_list:
-            prediction, std = self._linear_predict_horizon(result, name, self._estimator_['combine.ws'], horizon)
-            std_result.append(std)
-            true_list.append(result[result['X_basic.horizon'] == horizon]['Y.ws_tb'])
-            prediction_list.append(prediction)
+        # non horizon
+        result['X_basic.time'] = x_df['X_basic.time']
+        prediction = self._linear_predict(result, name, self._estimator_['combine.ws'])
+        prediction_result = pd.DataFrame({'X_basic.horizon': result['X_basic.time'], 'Y.ws_tb': y_df['Y.ws_tb'],
+                                          'prediction': prediction})
 
-        cur_std = wind_std(np.array(true_list), np.array(prediction_list))
-        print('the std on testing data after adding linear layer is:' + str(cur_std))
+        # # add new horizon
+        # result['X_basic.horizon'] = x_df['X_basic.horizon']
+        # result['X_basic.time'] = x_df['X_basic.time']
+        # result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
+        # result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
+        # horizon_list = list(range(16, 40))
+        # prediction_list = []
+        # true_list = []
+        # time_list = []
+        # for horizon in horizon_list:
+        #     prediction = self._linear_predict_horizon(result, name, self._estimator_['combine.ws'], horizon)
+        #     true_list.append(result[result['X_basic.horizon'] == horizon]['Y.ws_tb'])
+        #     time_list.append(result[result['X_basic.horizon'] == horizon]['X_basic.time'])
+        #     prediction_list.append(prediction)
+        # prediction_list = np.array(prediction_list).reshape(-1).tolist()
+        # true_list = np.array(true_list).reshape(-1).tolist()
+        # time_list = np.array(time_list).reshape(-1).tolist()
+        # prediction_result = pd.DataFrame({'X_basic.horizon': time_list, 'Y.ws_tb': true_list, 'prediction': prediction_list})
 
-        # prediction, score = self._linear_predict(result, y_df['Y.ws_tb'], name, self._estimator_['combine.ws'][])
-        # print(prediction)
-        #
-        # print('evaluate model r-squared value is: ' + str(score))
-        # cur_std = wind_std(y_df['Y.ws_tb'], prediction)
-        # print('the std on testing data after adding linear layer is:' + str(cur_std))
-
-        return cur_std
+        return prediction_result

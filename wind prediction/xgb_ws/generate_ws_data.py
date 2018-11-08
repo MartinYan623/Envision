@@ -7,7 +7,7 @@ import sys
 from sklearn.externals import joblib
 import pandas as pd
 from datetime import datetime
-
+import numpy as np
 from xgb_wswp.config import train_frequency, test_start_date, test_end_date, evaluate_frequency, \
     data_path, get_train_info
 from power_forecast_common.common_misc import load_data_from_pkl, generate_folder
@@ -15,6 +15,7 @@ from power_forecast_common.wswp_feature import WsWpFeature
 from power_forecast_common.evaluation_misc import evaluate_wind_speed
 from plot_util.plot_revised_ws import plot_revised_wind_std, plot_revised_wind_std_improved
 import pickle
+from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
 logger = logging.getLogger(__name__)
 
 
@@ -49,8 +50,14 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
         feature_table.to_pickle(feature_file_path)
 
     else:
-        cur_std = model.predict(x_df, feature_dict, y_df)
+        revised_wd_df = model.predict(x_df, feature_dict, y_df)
+        print(revised_wd_df)
+        cur_std = wind_std(np.array(revised_wd_df['Y.ws_tb']), np.array(revised_wd_df['prediction']))
+        print('the std on testing data after adding linear layer is:' + str(cur_std))
         ws_error['combine.ws'] = cur_std
+        # store the second layer model result
+        feature_table = revised_wd_df
+        feature_table.to_pickle(feature_file_path)
     return ws_error
 
 """"

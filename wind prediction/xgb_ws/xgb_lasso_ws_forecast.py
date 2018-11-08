@@ -51,6 +51,8 @@ class XgbLassoWsForecast(XgbWsForecast):
         # lr = LassoCV(alphas=[0.01, 0.1, 0.5, 1, 3, 5, 7, 10, 20, 100], cv=5)
         # combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
         # print('the best alpha value: ', lr.alpha_)
+        # write into log
+        # logger.info(" Lasso the best alpha value: {}".format(lr.alpha_))
         # self._estimator_['combine.ws'] = combine
         # new_data['combine.ws'] = lr.predict(new_data[name])
         # cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])
@@ -60,9 +62,16 @@ class XgbLassoWsForecast(XgbWsForecast):
         horizon_list = new_data['X_basic.horizon'].unique()
         model_dict = {}
         for horizon in horizon_list:
-            lr = LassoCV(alphas=[0.01, 0.1, 0.5, 1, 3, 5, 7, 10, 20, 100], cv=5)
+            lr = LassoCV(alphas=[0.01, 0.1, 0.5, 1, 5, 10], cv=5)
             lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
                    new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
+            print('the best alpha value: ', lr.alpha_)
+            # write into log
+            logger.info(" Lasso the best alpha value: {}".format(lr.alpha_))
+            # add lasso_coef
+            model_coef = pd.DataFrame(pd.DataFrame(lr.coef_).T)
+            model_coef.columns = ['factor_%s' % nwp for nwp in self._nwp_info]
+            print(model_coef)
             model_dict[horizon] = lr
         self._estimator_['combine.ws'] = model_dict
 
@@ -95,28 +104,30 @@ class XgbLassoWsForecast(XgbWsForecast):
         for nwp in self._nwp_info:
             name.append(nwp + ".ws_predict")
 
-        # prediction, score = self._linear_predict(result, y_df['Y.ws_tb'], name, self._estimator_['combine.ws'])
-        # print(prediction)
-        #
-        # print('evaluate model r-squared value is: ' + str(score))
-        # cur_std = wind_std(y_df['Y.ws_tb'], prediction)
-        # print('the std on testing data after adding linear layer is:' + str(cur_std))
+        # non horizon
+        result['X_basic.time'] = x_df['X_basic.time']
+        prediction = self._linear_predict(result, name, self._estimator_['combine.ws'])
+        prediction_result = pd.DataFrame({'X_basic.horizon': result['X_basic.time'], 'Y.ws_tb': y_df['Y.ws_tb'],
+                                          'prediction': prediction})
 
-        # add new horizon
-        result['X_basic.horizon'] = x_df['X_basic.horizon']
-        result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
-        result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
-        horizon_list = list(range(16, 40))
-        prediction_list = []
-        true_list = []
-        std_result = []
-        for horizon in horizon_list:
-            prediction, std = self._linear_predict_horizon(result, name, self._estimator_['combine.ws'], horizon)
-            std_result.append(std)
-            true_list.append(result[result['X_basic.horizon'] == horizon]['Y.ws_tb'])
-            prediction_list.append(prediction)
+        # # add new horizon
+        # result['X_basic.horizon'] = x_df['X_basic.horizon']
+        # result['X_basic.time'] = x_df['X_basic.time']
+        # result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
+        # result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
+        # horizon_list = list(range(16, 40))
+        # prediction_list = []
+        # true_list = []
+        # time_list = []
+        # for horizon in horizon_list:
+        #     prediction = self._linear_predict_horizon(result, name, self._estimator_['combine.ws'], horizon)
+        #     true_list.append(result[result['X_basic.horizon'] == horizon]['Y.ws_tb'])
+        #     time_list.append(result[result['X_basic.horizon'] == horizon]['X_basic.time'])
+        #     prediction_list.append(prediction)
+        # prediction_list = np.array(prediction_list).reshape(-1).tolist()
+        # true_list = np.array(true_list).reshape(-1).tolist()
+        # time_list = np.array(time_list).reshape(-1).tolist()
+        # prediction_result = pd.DataFrame(
+        #     {'X_basic.horizon': time_list, 'Y.ws_tb': true_list, 'prediction': prediction_list})
 
-        cur_std = wind_std(np.array(true_list), np.array(prediction_list))
-        print('the std on testing data after adding linear layer is:' + str(cur_std))
-
-        return cur_std
+        return prediction_result
