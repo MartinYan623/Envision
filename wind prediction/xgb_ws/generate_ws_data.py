@@ -144,7 +144,7 @@ if __name__ == '__main__':
     farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'linear'
+    model = 'xgb2'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
