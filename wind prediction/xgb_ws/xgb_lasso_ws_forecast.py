@@ -47,33 +47,28 @@ class XgbLassoWsForecast(XgbWsForecast):
 
         new_data = new_data.dropna(subset=['Y.ws_tb'])
 
-        # # l1 Regularization
-        # lr = LassoCV(alphas=[0.01, 0.1, 0.5, 1, 3, 5, 7, 10, 20, 100], cv=5)
-        # combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
-        # print('the best alpha value: ', lr.alpha_)
-        # write into log
-        # logger.info(" Lasso the best alpha value: {}".format(lr.alpha_))
-        # self._estimator_['combine.ws'] = combine
-        # new_data['combine.ws'] = lr.predict(new_data[name])
-        # cur_std = wind_std(new_data['Y.ws_tb'], new_data['combine.ws'])
-        # print('the std on training date after adding linear layer is: ' + str(cur_std))
+        # l1 Regularization
+        # non horizon
+        lr = LassoCV(alphas=[0.01, 0.1, 0.5, 1, 5, 10], cv=5)
+        combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
+        self._estimator_['combine.ws'] = combine
 
-        # add new horizon
-        horizon_list = new_data['X_basic.horizon'].unique()
-        model_dict = {}
-        for horizon in horizon_list:
-            lr = LassoCV(alphas=[0.01, 0.1, 0.5, 1, 5, 10], cv=5)
-            lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
-                   new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
-            print('the best alpha value: ', lr.alpha_)
-            # write into log
-            logger.info(" Lasso the best alpha value: {}".format(lr.alpha_))
-            # add lasso_coef
-            model_coef = pd.DataFrame(pd.DataFrame(lr.coef_).T)
-            model_coef.columns = ['factor_%s' % nwp for nwp in self._nwp_info]
-            print(model_coef)
-            model_dict[horizon] = lr
-        self._estimator_['combine.ws'] = model_dict
+        # # add new horizon
+        # horizon_list = new_data['X_basic.horizon'].unique()
+        # model_dict = {}
+        # for horizon in horizon_list:
+        #     lr = LassoCV(alphas=[0.01, 0.1, 0.5, 1, 5, 10], cv=5)
+        #     lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
+        #            new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
+        #     print('the best alpha value: ', lr.alpha_)
+        #     # write into log
+        #     logger.info(" Lasso the best alpha value: {}".format(lr.alpha_))
+        #     # add lasso_coef
+        #     model_coef = pd.DataFrame(pd.DataFrame(lr.coef_).T)
+        #     model_coef.columns = ['factor_%s' % nwp for nwp in self._nwp_info]
+        #     print(model_coef)
+        #     model_dict[horizon] = lr
+        # self._estimator_['combine.ws'] = model_dict
 
         return x_df
 
@@ -105,9 +100,12 @@ class XgbLassoWsForecast(XgbWsForecast):
             name.append(nwp + ".ws_predict")
 
         # non horizon
+        result['X_basic.horizon'] = x_df['X_basic.horizon']
         result['X_basic.time'] = x_df['X_basic.time']
+        result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
+        result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
         prediction = self._linear_predict(result, name, self._estimator_['combine.ws'])
-        prediction_result = pd.DataFrame({'X_basic.horizon': result['X_basic.time'], 'Y.ws_tb': y_df['Y.ws_tb'],
+        prediction_result = pd.DataFrame({'X_basic.horizon': result['X_basic.time'], 'Y.ws_tb': result['Y.ws_tb'],
                                           'prediction': prediction})
 
         # # add new horizon
