@@ -16,7 +16,7 @@ from power_forecast_common.wswp_feature import WsWpFeature
 from power_forecast_common.wswp_error import write_wind_error, check_original_std, wswp_error_analysis
 from power_forecast_common.evaluation_misc import get_training_data, calculate_rmse
 
-def calculate(feature_path, turbine_info):
+def calculate(feature_path, turbine_info, subsection=False):
     rmse = []
     for i in range(58):
         print(i)
@@ -24,7 +24,12 @@ def calculate(feature_path, turbine_info):
         feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
         print("calculating rmse for turbine {}".format(turbine_id))
         x_train, y_train = load_data_from_pkl(feature_file_path)
-        rmse.append(calculate_rmse(np.array(y_train['Y.ws_tb']), np.array(x_train['prediction'])))
+        if subsection == True:
+            data = pd.concat([x_train, y_train['Y.ws_tb']], axis=1)
+            data = data[(data['Y.ws_tb'] >= 3) & (data['Y.ws_tb'] <= 15)]
+            rmse.append(calculate_rmse(np.array(data['Y.ws_tb']), np.array(data['prediction'])))
+        else:
+            rmse.append(calculate_rmse(np.array(y_train['Y.ws_tb']), np.array(x_train['prediction'])))
     print(np.mean(np.array(rmse)))
 
 if __name__ == '__main__':
@@ -34,7 +39,7 @@ if __name__ == '__main__':
     train_start_date, train_end_date = get_train_info(farm_id)
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'xgb2'
+    model = 'xgb'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
@@ -44,4 +49,4 @@ if __name__ == '__main__':
     farm_info_path = '../data/farm_'+farm_id+'/farm_'+farm_id+'_info.csv'
     turbine_info = pd.read_csv(farm_info_path)
 
-    calculate(feature_path, turbine_info)
+    calculate(feature_path, turbine_info, True)
