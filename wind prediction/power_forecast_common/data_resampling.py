@@ -24,8 +24,8 @@ def resample_data_gaussian(x_df, y_df, mean=9, std=2, max_prob=0.99, seed_num=10
     choose = np.random.binomial(1, p=y_prob).astype(bool)
     return x_df[choose], y_df[choose]
 
-
-def resample_data_duplicate(x_df, y_df, min_value=4, max_value=12, seed_num=1914):
+# original min_ min_value=4, max_value=12
+def resample_data_duplicate(x_df, y_df, min_value=3, max_value=15, seed_num=1914):
     # double the points within min_value and max_value
     # drop half of the points below min_value
     np.random.seed(seed_num)

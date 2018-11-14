@@ -47,28 +47,28 @@ class XgbRidgeWsForecast(XgbWsForecast):
 
         new_data = new_data.dropna(subset=['Y.ws_tb'])
 
-        # # l2 Regularization
-        # # non horizon
-        # lr = RidgeCV(alphas=[0.01, 0.1, 0.5, 1, 10, 20, 100, 200, 500, 1000], cv=5)
-        # combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
-        # print('the best alpha value: ', lr.alpha_)
-        # # write into log
-        # logger.info(" ridge the best alpha value: {}".format(lr.alpha_))
-        # self._estimator_['combine.ws'] = combine
+        # l2 Regularization
+        # non horizon
+        lr = RidgeCV(alphas=[0.01, 0.1, 0.5, 1, 10, 20, 100, 200, 500, 1000], cv=5)
+        combine = lr.fit(new_data[name], new_data['Y.ws_tb'])
+        print('the best alpha value: ', lr.alpha_)
+        # write into log
+        logger.info(" ridge the best alpha value: {}".format(lr.alpha_))
+        self._estimator_['combine.ws'] = combine
 
 
-        # add new horizon
-        horizon_list = new_data['X_basic.horizon'].unique()
-        model_dict = {}
-        for horizon in horizon_list:
-            lr = RidgeCV(alphas=[0.01, 0.1, 0.5, 1, 10, 20, 100, 200, 500, 1000], cv=5)
-            lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
-                   new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
-            print('the best alpha value: ', lr.alpha_)
-            # write into log
-            logger.info(" ridge the best alpha value: {}".format(lr.alpha_))
-            model_dict[horizon] = lr
-        self._estimator_['combine.ws'] = model_dict
+        # # add new horizon
+        # horizon_list = new_data['X_basic.horizon'].unique()
+        # model_dict = {}
+        # for horizon in horizon_list:
+        #     lr = RidgeCV(alphas=[0.01, 0.1, 0.5, 1, 10, 20, 100, 200, 500, 1000], cv=5)
+        #     lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
+        #            new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
+        #     print('the best alpha value: ', lr.alpha_)
+        #     # write into log
+        #     logger.info(" ridge the best alpha value: {}".format(lr.alpha_))
+        #     model_dict[horizon] = lr
+        # self._estimator_['combine.ws'] = model_dict
 
         return x_df
 

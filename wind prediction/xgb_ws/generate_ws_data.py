@@ -46,7 +46,7 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
         # wind_error_dict = evaluate_wind_speed(x_df, y_df, revised_wd_df, evaluation_periods=evaluation_periods,
         #                                   evaluation_frequency=evaluation_frequency)
         # calculate rmse
-        wind_error_dict = calculate_baseline_rmse(x_df, y_df, revised_wd_df, True)
+        wind_error_dict = calculate_baseline_rmse(x_df, y_df, revised_wd_df)
         ws_error.update(wind_error_dict)
         for nwp in model._nwp_info:
             x_df[nwp + ".ws"] = revised_wd_df[nwp + ".revised_ws"]
@@ -56,7 +56,7 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
     else:
         revised_wd_df = model.predict(x_df, feature_dict, y_df)
         # select obs wind speed (3-15m/s)
-        revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
+        # revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
         cur_std = wind_std(np.array(revised_wd_df['Y.ws_tb']), np.array(revised_wd_df['prediction']))
         print('the std on testing data after adding linear layer is:' + str(cur_std))
         ws_error['combine.ws'] = cur_std
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'baseline'
+    model = 'linear_new_sampling2'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
@@ -167,7 +167,7 @@ if __name__ == '__main__':
     farm_info_path = '../data/farm_' + farm_id + '/farm_' + farm_id + '_info.csv'
     turbine_info = pd.read_csv(farm_info_path)
 
-    if model == 'baseline':
+    if model == 'baseline_new_sampling':
         flag = True
     else:
         flag = False
