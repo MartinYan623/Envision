@@ -56,7 +56,7 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
     else:
         revised_wd_df = model.predict(x_df, feature_dict, y_df)
         # select obs wind speed (3-15m/s)
-        # revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
+        revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
         cur_std = wind_std(np.array(revised_wd_df['Y.ws_tb']), np.array(revised_wd_df['prediction']))
         print('the std on testing data after adding linear layer is:' + str(cur_std))
         ws_error['combine.ws'] = cur_std
@@ -101,7 +101,7 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
 
     result_list = []
 
-    for i in range(58):
+    for i in range(66):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         # when turbine_id is "b43413c4e854432fbdad23c5778370bd", there is an except.
@@ -135,7 +135,7 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
                         file_path)
 
 
-    # # output data
+    # output data
     # x_train, y_train = load_data_from_pkl(cur_test_data_path)
     # x_train.to_csv("/Users/martin_yan/Desktop/test_data.csv", index=False, header=True)
     #
@@ -146,10 +146,11 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO,
                         format='[%(asctime)s]-%(thread)d-%(levelname)s: %(message)s - %(filename)s:%(lineno)d')
 
-    farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
+    #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
+    farm_id = "WF0010"
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'linear_new_sampling2'
+    model = 'elasticnet_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 

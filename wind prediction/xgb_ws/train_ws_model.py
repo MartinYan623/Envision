@@ -40,10 +40,10 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     logger.info('------Training model for wtg {}------'.format(master_id))
 
     #model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    #model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbRFWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbXgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
@@ -110,7 +110,7 @@ def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampli
 
 def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, data_resampling=False):
 
-    for i in range(58):
+    for i in range(66):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         lat = turbine_info.ix[i]['lat']
@@ -143,13 +143,14 @@ def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, d
 
 if __name__ == '__main__':
 
-    farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
+    #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
+    farm_id = "WF0010"
 
     train_start_date, train_end_date = get_train_info(farm_id)
     data_resampling = True
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'linear_new_sampling2'
+    model = 'elasticnet_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 

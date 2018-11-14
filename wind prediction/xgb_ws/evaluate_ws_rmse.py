@@ -18,7 +18,7 @@ from power_forecast_common.evaluation_misc import get_training_data, calculate_r
 
 def calculate(feature_path, turbine_info, subsection=False):
     rmse = []
-    for i in range(58):
+    for i in range(66):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
@@ -54,11 +54,12 @@ def calculate_baseline_rmse(x_df, y_df, revised_wd_df, subsection=False):
 
 if __name__ == '__main__':
 
-    farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
+    #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
+    farm_id = "WF0010"
     train_start_date, train_end_date = get_train_info(farm_id)
 
     # linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'linear_new_sampling2'
+    model = 'elasticnet_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
