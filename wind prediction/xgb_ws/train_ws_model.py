@@ -60,6 +60,7 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
 
     nwp_list = get_nwp_list(x_df.columns.values)
     model.set_nwp_list(nwp_list)
+    # can change training type to change the number of training data
     x_df, y_df = get_training_data(x_df, y_df, 1)
 
     # feature engineering
@@ -111,9 +112,7 @@ def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampli
 
 def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, data_resampling=False):
 
-    for i in range(20):
-        if i == 14:
-            continue
+    for i in range(58):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         lat = turbine_info.ix[i]['lat']
@@ -146,17 +145,20 @@ def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, d
 
 if __name__ == '__main__':
 
-
+    """
     #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
     #farm_id = "WF0010"
     farm_id = "57f2a"
 
     #train_start_date, train_end_date = get_train_info(farm_id)
+
+    
     # for appointed training set
-    train_start_date = '2018-08-18'
+    train_start_date = '2017-10-04'
     train_end_date = '2018-10-18'
     train_start_date = datetime.date(*map(int, train_start_date.split('-')))
     train_end_date = datetime.date(*map(int, train_end_date.split('-')))
+    
 
     data_resampling = True
 
@@ -175,7 +177,7 @@ if __name__ == '__main__':
         os.makedirs(feature_path)
 
     #log_file_path = os.path.join(model_path, "train_{}.log".format(datetime.now().strftime("%Y%m%d_%H%M%S")))
-    log_file_path = os.path.join(model_path, "train_{}.log".format(20181114_010101))
+    log_file_path = os.path.join(model_path, "train_{}.log".format(20181115_010101))
     if os.path.exists(log_file_path):
         os.remove(log_file_path)
     logging.basicConfig(filename=log_file_path,
@@ -189,50 +191,54 @@ if __name__ == '__main__':
     turbine_info = pd.read_csv(farm_info_path)
 
     train_farm_local(train_data_path, model_path, feature_path, turbine_info, data_resampling)
+    """
 
-    # # generate training and testing data
-    # farm_id = "57f2a"
-    # # train data time two months
-    # train_start_date = '2018-08-18'
-    # train_end_date = '2018-10-18'
-    # train_start_date = datetime.date(*map(int, train_start_date.split('-')))
-    # train_end_date = datetime.date(*map(int, train_end_date.split('-')))
-    #
-    # train_start = '2018-08-20 00:00:00'
-    # train_end = '2018-10-18 00:00:00'
-    # # test data time one week
-    # test_start = '2018-10-20 00:00:00'
-    # test_end = '2018-10-25 00:00:00'
-    #
-    # train_data_path = generate_folder(data_path, "train_data_IBM_5", farm_id, train_start_date, train_end_date, '60min')
-    # test_data_path = generate_folder(data_path, "test_data_IBM_5", farm_id, train_start_date, train_end_date, '60min')
-    # if not os.path.exists(train_data_path):
-    #     os.makedirs(train_data_path)
-    # if not os.path.exists(test_data_path):
-    #     os.makedirs(test_data_path)
-    #
-    # input_data_path = generate_folder(data_path, "data_all_nwp", farm_id,  datetime.date(*map(int, '2017-10-04'.split('-'))), \
-    #                                   datetime.date(*map(int, '2018-11-08'.split('-'))), '60min')
-    # # read farm_info file
-    # farm_info_path = '../data/farm_' + farm_id + '/farm_' + farm_id + '_info.csv'
-    # turbine_info = pd.read_csv(farm_info_path)
-    #
-    # for i in range(20):
-    #     print(i)
-    #     if i!=14:
-    #         turbine_id = turbine_info.ix[i]['master_id']
-    #         turbine_file_path = os.path.join(input_data_path, "turbine_{}.pkl".format(turbine_id))
-    #         train_file_path = os.path.join(train_data_path, "turbine_{}.pkl".format(turbine_id))
-    #         test_file_path = os.path.join(test_data_path, "turbine_{}.pkl".format(turbine_id))
-    #
-    #         x_df, y_df = load_data_from_pkl(turbine_file_path)
-    #         x_train, y_train = filter_data(x_df, y_df, train_end, train_start)
-    #         x_test, y_test = filter_data(x_df, y_df, test_end, test_start)
-    #         feature_table = pd.concat([x_train, y_train], axis=1)
-    #         feature_table.to_pickle(train_file_path)
-    #         feature_table = pd.concat([x_test, y_test], axis=1)
-    #         feature_table.to_pickle(test_file_path)
-    #         print(x_train)
-    #         print(x_test)
+    # add new code
+    # generate training and testing data
+    farm_id = "57f2a"
+    train_start_date = '2017-10-04'
+    train_end_date = '2018-10-24'
+    test_start_date = '2018-11-01'
+    test_end_date = '2018-11-07'
+    train_start_date = datetime.date(*map(int, train_start_date.split('-')))
+    train_end_date = datetime.date(*map(int, train_end_date.split('-')))
+    test_start_date = datetime.date(*map(int, test_start_date.split('-')))
+    test_end_date = datetime.date(*map(int, test_end_date.split('-')))
+
+    #train_start = '2018-08-20 00:00:00'
+    train_end = '2018-10-25 00:00:00'
+    # test data time one week
+    test_start = '2018-11-01 00:00:00'
+    test_end = '2018-11-08 00:00:00'
+
+    train_data_path = generate_folder(data_path, "train_data_IBM_5", farm_id, train_start_date, train_end_date, '60min')
+    test_data_path = generate_folder(data_path, "test_data_IBM_5", farm_id, test_start_date, test_end_date, '60min')
+    if not os.path.exists(train_data_path):
+        os.makedirs(train_data_path)
+    if not os.path.exists(test_data_path):
+        os.makedirs(test_data_path)
+
+    input_data_path = generate_folder(data_path, "data_all_nwp", farm_id,  datetime.date(*map(int, '2017-10-04'.split('-'))), \
+                                      datetime.date(*map(int, '2018-11-08'.split('-'))), '60min')
+    # read farm_info file
+    farm_info_path = '../data/farm_' + farm_id + '/farm_' + farm_id + '_info.csv'
+    turbine_info = pd.read_csv(farm_info_path)
+
+    for i in range(58):
+        print(i)
+        turbine_id = turbine_info.ix[i]['master_id']
+        turbine_file_path = os.path.join(input_data_path, "turbine_{}.pkl".format(turbine_id))
+        train_file_path = os.path.join(train_data_path, "turbine_{}.pkl".format(turbine_id))
+        test_file_path = os.path.join(test_data_path, "turbine_{}.pkl".format(turbine_id))
+
+        x_df, y_df = load_data_from_pkl(turbine_file_path)
+        x_train, y_train = filter_data(x_df, y_df, train_end)
+        x_test, y_test = filter_data(x_df, y_df, test_end, test_start)
+        feature_table = pd.concat([x_train, y_train], axis=1)
+        feature_table.to_pickle(train_file_path)
+        feature_table = pd.concat([x_test, y_test], axis=1)
+        feature_table.to_pickle(test_file_path)
+        print(x_train)
+        print(x_test)
 
 

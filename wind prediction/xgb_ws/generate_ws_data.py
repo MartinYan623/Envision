@@ -6,7 +6,7 @@ import logging
 import sys
 from sklearn.externals import joblib
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, date
 import numpy as np
 from xgb_wswp.config import train_frequency, test_start_date, test_end_date, evaluate_frequency, \
     data_path, get_train_info
@@ -17,7 +17,6 @@ from plot_util.plot_revised_ws import plot_revised_wind_std, plot_revised_wind_s
 import pickle
 from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
 from evaluate_ws_rmse import calculate_baseline_rmse
-
 logger = logging.getLogger(__name__)
 
 
@@ -101,7 +100,7 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
 
     result_list = []
 
-    for i in range(66):
+    for i in range(58):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         # when turbine_id is "b43413c4e854432fbdad23c5778370bd", there is an except.
@@ -147,14 +146,25 @@ if __name__ == '__main__':
                         format='[%(asctime)s]-%(thread)d-%(levelname)s: %(message)s - %(filename)s:%(lineno)d')
 
     #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
-    farm_id = "WF0010"
+    #farm_id = "WF0010"
+    farm_id = "57f2a"
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'elasticnet_new_sampling'
+    model = 'linear_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
-    train_start_date, train_end_date = get_train_info(farm_id)
+    #train_start_date, train_end_date = get_train_info(farm_id)
+
+    # for appointed training set
+    train_start_date = '2017-10-04'
+    train_end_date = '2018-10-17'
+    test_start_date = '2018-10-25'
+    test_end_date = '2018-10-31'
+    train_start_date = date(*map(int, train_start_date.split('-')))
+    train_end_date = date(*map(int, train_end_date.split('-')))
+    test_start_date = date(*map(int, test_start_date.split('-')))
+    test_end_date = date(*map(int, test_end_date.split('-')))
 
     test_data_path = generate_folder(data_path, "test_data_IBM_5", farm_id, test_start_date, test_end_date, train_frequency)
     model_path = generate_folder("result", model_type, farm_id, train_start_date, train_end_date, train_frequency)

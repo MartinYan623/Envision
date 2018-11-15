@@ -15,7 +15,7 @@ def get_training_data(x_df, y_df, training_type):
         train_index = x_df[x_df["X_basic.time"].dt.month.isin([7, 8])].index
 
     elif training_type == 3:
-        train_index = x_df[(x_df["X_basic.time"].dt.year == 2018) & (x_df["X_basic.time"].dt.month.isin([6, 7]))].index
+        train_index = x_df[(x_df["X_basic.time"].dt.year == 2018) & (x_df["X_basic.time"].dt.month.isin([2,3,4,5,6,7]))].index
 
     x_df = x_df.loc[train_index]
     x_df.reset_index(drop=True, inplace=True)
