@@ -145,7 +145,7 @@ def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, d
 
 if __name__ == '__main__':
 
-    """
+
     #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
     #farm_id = "WF0010"
     farm_id = "57f2a"
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     
     # for appointed training set
     train_start_date = '2017-10-04'
-    train_end_date = '2018-10-18'
+    train_end_date = '2018-10-24'
     train_start_date = datetime.date(*map(int, train_start_date.split('-')))
     train_end_date = datetime.date(*map(int, train_end_date.split('-')))
     
@@ -191,8 +191,8 @@ if __name__ == '__main__':
     turbine_info = pd.read_csv(farm_info_path)
 
     train_farm_local(train_data_path, model_path, feature_path, turbine_info, data_resampling)
-    """
 
+    """
     # add new code
     # generate training and testing data
     farm_id = "57f2a"
@@ -240,5 +240,6 @@ if __name__ == '__main__':
         feature_table.to_pickle(test_file_path)
         print(x_train)
         print(x_test)
+    """
 
 

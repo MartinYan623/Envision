@@ -55,7 +55,7 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
     else:
         revised_wd_df = model.predict(x_df, feature_dict, y_df)
         # select obs wind speed (3-15m/s)
-        revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
+        # revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
         cur_std = wind_std(np.array(revised_wd_df['Y.ws_tb']), np.array(revised_wd_df['prediction']))
         print('the std on testing data after adding linear layer is:' + str(cur_std))
         ws_error['combine.ws'] = cur_std
@@ -158,9 +158,9 @@ if __name__ == '__main__':
 
     # for appointed training set
     train_start_date = '2017-10-04'
-    train_end_date = '2018-10-17'
-    test_start_date = '2018-10-25'
-    test_end_date = '2018-10-31'
+    train_end_date = '2018-10-24'
+    test_start_date = '2018-11-01'
+    test_end_date = '2018-11-07'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
     test_start_date = date(*map(int, test_start_date.split('-')))

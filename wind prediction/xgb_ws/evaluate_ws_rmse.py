@@ -66,8 +66,8 @@ if __name__ == '__main__':
     feature_type = "test_data_{}".format(model_type[6:])
 
     # add new code
-    test_start_date = '2018-10-25'
-    test_end_date = '2018-10-31'
+    test_start_date = '2018-11-01'
+    test_end_date = '2018-11-07'
     test_start_date = date(*map(int, test_start_date.split('-')))
     test_end_date = date(*map(int, test_end_date.split('-')))
 
