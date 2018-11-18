@@ -19,7 +19,7 @@ from datetime import date
 
 def calculate(feature_path, turbine_info, subsection=False):
     rmse = []
-    for i in range(58):
+    for i in range(66):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
@@ -31,7 +31,7 @@ def calculate(feature_path, turbine_info, subsection=False):
             rmse.append(calculate_rmse(np.array(data['Y.ws_tb']), np.array(data['prediction'])))
         else:
             rmse.append(calculate_rmse(np.array(y_train['Y.ws_tb']), np.array(x_train['prediction'])))
-    print(np.mean(np.array(rmse)))
+    print(np.nanmean(np.array(rmse)))
 
 def calculate_baseline_rmse(x_df, y_df, revised_wd_df, subsection=False):
 
@@ -57,11 +57,13 @@ if __name__ == '__main__':
 
     #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
     #farm_id = "WF0010"
-    farm_id = "57f2a"
+    #farm_id = "57f2a"
+    farm_id = "WF00"
+
 
     #train_start_date, train_end_date = get_train_info(farm_id)
     # linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'linear_new_sampling'
+    model = 'ridge_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
@@ -75,4 +77,4 @@ if __name__ == '__main__':
     # read farm_info file
     farm_info_path = '../data/farm_'+farm_id+'/farm_'+farm_id+'_info.csv'
     turbine_info = pd.read_csv(farm_info_path)
-    calculate(feature_path, turbine_info, True)
+    calculate(feature_path, turbine_info)

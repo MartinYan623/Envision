@@ -4,7 +4,7 @@ import sys
 sys.path.append('../')
 import logging
 from sklearn.externals import joblib
-from datetime import datetime
+from datetime import datetime, date
 import pandas as pd
 import numpy as np
 from xgb_wswp.config import data_path, get_train_info, train_frequency
@@ -22,7 +22,7 @@ from xgb_ws.xgb_elasticnet_ws_forecast import XgbElasticNetWsForecast
 from xgb_ws.xgb_svr_ws_forecast import XgbSVRWsForecast
 from xgb_ws.xgb_rf_ws_forecast import XgbRFWsForecast
 from xgb_ws.xgb_xgb_ws_forecast import XgbXgbWsForecast
-import datetime
+
 logger = logging.getLogger(__name__)
 
 
@@ -41,8 +41,8 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     logger.info('------Training model for wtg {}------'.format(master_id))
 
     #model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    #model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
@@ -112,7 +112,7 @@ def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampli
 
 def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, data_resampling=False):
 
-    for i in range(58):
+    for i in range(66):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         lat = turbine_info.ix[i]['lat']
@@ -148,22 +148,21 @@ if __name__ == '__main__':
 
     #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
     #farm_id = "WF0010"
-    farm_id = "57f2a"
+    #farm_id = "57f2a"
+    farm_id = "WF00"
 
     #train_start_date, train_end_date = get_train_info(farm_id)
-
     
     # for appointed training set
     train_start_date = '2017-10-04'
     train_end_date = '2018-10-24'
-    train_start_date = datetime.date(*map(int, train_start_date.split('-')))
-    train_end_date = datetime.date(*map(int, train_end_date.split('-')))
-    
+    train_start_date = date(*map(int, train_start_date.split('-')))
+    train_end_date = date(*map(int, train_end_date.split('-')))
 
     data_resampling = True
 
     # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'linear_new_sampling'
+    model = 'ridge_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 
@@ -176,8 +175,7 @@ if __name__ == '__main__':
     if not os.path.exists(feature_path):
         os.makedirs(feature_path)
 
-    #log_file_path = os.path.join(model_path, "train_{}.log".format(datetime.now().strftime("%Y%m%d_%H%M%S")))
-    log_file_path = os.path.join(model_path, "train_{}.log".format(20181115_010101))
+    log_file_path = os.path.join(model_path, "train_{}.log".format(datetime.now().strftime("%Y%m%d_%H%M%S")))
     if os.path.exists(log_file_path):
         os.remove(log_file_path)
     logging.basicConfig(filename=log_file_path,
@@ -192,18 +190,19 @@ if __name__ == '__main__':
 
     train_farm_local(train_data_path, model_path, feature_path, turbine_info, data_resampling)
 
+
     """
     # add new code
     # generate training and testing data
-    farm_id = "57f2a"
+    farm_id = "WF00"
     train_start_date = '2017-10-04'
     train_end_date = '2018-10-24'
     test_start_date = '2018-11-01'
     test_end_date = '2018-11-07'
-    train_start_date = datetime.date(*map(int, train_start_date.split('-')))
-    train_end_date = datetime.date(*map(int, train_end_date.split('-')))
-    test_start_date = datetime.date(*map(int, test_start_date.split('-')))
-    test_end_date = datetime.date(*map(int, test_end_date.split('-')))
+    train_start_date = date(*map(int, train_start_date.split('-')))
+    train_end_date = date(*map(int, train_end_date.split('-')))
+    test_start_date = date(*map(int, test_start_date.split('-')))
+    test_end_date = date(*map(int, test_end_date.split('-')))
 
     #train_start = '2018-08-20 00:00:00'
     train_end = '2018-10-25 00:00:00'
@@ -218,13 +217,13 @@ if __name__ == '__main__':
     if not os.path.exists(test_data_path):
         os.makedirs(test_data_path)
 
-    input_data_path = generate_folder(data_path, "data_all_nwp", farm_id,  datetime.date(*map(int, '2017-10-04'.split('-'))), \
-                                      datetime.date(*map(int, '2018-11-08'.split('-'))), '60min')
+    input_data_path = generate_folder(data_path, "data_all_nwp", farm_id,  date(*map(int, '2017-10-04'.split('-'))), \
+                                      date(*map(int, '2018-11-08'.split('-'))), '60min')
     # read farm_info file
     farm_info_path = '../data/farm_' + farm_id + '/farm_' + farm_id + '_info.csv'
     turbine_info = pd.read_csv(farm_info_path)
 
-    for i in range(58):
+    for i in range(66):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         turbine_file_path = os.path.join(input_data_path, "turbine_{}.pkl".format(turbine_id))
