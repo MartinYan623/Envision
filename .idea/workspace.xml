@@ -2,78 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70bedc14-dfc5-4e8e-81ea-c1e62b3f688f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0001.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0002.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0003.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0004.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0005.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0006.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0007.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0008.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0009.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0010.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0011.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0012.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0013.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0014.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0015.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0016.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0017.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0018.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0019.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0020.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0021.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0022.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0023.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0024.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0025.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0026.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0027.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0028.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0029.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0030.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0031.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0032.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0033.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0001.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0002.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0003.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0004.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0005.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0006.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0007.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0008.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0009.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0010.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0011.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0012.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0013.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0014.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0015.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0016.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0017.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0018.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0019.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0020.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0021.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0022.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0023.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0024.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0025.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0026.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0027.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0028.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0029.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0030.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0031.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0032.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0069WTG0033.pkl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/data/farm_WF00/farm_WF00_info.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wind prediction/xgb_ws/split_train_test_data.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/wind prediction/xgb_ws/README.md" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wind prediction/plot_util/plot_revised_ws.py" afterPath="$PROJECT_DIR$/wind prediction/plot_util/plot_revised_ws.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wind prediction/xgb_ws/evaluate_ws_rmse.py" afterPath="$PROJECT_DIR$/wind prediction/xgb_ws/evaluate_ws_rmse.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wind prediction/xgb_ws/generate_ws_data.py" afterPath="$PROJECT_DIR$/wind prediction/xgb_ws/generate_ws_data.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wind prediction/xgb_ws/train_ws_model.py" afterPath="$PROJECT_DIR$/wind prediction/xgb_ws/train_ws_model.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wind prediction/xgb_ws/xgb_elasticnet_ws_forecast.py" afterPath="$PROJECT_DIR$/wind prediction/xgb_ws/xgb_elasticnet_ws_forecast.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -5402,14 +5338,14 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="generate_ws_data.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/generate_ws_data.py">
+    <leaf>
+      <file leaf-file-name="split_train_test_data.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/split_train_test_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="57" column="10" lean-forward="false" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
+            <state relative-caret-position="588">
+              <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding>
-                <element signature="e#2797#4520#1" expanded="false" />
+                <element signature="e#15#24#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -5470,21 +5406,22 @@
         <option value="$PROJECT_DIR$/wind prediction/xgb_ws/xgb_linear_ws_forecast.py" />
         <option value="$PROJECT_DIR$/wind prediction/xgb_ws/xgb_ridge_ws_forecast.py" />
         <option value="$PROJECT_DIR$/wind prediction/xgb_ws/xgb_lasso_ws_forecast.py" />
-        <option value="$PROJECT_DIR$/wind prediction/xgb_ws/xgb_elasticnet_ws_forecast.py" />
         <option value="$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_57f2a7f2a624402c9565e51ba8d171cb/model_revised_ws_shift_baseline_new_sampling_partial_training_resample_2017-08-01_2018-07-30_60min/train_20181112_104903.log" />
         <option value="$PROJECT_DIR$/wind prediction/power_forecast_common/offline_common.py" />
         <option value="$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_57f2a/model_revised_ws_shift_linear_new_sampling_partial_training_resample_2017-10-04_2018-10-18_60min/train_20181115010101.log" />
         <option value="$PROJECT_DIR$/wind prediction/plot_util/plot_revised_ws.py" />
         <option value="$PROJECT_DIR$/wind prediction/power_forecast_common/evaluation_misc.py" />
-        <option value="$PROJECT_DIR$/wind prediction/xgb_ws/train_ws_model.py" />
-        <option value="$PROJECT_DIR$/wind prediction/xgb_ws/generate_ws_data.py" />
+        <option value="$PROJECT_DIR$/wind prediction/xgb_ws/xgb_elasticnet_ws_forecast.py" />
         <option value="$PROJECT_DIR$/wind prediction/xgb_ws/evaluate_ws_rmse.py" />
+        <option value="$PROJECT_DIR$/wind prediction/xgb_ws/generate_ws_data.py" />
+        <option value="$PROJECT_DIR$/wind prediction/xgb_ws/split_train_test_data.py" />
+        <option value="$PROJECT_DIR$/wind prediction/xgb_ws/train_ws_model.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="32" />
-    <option name="y" value="27" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="14" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="804" />
   </component>
@@ -5522,7 +5459,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -5535,30 +5471,12 @@
               <item name="Envision" type="462c0819:PsiDirectoryNode" />
               <item name="wind prediction" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Envision" type="462c0819:PsiDirectoryNode" />
-              <item name="wind prediction" type="462c0819:PsiDirectoryNode" />
-              <item name="power_forecast_common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Envision" type="462c0819:PsiDirectoryNode" />
-              <item name="wind prediction" type="462c0819:PsiDirectoryNode" />
-              <item name="xgb_ws" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Envision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Envision" type="462c0819:PsiDirectoryNode" />
-              <item name="wind prediction" type="462c0819:PsiDirectoryNode" />
-              <item name="xgb_ws" type="462c0819:PsiDirectoryNode" />
-              <item name="result" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -5679,7 +5597,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Envision" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wind prediction/xgb_ws/evaluate_ws_rmse.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wind prediction/xgb_ws/split_train_test_data.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -5718,10 +5636,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="32" y="27" width="1440" height="804" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="804" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36909872" sideWeight="0.8842105" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26180258" sideWeight="0.8842105" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38363892" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -5796,97 +5714,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0017.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0018.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0019.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0020.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0012.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0011.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0022.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0023.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0024.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0025.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0027.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0028.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0029.pkl">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wind prediction/data/farm_WF00/data_all_nwp_2017-10-04_2018-11-08_60min/turbine_WF0010WTG0031.pkl">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="0">
@@ -6052,7 +5879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6060,96 +5886,104 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="137">
           <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/model_revised_ws_shift_linear_new_sampling_partial_training_resample_2017-10-04_2018-10-17_60min/train_20181118_105538.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-965">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/model_revised_ws_shift_linear_new_sampling_partial_training_resample_2017-10-04_2018-10-17_60min/train_20181118_105538.log" />
     <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/xgb_ws_forecast.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1155">
           <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/train_ws_model.py">
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_linear_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_WF00_2018-10-18_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_linear_new_sampling_partial_training_resample_2018-10-25_2018-10-31_60min/farm_WF00_2018-10-25_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_linear_new_sampling_partial_training_resample_2018-11-01_2018-11-07_60min/farm_WF00_2018-11-01_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_ridge_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_WF00_2018-10-18_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_ridge_new_sampling_partial_training_resample_2018-10-25_2018-10-31_60min/farm_WF00_2018-10-25_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_ridge_new_sampling_partial_training_resample_2018-11-01_2018-11-07_60min/farm_WF00_2018-11-01_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_lasso_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_WF00_2018-10-18_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_lasso_new_sampling_partial_training_resample_2018-10-25_2018-10-31_60min/farm_WF00_2018-10-25_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_lasso_new_sampling_partial_training_resample_2018-11-01_2018-11-07_60min/farm_WF00_2018-11-01_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/model_revised_ws_shift_elasticnet_new_sampling_partial_training_resample_2017-10-04_2018-10-24_60min/train_20181119_131832.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="151" column="1" lean-forward="false" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="20" />
-          <folding>
-            <element signature="e#3582#5026#1" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_linear_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_WF00_2018-10-18_ws.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/common_misc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-673">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="165">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_elasticnet_new_sampling_partial_training_resample_2018-11-01_2018-11-07_60min/farm_WF00_2018-11-01_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/plot_util/plot_revised_ws.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="50" column="24" lean-forward="true" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/offline_common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="47" lean-forward="false" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wind prediction/power_forecast_common/evaluation_misc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-450">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="241">
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_linear_new_sampling_partial_training_resample_2018-10-25_2018-10-31_60min/farm_WF00_2018-10-25_ws.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_57f2a/test_data_revised_ws_shift_linear_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_57f2a_2018-10-18_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/xgb_elasticnet_ws_forecast.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_linear_new_sampling_partial_training_resample_2018-11-01_2018-11-07_60min/farm_WF00_2018-11-01_ws.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_ridge_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_WF00_2018-10-18_ws.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_ridge_new_sampling_partial_training_resample_2018-10-25_2018-10-31_60min/farm_WF00_2018-10-25_ws.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_ridge_new_sampling_partial_training_resample_2018-11-01_2018-11-07_60min/farm_WF00_2018-11-01_ws.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_elasticnet_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_WF00_2018-10-18_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_WF00/test_data_revised_ws_shift_elasticnet_new_sampling_partial_training_resample_2018-10-25_2018-10-31_60min/farm_WF00_2018-10-25_ws.png" />
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/result/farm_57f2a/test_data_revised_ws_shift_elasticnet_new_sampling_partial_training_resample_2018-10-18_2018-10-24_60min/farm_57f2a_2018-10-18_ws.png" />
     <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/evaluate_ws_rmse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="60" column="19" lean-forward="true" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
-          <folding />
+        <state relative-caret-position="490">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/generate_ws_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="57" column="10" lean-forward="false" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
+        <state relative-caret-position="15">
+          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/train_ws_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding>
-            <element signature="e#2797#4520#1" expanded="false" />
+            <element signature="e#15#24#0" expanded="true" />
+            <element signature="e#3353#4797#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wind prediction/xgb_ws/split_train_test_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#24#0" expanded="true" />
           </folding>
         </state>
       </provider>

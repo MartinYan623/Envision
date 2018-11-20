@@ -42,12 +42,10 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
 
     #model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    #model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    #model = XgbSVRWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    #model = XgbRFWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    #model = XgbXgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+
 
     assert turbine_data_path[-3:] == "pkl", "Unknown data file type!"
     x_df, y_df = load_data_from_pkl(turbine_data_path)
@@ -112,7 +110,7 @@ def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampli
 
 def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, data_resampling=False):
 
-    for i in range(66):
+    for i in range(58):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         lat = turbine_info.ix[i]['lat']
@@ -136,33 +134,20 @@ def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, d
         wind_error_file = os.path.join(model_path, "turbine_{}_train_wind_error.csv".format(turbine_id))
         write_wind_error(model.get_train_error(), wind_error_file)
 
-        # # output data
-        # x_train, y_train = load_data_from_pkl(turbine_file_path)
-        # x_train.to_csv("/Users/martin_yan/Desktop/data.csv", index=False, header=True)
-
-        # x_train, y_train = load_data_from_pkl(feature_file_path)
-        # x_train.to_csv("/Users/martin_yan/Desktop/revised_data.csv", index=False, header=True)
-
 if __name__ == '__main__':
 
-
-    #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
-    #farm_id = "WF0010"
-    #farm_id = "57f2a"
-    farm_id = "WF00"
-
-    #train_start_date, train_end_date = get_train_info(farm_id)
-    
+    farm_id = "57f2a"
+    # train_start_date, train_end_date = get_train_info(farm_id)
     # for appointed training set
     train_start_date = '2017-10-04'
-    train_end_date = '2018-10-24'
+    train_end_date = '2018-10-17'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
 
     data_resampling = True
 
-    # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'ridge_new_sampling'
+    # baseline, linear, ridge, lasso, elasticnet
+    model = 'elasticnet_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 
@@ -190,55 +175,5 @@ if __name__ == '__main__':
 
     train_farm_local(train_data_path, model_path, feature_path, turbine_info, data_resampling)
 
-
-    """
-    # add new code
-    # generate training and testing data
-    farm_id = "WF00"
-    train_start_date = '2017-10-04'
-    train_end_date = '2018-10-24'
-    test_start_date = '2018-11-01'
-    test_end_date = '2018-11-07'
-    train_start_date = date(*map(int, train_start_date.split('-')))
-    train_end_date = date(*map(int, train_end_date.split('-')))
-    test_start_date = date(*map(int, test_start_date.split('-')))
-    test_end_date = date(*map(int, test_end_date.split('-')))
-
-    #train_start = '2018-08-20 00:00:00'
-    train_end = '2018-10-25 00:00:00'
-    # test data time one week
-    test_start = '2018-11-01 00:00:00'
-    test_end = '2018-11-08 00:00:00'
-
-    train_data_path = generate_folder(data_path, "train_data_IBM_5", farm_id, train_start_date, train_end_date, '60min')
-    test_data_path = generate_folder(data_path, "test_data_IBM_5", farm_id, test_start_date, test_end_date, '60min')
-    if not os.path.exists(train_data_path):
-        os.makedirs(train_data_path)
-    if not os.path.exists(test_data_path):
-        os.makedirs(test_data_path)
-
-    input_data_path = generate_folder(data_path, "data_all_nwp", farm_id,  date(*map(int, '2017-10-04'.split('-'))), \
-                                      date(*map(int, '2018-11-08'.split('-'))), '60min')
-    # read farm_info file
-    farm_info_path = '../data/farm_' + farm_id + '/farm_' + farm_id + '_info.csv'
-    turbine_info = pd.read_csv(farm_info_path)
-
-    for i in range(66):
-        print(i)
-        turbine_id = turbine_info.ix[i]['master_id']
-        turbine_file_path = os.path.join(input_data_path, "turbine_{}.pkl".format(turbine_id))
-        train_file_path = os.path.join(train_data_path, "turbine_{}.pkl".format(turbine_id))
-        test_file_path = os.path.join(test_data_path, "turbine_{}.pkl".format(turbine_id))
-
-        x_df, y_df = load_data_from_pkl(turbine_file_path)
-        x_train, y_train = filter_data(x_df, y_df, train_end)
-        x_test, y_test = filter_data(x_df, y_df, test_end, test_start)
-        feature_table = pd.concat([x_train, y_train], axis=1)
-        feature_table.to_pickle(train_file_path)
-        feature_table = pd.concat([x_test, y_test], axis=1)
-        feature_table.to_pickle(test_file_path)
-        print(x_train)
-        print(x_test)
-    """
 
 

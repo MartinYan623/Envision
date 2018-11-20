@@ -34,7 +34,6 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
     """
     logger.info('Predicting model for wtg {}...'.format(model._master_id))
     x_df, y_df = load_data_from_pkl(test_data_path)
-
     feature_ins = WsWpFeature(train_frequency, delta_hour, model._nwp_info)
     x_df, feature_dict = feature_ins.transform(x_df)
 
@@ -99,9 +98,7 @@ def generate_farm_ws_data(farm_id, model_path, test_data_path, feature_path, eva
 def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evaluate_frequency, turbine_info, flag=True):
 
     result_list = []
-
-    for i in range(66):
-        print(i)
+    for i in range(58):
         turbine_id = turbine_info.ix[i]['master_id']
         # when turbine_id is "b43413c4e854432fbdad23c5778370bd", there is an except.
         cur_model_path = os.path.join(model_path, "turbine_{}.bin".format(turbine_id))
@@ -114,7 +111,7 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
         logging.info("Use model for turbine {}.".format(turbine_id))
         model = joblib.load(cur_model_path)
         error_dict = generate_turbine_ws_data(model, cur_test_data_path, cur_feature_data_path, flag,
-                                              evaluation_frequency=evaluate_frequency)
+                                             evaluation_frequency=evaluate_frequency)
         error_dict.update({"turbine_id": turbine_id})
         result_list.append(error_dict)
 
@@ -133,35 +130,23 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
         plot_revised_wind_std_improved(result_df, "farm_{}_{}".format(farm_id, datetime.strftime(test_start_date, "%Y-%m")),
                         file_path)
 
-
-    # output data
-    # x_train, y_train = load_data_from_pkl(cur_test_data_path)
-    # x_train.to_csv("/Users/martin_yan/Desktop/test_data.csv", index=False, header=True)
-    #
-    # x_train, y_train = load_data_from_pkl(cur_feature_data_path)
-    # x_train.to_csv("/Users/martin_yan/Desktop/test_revised_data.csv", index=False, header=True)
-
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO,
                         format='[%(asctime)s]-%(thread)d-%(levelname)s: %(message)s - %(filename)s:%(lineno)d')
+    farm_id = "57f2a"
 
-    #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
-    #farm_id = "WF0010"
-    #farm_id = "57f2a"
-    farm_id = "WF00"
-
-    # baseline, linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'ridge_new_sampling'
+    # baseline, linear, ridge, lasso, elasticnet
+    model = 'elasticnet_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
-    #train_start_date, train_end_date = get_train_info(farm_id)
+    # train_start_date, train_end_date = get_train_info(farm_id)
 
     # for appointed training set
     train_start_date = '2017-10-04'
-    train_end_date = '2018-10-24'
-    test_start_date = '2018-11-01'
-    test_end_date = '2018-11-07'
+    train_end_date = '2018-10-17'
+    test_start_date = '2018-10-18'
+    test_end_date = '2018-10-24'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
     test_start_date = date(*map(int, test_start_date.split('-')))
@@ -170,7 +155,6 @@ if __name__ == '__main__':
     test_data_path = generate_folder(data_path, "test_data_IBM_5", farm_id, test_start_date, test_end_date, train_frequency)
     model_path = generate_folder("result", model_type, farm_id, train_start_date, train_end_date, train_frequency)
     feature_path = generate_folder("result", feature_type, farm_id, test_start_date, test_end_date, train_frequency)
-
 
     if not os.path.exists(feature_path):
         os.makedirs(feature_path)

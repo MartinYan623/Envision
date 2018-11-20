@@ -19,11 +19,10 @@ from datetime import date
 
 def calculate(feature_path, turbine_info, subsection=False):
     rmse = []
-    for i in range(66):
-        print(i)
+    for i in range(58):
         turbine_id = turbine_info.ix[i]['master_id']
         feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
-        print("calculating rmse for turbine {}".format(turbine_id))
+        # print("calculating rmse for turbine {}".format(turbine_id))
         x_train, y_train = load_data_from_pkl(feature_file_path)
         if subsection == True:
             data = pd.concat([x_train, y_train['Y.ws_tb']], axis=1)
@@ -31,7 +30,7 @@ def calculate(feature_path, turbine_info, subsection=False):
             rmse.append(calculate_rmse(np.array(data['Y.ws_tb']), np.array(data['prediction'])))
         else:
             rmse.append(calculate_rmse(np.array(y_train['Y.ws_tb']), np.array(x_train['prediction'])))
-    print(np.nanmean(np.array(rmse)))
+    return np.nanmean(np.array(rmse))
 
 def calculate_baseline_rmse(x_df, y_df, revised_wd_df, subsection=False):
 
@@ -55,21 +54,17 @@ def calculate_baseline_rmse(x_df, y_df, revised_wd_df, subsection=False):
 
 if __name__ == '__main__':
 
-    #farm_id = "57f2a7f2a624402c9565e51ba8d171cb"
-    #farm_id = "WF0010"
-    #farm_id = "57f2a"
-    farm_id = "WF00"
+    farm_id = "57f2a"
 
-
-    #train_start_date, train_end_date = get_train_info(farm_id)
+    # train_start_date, train_end_date = get_train_info(farm_id)
     # linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'ridge_new_sampling'
+    model = 'elasticnet_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
     # add new code
-    test_start_date = '2018-11-01'
-    test_end_date = '2018-11-07'
+    test_start_date = '2018-10-18'
+    test_end_date = '2018-10-24'
     test_start_date = date(*map(int, test_start_date.split('-')))
     test_end_date = date(*map(int, test_end_date.split('-')))
 
@@ -77,4 +72,5 @@ if __name__ == '__main__':
     # read farm_info file
     farm_info_path = '../data/farm_'+farm_id+'/farm_'+farm_id+'_info.csv'
     turbine_info = pd.read_csv(farm_info_path)
-    calculate(feature_path, turbine_info)
+    print('the RMSE of 3-15m/s wind speed is: ' + str(calculate(feature_path, turbine_info, True)))
+    print('the RMSE of all wind speed is: ' + str(calculate(feature_path, turbine_info)))

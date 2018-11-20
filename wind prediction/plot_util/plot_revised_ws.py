@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
-
+from numpy import *
 from xgb_wswp.config import test_start_date, test_end_date
 from power_forecast_common.common_misc import generate_folder
 
@@ -49,9 +49,9 @@ def plot_revised_wind_std_improved(data_df, title_str, file_path):
         turbine_id.append(i+1)
     print(std)
     # calculate mean std
-    mean_std = np.mean(np.array(std))
+    mean_std = np.nanmean(np.array(std))
     plt.title(title_str)
-    plt.plot(turbine_id[:28], std[:28], label='combine.ws:' + str(mean_std), color='r')
+    plt.plot(turbine_id, std, label='combine.ws:' + str(mean_std), color='r')
     plt.legend()
     plt.grid(True)
     plt.savefig(file_path, dpi=300)
