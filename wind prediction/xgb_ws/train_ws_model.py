@@ -40,11 +40,11 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     """
     logger.info('------Training model for wtg {}------'.format(master_id))
 
-    #model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-    model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
 
 
     assert turbine_data_path[-3:] == "pkl", "Unknown data file type!"
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     data_resampling = True
 
     # baseline, linear, ridge, lasso, elasticnet
-    model = 'elasticnet_new_sampling'
+    model = 'baseline_new_sampling222'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 

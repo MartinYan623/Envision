@@ -19,7 +19,7 @@ from datetime import date
 
 def calculate(feature_path, turbine_info, subsection=False):
     rmse = []
-    for i in range(58):
+    for i in range(1):
         turbine_id = turbine_info.ix[i]['master_id']
         feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
         # print("calculating rmse for turbine {}".format(turbine_id))

@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 if __name__ == '__main__':
     # generate training and testing data
     farm_id = "57f2a"
-    train_start_date = '2017-10-04'
+    train_start_date = '2018-08-18'
     train_end_date = '2018-10-17'
     test_start_date = '2018-10-18'
     test_end_date = '2018-10-24'
@@ -30,6 +30,7 @@ if __name__ == '__main__':
     test_start_date = date(*map(int, test_start_date.split('-')))
     test_end_date = date(*map(int, test_end_date.split('-')))
 
+    train_start = '2018-08-20 00:00:00'
     train_end = '2018-10-18 00:00:00'
     # test data time one week
     test_start = '2018-10-20 00:00:00'
@@ -55,9 +56,10 @@ if __name__ == '__main__':
         test_file_path = os.path.join(test_data_path, "turbine_{}.pkl".format(turbine_id))
 
         x_df, y_df = load_data_from_pkl(turbine_file_path)
-        x_train, y_train = filter_data(x_df, y_df, train_end)
+        x_train, y_train = filter_data(x_df, y_df, train_end, train_start)
         x_test, y_test = filter_data(x_df, y_df, test_end, test_start)
         feature_table = pd.concat([x_train, y_train], axis=1)
         feature_table.to_pickle(train_file_path)
         feature_table = pd.concat([x_test, y_test], axis=1)
         feature_table.to_pickle(test_file_path)
+        print(x_train)
