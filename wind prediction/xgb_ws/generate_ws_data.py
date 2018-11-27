@@ -17,10 +17,11 @@ from plot_util.plot_revised_ws import plot_revised_wind_std, plot_revised_wind_s
 import pickle
 from power_forecast_common.evaluation_misc import wind_std, wind_std_distribution
 from evaluate_ws_rmse import calculate_baseline_rmse
+from keras.models import load_model
 logger = logging.getLogger(__name__)
 
 
-def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, evaluation_periods=list(range(16, 41)),
+def generate_turbine_ws_data(model, nn_model, test_data_path, feature_file_path, flag, evaluation_periods=list(range(16, 41)),
                              train_frequency=60, delta_hour=3, evaluation_frequency="10min" ):
     """
     :param model:
@@ -52,7 +53,7 @@ def generate_turbine_ws_data(model, test_data_path, feature_file_path, flag, eva
         feature_table.to_pickle(feature_file_path)
 
     else:
-        revised_wd_df = model.predict(x_df, feature_dict, y_df)
+        revised_wd_df = model.predict(nn_model, x_df, feature_dict, y_df)
         # select obs wind speed (3-15m/s)
         # revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
         cur_std = wind_std(np.array(revised_wd_df['Y.ws_tb']), np.array(revised_wd_df['prediction']))
@@ -110,7 +111,10 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, evalua
 
         logging.info("Use model for turbine {}.".format(turbine_id))
         model = joblib.load(cur_model_path)
-        error_dict = generate_turbine_ws_data(model, cur_test_data_path, cur_feature_data_path, flag,
+        # add new code
+        nn_model = load_model(cur_model_path[:-4] + '.h5')
+
+        error_dict = generate_turbine_ws_data(model, nn_model, cur_test_data_path, cur_feature_data_path, flag,
                                              evaluation_frequency=evaluate_frequency)
         error_dict.update({"turbine_id": turbine_id})
         result_list.append(error_dict)
@@ -136,7 +140,7 @@ if __name__ == '__main__':
     farm_id = "57f2a"
 
     # baseline, linear, ridge, lasso, elasticnet
-    model = 'baseline_new_sampling222'
+    model = 'nn_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
@@ -144,9 +148,9 @@ if __name__ == '__main__':
 
     # for appointed training set
     train_start_date = '2017-10-04'
-    train_end_date = '2018-10-17'
-    test_start_date = '2018-10-18'
-    test_end_date = '2018-10-24'
+    train_end_date = '2018-10-24'
+    test_start_date = '2018-10-25'
+    test_end_date = '2018-10-31'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
     test_start_date = date(*map(int, test_start_date.split('-')))

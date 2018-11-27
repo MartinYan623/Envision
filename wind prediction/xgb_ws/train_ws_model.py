@@ -19,9 +19,7 @@ from xgb_ws.xgb_linear_ws_forecast import XgbLinearWsForecast
 from xgb_ws.xgb_ridge_ws_forecast import XgbRidgeWsForecast
 from xgb_ws.xgb_lasso_ws_forecast import XgbLassoWsForecast
 from xgb_ws.xgb_elasticnet_ws_forecast import XgbElasticNetWsForecast
-from xgb_ws.xgb_svr_ws_forecast import XgbSVRWsForecast
-from xgb_ws.xgb_rf_ws_forecast import XgbRFWsForecast
-from xgb_ws.xgb_xgb_ws_forecast import XgbXgbWsForecast
+from xgb_ws.xgb_nn_ws_forecast import XgbNNWsForecast
 
 logger = logging.getLogger(__name__)
 
@@ -40,12 +38,12 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
     """
     logger.info('------Training model for wtg {}------'.format(master_id))
 
-    model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
+    #model = XgbWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLinearWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbRidgeWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbLassoWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
     #model = XgbElasticNetWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
-
+    model = XgbNNWsForecast(master_id, lat=lat, lon=lon, grid_params=None)
 
     assert turbine_data_path[-3:] == "pkl", "Unknown data file type!"
     x_df, y_df = load_data_from_pkl(turbine_data_path)
@@ -69,14 +67,14 @@ def train_turbine_ws_model(master_id, lat, lon, turbine_data_path, feature_file_
                    'subsample': [0.5], 'lambda': [1]}
     model.configuration(train_frequency=train_frequency, grid_params=grid_params, data_resampling=data_resampling,
                         max_trees=500)
-    x_df = model.fit(x_df, y_df, feature_dict)
+    x_df, nn_model = model.fit(x_df, y_df, feature_dict)
     feature_table = pd.concat([x_df, y_df], axis=1)
     feature_table.to_pickle(feature_file_path)
 
     wind_std_dict = check_original_std(x_df, y_df, nwp_list)
     wswp_error_analysis(model, y_df)
     model.update_error(wind_std_dict)
-    return model
+    return model, nn_model
 
 """
 def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampling=False, turbine_index=[]):
@@ -125,12 +123,16 @@ def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, d
 
         print("training for turbine {}".format(turbine_id))
 
-        model = train_turbine_ws_model(turbine_id, lon=lon, lat=lat, feature_file_path=feature_file_path,
+        # add new code
+        model, nn_model = train_turbine_ws_model(turbine_id, lon=lon, lat=lat, feature_file_path=feature_file_path,
                                    turbine_data_path=turbine_file_path, data_resampling=data_resampling)
         if model is None:
             print("No trained model for turbine {}".format(turbine_id))
 
         joblib.dump(model, model_file_path)
+        # add new code
+        nn_model.save(model_file_path[:-4] + '.h5')
+
         wind_error_file = os.path.join(model_path, "turbine_{}_train_wind_error.csv".format(turbine_id))
         write_wind_error(model.get_train_error(), wind_error_file)
 
@@ -140,14 +142,14 @@ if __name__ == '__main__':
     # train_start_date, train_end_date = get_train_info(farm_id)
     # for appointed training set
     train_start_date = '2017-10-04'
-    train_end_date = '2018-10-17'
+    train_end_date = '2018-10-24'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
 
     data_resampling = True
 
-    # baseline, linear, ridge, lasso, elasticnet
-    model = 'baseline_new_sampling222'
+    # baseline, linear, ridge, lasso, elasticnet, nn
+    model = 'nn_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 

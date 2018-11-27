@@ -1,0 +1,154 @@
+# coding=utf-8
+import logging
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from power_forecast_common.xgb_model import XgbForecast
+from power_forecast_common.wswp_feature import WsWpFeature
+from xgb_ws_forecast import XgbWsForecast
+from keras.optimizers import RMSprop, Adam
+from keras.models import Sequential
+from keras.layers import Dense, LSTM, SimpleRNN, Activation, Embedding
+from keras.models import Model
+from keras.layers import Input, Dense
+from keras.models import load_model
+logger = logging.getLogger(__name__)
+
+
+class XgbNNWsForecast(XgbWsForecast):
+
+    def create_nn(self):
+        im_input = Input(shape=(6,))
+        x = Dense(10)(im_input)
+        x = Dense(5)(x)
+        output = Dense(1)(x)
+        model = Model(input=im_input, output=output)
+        return model
+
+    def fit(self, x_df, y_df, feature_dict):
+        """
+        :param pd.DataFrame x_df:
+        :param pd.DataFrame y_df:
+        :param feature_dict
+        :return:
+        """
+        logger.info('Start fitting for wtg {}'.format(self._master_id))
+        # stacking: 1st layer for wind speed
+        new_feature = []
+        for nwp in self._nwp_info:
+            input_feature, output_feature = WsWpFeature.stacking_feature_layer1([nwp], feature_dict, single_source=True)
+            x_nwp_df = self.data_preprocessing(x_df[input_feature])
+            x_nwp_df, feature_names = XgbWsForecast.add_shift_features(x_nwp_df, nwp + ".ws")
+            logger.info('staking 1st layer training... \n Input feature: {},\n output feature: {}'.format(
+                x_nwp_df.columns.tolist(),
+                output_feature))
+
+            XgbWsForecast.wind_evaluation(y_df['Y.ws_tb'], x_nwp_df["{}.ws".format(nwp)], nwp + "_org")
+            bst, result = self._xgb_feature(x_nwp_df, y_df['Y.ws_tb'], x_df['i.set'])
+            self._estimator_[output_feature] = bst
+            new_feature.append(pd.Series(result["predict"], index=x_df.index, name=output_feature))
+            self._error_[output_feature] = {"result": result}
+            XgbWsForecast.wind_evaluation(y_df['Y.ws_tb'], result["predict"], nwp)
+            x_df[nwp + ".ws_predict"] = result["predict"]
+
+        new_data = pd.concat([x_df, y_df], axis=1)
+        name = []
+        for nwp in self._nwp_info:
+            name.append(nwp + ".ws_predict")
+            new_data = new_data.dropna(subset=[nwp + ".ws_predict"])
+
+        new_data = new_data.dropna(subset=['Y.ws_tb'])
+
+        # Create the model
+        print('Creating NN Model...')
+        model = self.create_nn()
+        adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.00005)
+        model.compile(optimizer=adam, loss='mean_squared_error')
+
+        # Train the model
+        print('Training')
+        epochs = 10
+        batch_size = 1
+        model.fit(new_data[name], new_data['Y.ws_tb'], epochs=epochs, batch_size=batch_size, shuffle=True)
+
+        # Plot and save loss curves of training and test set vs iteration in the same graph
+        # plt.figure(figsize=(8, 5))
+        # plt.plot(np.arange(1, epochs + 1), train_loss, label='train_loss')
+        # plt.plot(np.arange(1, epochs + 1), test_loss, label='test_loss')
+        # plt.title('Loss vs Epochs in Training and Testing Set for Stateful RNN  Length:' + str(num_input))
+        # plt.xlabel('Epochs')
+        # plt.ylabel('Loss(MSE)')
+        # x_label = range(1, 11)
+        # plt.xticks(x_label)
+        # plt.legend()
+        # plt.grid()
+        # # plt.savefig('/Users/martin_yan/Desktop/part2_stateful_%d.jpg' % length, dpi=200)
+        # plt.show()
+
+        # # add new horizon
+        # horizon_list = new_data['X_basic.horizon'].unique()
+        # model_dict = {}
+        # for horizon in horizon_list:
+        #     lr = LinearRegression(fit_intercept=False)
+        #     lr.fit(new_data[new_data['X_basic.horizon'] == horizon][name],
+        #            new_data[new_data['X_basic.horizon'] == horizon]['Y.ws_tb'])
+        #     model_dict[horizon] = lr
+        # self._estimator_['combine.ws'] = model_dict
+
+        return x_df, model
+
+    def predict(self, nn_model, x_df, feature_dict, y_df=None):
+        logger.info('Start predicting for wtg {}'.format(self._master_id))
+        assert self._estimator_ != {}
+        new_feature = []
+        result = pd.DataFrame({})
+        for nwp in self._nwp_info:
+            input_feature, output_feature = WsWpFeature.stacking_feature_layer1([nwp], feature_dict, single_source=True)
+            x_nwp_df = self.data_preprocessing(x_df[input_feature])
+            x_nwp_df, feature_names = XgbWsForecast.add_shift_features(x_nwp_df, nwp + ".ws")
+            revise_ws_array = self._xgb_predict(x_nwp_df, self._estimator_[output_feature])
+            # add a new line
+            result[nwp + ".ws_predict"] = list(revise_ws_array)
+            new_feature.append(pd.Series(revise_ws_array, index=x_df.index, name=output_feature))
+
+        # fill nan
+        for nwp in self._nwp_info:
+            result[nwp + ".ws_predict"] = result[nwp + ".ws_predict"].fillna('999')
+            # return nan value index
+            row_num = result[(result[nwp + ".ws_predict"] == '999')].index.tolist()
+            # fill nan with original value
+            result.loc[row_num, nwp + ".ws_predict"] = x_df.loc[row_num, nwp +".ws"]
+
+        name = []
+        for nwp in self._nwp_info:
+            name.append(nwp + ".ws_predict")
+
+        result['X_basic.horizon'] = x_df['X_basic.horizon']
+        result['X_basic.time'] = x_df['X_basic.time']
+        result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
+        result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
+
+        prediction = nn_model.predict(result[name], batch_size=1)
+        prediction_result = pd.DataFrame({'X_basic.horizon': result['X_basic.time'], 'Y.ws_tb': result['Y.ws_tb'],
+                                          'prediction': prediction.reshape(-1)})
+
+        # # add new horizon
+        # result['X_basic.horizon'] = x_df['X_basic.horizon']
+        # result['X_basic.time'] = x_df['X_basic.time']
+        # result = pd.concat([result, y_df['Y.ws_tb']], axis=1)
+        # result = result[(result['X_basic.horizon'] >= 16) & (result['X_basic.horizon'] <= 39)]
+        # horizon_list = list(range(16, 40))
+        # prediction_list = []
+        # true_list = []
+        # time_list = []
+        # for horizon in horizon_list:
+        #     prediction = self._linear_predict_horizon(result, name, self._estimator_['combine.ws'], horizon)
+        #     true_list.append(result[result['X_basic.horizon'] == horizon]['Y.ws_tb'])
+        #     time_list.append(result[result['X_basic.horizon'] == horizon]['X_basic.time'])
+        #     prediction_list.append(prediction)
+        # prediction_list = np.array(prediction_list).reshape(-1).tolist()
+        # true_list = np.array(true_list).reshape(-1).tolist()
+        # time_list = np.array(time_list).reshape(-1).tolist()
+        # prediction_result = pd.DataFrame({'X_basic.horizon': time_list, 'Y.ws_tb': true_list, 'prediction': prediction_list})
+
+        return prediction_result

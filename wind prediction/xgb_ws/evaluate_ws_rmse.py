@@ -19,7 +19,7 @@ from datetime import date
 
 def calculate(feature_path, turbine_info, subsection=False):
     rmse = []
-    for i in range(1):
+    for i in range(58):
         turbine_id = turbine_info.ix[i]['master_id']
         feature_file_path = os.path.join(feature_path, "turbine_{}.pkl".format(turbine_id))
         # print("calculating rmse for turbine {}".format(turbine_id))
@@ -58,13 +58,13 @@ if __name__ == '__main__':
 
     # train_start_date, train_end_date = get_train_info(farm_id)
     # linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'elasticnet_new_sampling'
+    model = 'nn_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
     # add new code
-    test_start_date = '2018-10-18'
-    test_end_date = '2018-10-24'
+    test_start_date = '2018-10-25'
+    test_end_date = '2018-10-31'
     test_start_date = date(*map(int, test_start_date.split('-')))
     test_end_date = date(*map(int, test_end_date.split('-')))
 

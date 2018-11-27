@@ -1,7 +1,7 @@
 # coding=utf-8
 import pandas as pd
 import numpy as np
-
+from pandas.core.frame import DataFrame
 
 class WsWpFeature:
     def __init__(self, train_frequency=10, delta_hour=3, nwp_list=[]):
@@ -15,8 +15,9 @@ class WsWpFeature:
         self.add_feature("common", time_feature_names)
 
         self._get_nwp_basic(x_df.columns)
-        x_df = self._direction_feature(x_df)
         x_df = self._delta_features(x_df)
+        x_df = self._direction_feature(x_df)
+        #x_df = self._direction_feature2(x_df)
         return x_df, self._feature_dict_
 
     def _get_nwp_basic(self, data_columns):
@@ -91,6 +92,44 @@ class WsWpFeature:
             self.remove_feature(nwp, nwp + ".wd")
         x_df = pd.concat([x_df, *direction_feature], axis=1)
         return x_df
+
+    def _direction_feature2(self, x_df):
+        basic_item = ["wd"]
+        for nwp in self._nwp_list_:
+            if "IBM" in nwp:
+                continue
+            if "WRF" in nwp:
+                delta_hour = 1
+            else:
+                delta_hour = 3
+            for item in basic_item:
+                cur_columns = [nwp + "." + item]
+                cur_columns.extend(self.get_nwp_nearby_column(x_df, nwp, item))
+                cur_shift_features, shift_names = self.shift_features(x_df, cur_columns, [delta_hour], False)
+                cur_delta_features = cur_shift_features[shift_names[1:]].values - \
+                                     np.tile(cur_shift_features[shift_names[0]].values, (len(shift_names) - 1, 1)).T
+                cur_delta_names = [name + "_dD1" for name in shift_names[1:]]
+                delta_features = pd.DataFrame(cur_delta_features, index=x_df.index, columns=cur_delta_names)
+                x_df = pd.concat([x_df, delta_features], axis=1)
+
+            feature_names = []
+            for item in cur_delta_names:
+                pi_array = [WsWpFeature.map_to_degree(value, 360) for value in x_df[item]]
+                sin_array = np.sin(pi_array)
+                cur_name = "{}._sin".format(item)
+                direction_feature_sin = pd.Series(sin_array, index=x_df.index, name=cur_name)
+                feature_names.append(cur_name)
+                x_df = pd.concat([x_df, direction_feature_sin], axis=1)
+
+                cos_array = np.cos(pi_array)
+                cur_name = "{}._cos".format(item)
+                direction_feature_cos = pd.Series(cos_array, index=x_df.index, name=cur_name)
+                feature_names.append(cur_name)
+                x_df = pd.concat([x_df, direction_feature_cos], axis=1)
+
+            self.add_feature(nwp, feature_names)
+        return x_df
+
 
     @staticmethod
     def shift_features(x_df, shift_cols, shift_number_list, concat=True):
