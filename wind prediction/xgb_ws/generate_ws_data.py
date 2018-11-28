@@ -55,7 +55,7 @@ def generate_turbine_ws_data(model, nn_model, test_data_path, feature_file_path,
     else:
         revised_wd_df = model.predict(nn_model, x_df, feature_dict, y_df)
         # select obs wind speed (3-15m/s)
-        # revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
+        revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
         cur_std = wind_std(np.array(revised_wd_df['Y.ws_tb']), np.array(revised_wd_df['prediction']))
         print('the std on testing data after adding linear layer is:' + str(cur_std))
         ws_error['combine.ws'] = cur_std
@@ -140,7 +140,7 @@ if __name__ == '__main__':
     farm_id = "57f2a"
 
     # baseline, linear, ridge, lasso, elasticnet
-    model = 'nn_new_sampling'
+    model = 'nn_new_sampling_no_delta'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
@@ -149,8 +149,8 @@ if __name__ == '__main__':
     # for appointed training set
     train_start_date = '2017-10-04'
     train_end_date = '2018-10-24'
-    test_start_date = '2018-10-25'
-    test_end_date = '2018-10-31'
+    test_start_date = '2018-11-01'
+    test_end_date = '2018-11-07'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
     test_start_date = date(*map(int, test_start_date.split('-')))

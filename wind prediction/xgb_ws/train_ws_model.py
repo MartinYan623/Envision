@@ -142,14 +142,14 @@ if __name__ == '__main__':
     # train_start_date, train_end_date = get_train_info(farm_id)
     # for appointed training set
     train_start_date = '2017-10-04'
-    train_end_date = '2018-10-24'
+    train_end_date = '2018-10-17'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
 
     data_resampling = True
 
     # baseline, linear, ridge, lasso, elasticnet, nn
-    model = 'nn_new_sampling'
+    model = 'nn_new_sampling_no_delta'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 

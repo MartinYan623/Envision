@@ -13,9 +13,8 @@ class WsWpFeature:
     def transform(self, x_df):
         x_df, time_feature_names = self._time_feature(x_df)
         self.add_feature("common", time_feature_names)
-
         self._get_nwp_basic(x_df.columns)
-        x_df = self._delta_features(x_df)
+        #x_df = self._delta_features(x_df)
         x_df = self._direction_feature(x_df)
         #x_df = self._direction_feature2(x_df)
         return x_df, self._feature_dict_
