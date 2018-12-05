@@ -20,7 +20,6 @@ from xgb_ws.xgb_ridge_ws_forecast import XgbRidgeWsForecast
 from xgb_ws.xgb_lasso_ws_forecast import XgbLassoWsForecast
 from xgb_ws.xgb_elasticnet_ws_forecast import XgbElasticNetWsForecast
 from xgb_ws.xgb_nn_ws_forecast import XgbNNWsForecast
-
 logger = logging.getLogger(__name__)
 
 
@@ -108,7 +107,7 @@ def train_farm(farm_id, train_data_path, model_path, feature_path, data_resampli
 
 def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, data_resampling=False):
 
-    for i in range(58):
+    for i in range(66):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         lat = turbine_info.ix[i]['lat']
@@ -138,7 +137,7 @@ def train_farm_local(train_data_path, model_path, feature_path,  turbine_info, d
 
 if __name__ == '__main__':
 
-    farm_id = "57f2a"
+    farm_id = "WF00"
     # train_start_date, train_end_date = get_train_info(farm_id)
     # for appointed training set
     train_start_date = '2017-10-04'
@@ -149,7 +148,7 @@ if __name__ == '__main__':
     data_resampling = True
 
     # baseline, linear, ridge, lasso, elasticnet, nn
-    model = 'nn_new_sampling_no_delta'
+    model = 'nn_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "train_data_{}".format(model_type[6:])
 
