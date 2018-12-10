@@ -37,7 +37,7 @@ def create_lstm_model(stateful):
 
 def train_farm_local(train_data_path, model_path, turbine_info):
 
-    for i in range(2):
+    for i in range(58):
         print(i)
         turbine_id = turbine_info.ix[i]['master_id']
         turbine_file_path = os.path.join(train_data_path, "turbine_{}.pkl".format(turbine_id))
@@ -76,7 +76,7 @@ def train_farm_local(train_data_path, model_path, turbine_info):
 
             # set parameters of rnn
             batch_size = 1
-            epochs = 3
+            epochs = 5
 
             print('Creating Stateful LSTM Model...')
             model_lstm_stateful = create_lstm_model(stateful=True)
@@ -109,7 +109,7 @@ def train_farm_local(train_data_path, model_path, turbine_info):
 
 def generate_farm_ws_data_local(model_path, test_data_path, feature_path, turbine_info):
     result_list = []
-    for i in range(2):
+    for i in range(58):
         error_dict = {}
         turbine_id = turbine_info.ix[i]['master_id']
         # when turbine_id is "b43413c4e854432fbdad23c5778370bd", there is an except.
@@ -167,7 +167,7 @@ def generate_farm_ws_data_local(model_path, test_data_path, feature_path, turbin
         predicted_linear = model_linear.predict(a)
         revised_wd_df = pd.DataFrame({'prediction': predicted_linear.flatten(), 'Y.ws_tb': y_test.flatten()})
         # select obs wind speed (3-15m/s)
-        revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
+        # revised_wd_df = revised_wd_df[(revised_wd_df['Y.ws_tb'] >= 3) & (revised_wd_df['Y.ws_tb'] <= 15)]
         result = wind_std(np.array(revised_wd_df['Y.ws_tb']), np.array(revised_wd_df['prediction']))
         error_dict['combine.ws'] = result
         error_dict.update({"turbine_id": turbine_id})
@@ -195,8 +195,8 @@ if __name__ == '__main__':
     # for appointed training set
     train_start_date = '2018-08-18'
     train_end_date = '2018-10-17'
-    test_start_date = '2018-10-18'
-    test_end_date = '2018-10-24'
+    test_start_date = '2018-10-25'
+    test_end_date = '2018-10-31'
     train_start_date = date(*map(int, train_start_date.split('-')))
     train_end_date = date(*map(int, train_end_date.split('-')))
     test_start_date = date(*map(int, test_start_date.split('-')))
@@ -208,7 +208,7 @@ if __name__ == '__main__':
 
     train_data_path = generate_folder(data_path, "train_data_IBM_5", farm_id, train_start_date, train_end_date, train_frequency)
     model_path = generate_folder("result", model_type, farm_id, train_start_date, train_end_date, train_frequency)
-    feature_path = generate_folder("result", feature_type, farm_id, train_start_date, train_end_date, train_frequency)
+    feature_path = generate_folder("result", feature_type, farm_id, test_start_date, test_end_date, train_frequency)
     test_data_path = generate_folder(data_path, "test_data_IBM_5", farm_id, test_start_date, test_end_date, train_frequency)
 
     if not os.path.exists(model_path):

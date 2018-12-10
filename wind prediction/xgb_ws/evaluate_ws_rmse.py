@@ -58,13 +58,13 @@ if __name__ == '__main__':
 
     # train_start_date, train_end_date = get_train_info(farm_id)
     # linear, ridge, lasso, elasticnet, svr, rf, xgb
-    model = 'nn_new_sampling_no_delta'
+    model = 'rnn_new_sampling'
     model_type = 'model_revised_ws_shift_'+model+'_partial_training_resample'
     feature_type = "test_data_{}".format(model_type[6:])
 
     # add new code
-    test_start_date = '2018-11-01'
-    test_end_date = '2018-11-07'
+    test_start_date = '2018-10-25'
+    test_end_date = '2018-10-31'
     test_start_date = date(*map(int, test_start_date.split('-')))
     test_end_date = date(*map(int, test_end_date.split('-')))
 
