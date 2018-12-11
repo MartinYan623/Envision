@@ -16,13 +16,13 @@ of wind speed.
 
 Week2
 
-Build single whether source regression model and grid search to find best parameters.
+Build single weather source regression model and grid search to find best parameters.
 
 Week3
 
 Do data pre-processing, such as smooth target attributes Y. do more feature engineering, including splitting
 
-month into season and changing numeric value (wind direction) into category attributes. build multiple whether sources
+month into season and changing numeric value (wind direction) into category attributes. build multiple weather sources
 
 model.
 
